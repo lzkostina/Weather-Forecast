@@ -10,7 +10,7 @@ RUN apt install -y \
     wget \
     curl \
     vim
-RUN pip install pandas numpy scikit-learn seaborn matplotlib requests statsmodels
+
 RUN find -name "*.pyc" -exec rm {} \;
 WORKDIR /WEather-Forecast
 COPY data ./data/
