@@ -12,5 +12,5 @@ RUN apt install -y \
     vim
 
 RUN find -name "*.pyc" -exec rm {} \;
-WORKDIR /WEather-Forecast
+WORKDIR /Weather-Forecast
 COPY data ./data/
