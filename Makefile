@@ -11,7 +11,7 @@ clean_data:
 download_data: clean_data
 	@echo "Downloading Kaggle dataset..."
 	python3 analysis/download_kaggle.py || exit 1
-	@echo "Downloading NOAA dataset..."
+	@echo "Downloading NOAA datasets..."
 	python3 analysis/download_noaa.py || exit 1
 	@echo "Download complete."
 
@@ -19,6 +19,8 @@ download_data: clean_data
 process_data: 
 	@echo "Processing Kaggle dataset..."
 	python3 analysis/process_kaggle.py || exit 1
+	@echo "Processing NOAA datasets..."
+	python3 analysis/process_noaa.py || exit 1
 	@echo "Processing complete."
 
 # Target to run the prediction script
