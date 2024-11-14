@@ -4,8 +4,8 @@ import warnings
 warnings.filterwarnings("ignore")
 import requests
 
-# Your OpenWeatherMap API key
-API_KEY = 'd817ee55d93f6b51d9b15bc850821726'  # Replace with your actual API key
+
+API_KEY = os.getenv('OPENWEATHER_API_KEY')
 
 # Dictionary containing city names and their coordinates (latitude, longitude)
 city_coordinates = {
