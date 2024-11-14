@@ -9,7 +9,8 @@ RUN apt update && apt install -y \
     git-lfs \
     wget \
     curl \
-    vim
+    vim \
+    numpy
 
 WORKDIR /Weather-Forecast 
 
