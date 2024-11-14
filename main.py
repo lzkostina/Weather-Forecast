@@ -8,7 +8,8 @@ import datetime
 
 from predictor import utils
 from predictor import test_predictor
-from predictor import TestPredictor
+from test_predictor import Predictor
+from test_predictor import TestPredictor
 
 import logging
 
