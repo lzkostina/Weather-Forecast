@@ -14,5 +14,7 @@ RUN apt install -y \
 RUN find -name "*.pyc" -exec rm {} \;
 WORKDIR /Weather-Forecast
 COPY data ./data/
+COPY predictor ./predictor/
 COPY Makefile ./
+COPY . .
 RUN make
