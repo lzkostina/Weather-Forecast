@@ -9,14 +9,16 @@ RUN apt update && apt install -y \
     git-lfs \
     wget \
     curl \
-    vim \
-    numpy
+    vim 
 
 WORKDIR /Weather-Forecast 
 
 COPY data ./data/
 COPY predictor ./predictor/
 COPY Makefile ./
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
 COPY . .
 
 RUN find -name "*.pyc" -exec rm {} \;
