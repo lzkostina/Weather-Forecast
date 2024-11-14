@@ -17,7 +17,7 @@ COPY data ./data/
 COPY predictor ./predictor/
 COPY Makefile ./
 COPY requirements.txt ./
-RUN pip install -r requirements.txt
+
 
 COPY . .
 
