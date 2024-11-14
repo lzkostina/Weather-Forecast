@@ -44,7 +44,7 @@ for station_code, file_name in station_code_dict.items():
     url = f"{data_path_url}{file_name}.dly"
     try:
         # Download the file and save it
-        urllib.request.urlretrieve(url, os.path.join(raw_noaa_cache, f"{station_code}.dly"))
+        urllib.request.urlretrieve(url, os.path.join(original_noaa_cache, f"{station_code}.dly"))
         logging.info(f"Successfully scraped data for: {station_code}")
     except Exception as e:
         logging.error(f"Failed to download data for {station_code}: {e}")

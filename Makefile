@@ -8,15 +8,15 @@ original_data:
 # Target to download data from Kaggle and NOAA
 download_data: original_data
 	@echo "Downloading Kaggle dataset..."
-	python analysis/download_kaggle.py || exit 1
+	python3 analysis/download_kaggle.py || exit 1
 	@echo "Downloading NOAA dataset..."
-	python analysis/download_noaa.py || exit 1
+	python3 analysis/download_noaa.py || exit 1
 	@echo "Download complete."
 
 # Target to run the prediction script
 predictions:
 	@echo "Running predictions..."
-	python predictor/main.py || exit 1
+	python3 predictor/main.py || exit 1
 	@echo "Predictions complete."
 
     
