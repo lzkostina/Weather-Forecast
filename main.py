@@ -7,7 +7,8 @@ import numpy as np
 import datetime
 
 from predictor import utils
-from predictor import TestPredictor
+from predictor import test_predictor
+
 
 import logging
 
