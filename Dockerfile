@@ -11,9 +11,12 @@ RUN apt update && apt install -y \
     curl \
     vim 
 
-RUN pip3 install pandas numpy scikit-learn seaborn matplotlib requests statsmodels
+# Set up virtual environment
+WORKDIR /Weather-Forecast
+RUN python3 -m venv /Weather-Forecast/venv
+RUN . /Weather-Forecast/venv/bin/activate && pip install --upgrade pip
 
-WORKDIR /Weather-Forecast 
+RUN pip install pandas numpy scikit-learn seaborn matplotlib requests statsmodels
 
 COPY data ./data/
 COPY predictor ./predictor/
@@ -25,6 +28,6 @@ COPY . .
 
 RUN find -name "*.pyc" -exec rm {} \;
 
-CMD ["python3", "main.py"]
+CMD ["/Weather-Forecast/venv/bin/python", "main.py"]
 
 RUN make
