@@ -11,7 +11,7 @@ RUN apt update && apt install -y \
     curl \
     vim 
 
-RUN pip install pandas numpy scikit-learn seaborn matplotlib requests statsmodels
+RUN apt install pandas numpy scikit-learn seaborn matplotlib requests statsmodels
 
 WORKDIR /Weather-Forecast 
 
