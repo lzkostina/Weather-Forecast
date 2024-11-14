@@ -14,9 +14,7 @@ RUN apt update && apt install -y \
 # Set up virtual environment
 WORKDIR /Weather-Forecast
 RUN python3 -m venv /Weather-Forecast/venv
-RUN . /Weather-Forecast/venv/bin/activate && pip install --upgrade pip
-
-RUN pip install pandas numpy scikit-learn seaborn matplotlib requests statsmodels
+RUN . /Weather-Forecast/venv/bin/activate && pip install --upgrade pip && pip install pandas numpy scikit-learn seaborn matplotlib requests statsmodels
 
 COPY data ./data/
 COPY predictor ./predictor/
