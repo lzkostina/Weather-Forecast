@@ -19,17 +19,17 @@ class TestPredictor(Predictor):
         pass
 
     def predict(self, data):
-        # Get the current date in "YYYY-MM-DD" format
-        current_date = datetime.now().strftime("%Y-%m-%d")
+
         
         # Generate 300 numbers of the form "XX.X" (all zeroes with one decimal place)
-        predictions = ["{:.1f}".format(num) for num in np.zeros(300)]
+        predictions = np.zeros(300)
+        #predictions_rounded = np.around(predictions, 1)
         
         # Create the output string
-        output = f'"{current_date}" is the current date and then {", ".join(predictions)}'
+        #output = f'"{current_date}" is the current date and then {", ".join(predictions_rounded)}'
         
-        return output
+        return predictions
 
 # Example usage
-predictor = TestPredictor()
-print(predictor.predict(None))
+#predictor = TestPredictor()
+#print(predictor.predict(None))

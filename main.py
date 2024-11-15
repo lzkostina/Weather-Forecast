@@ -20,8 +20,10 @@ if __name__ == "__main__":
     data = []
     predictions = model.predict(data)
     
-    prediction_date = f"{datetime.date.today():%Y-%m-%d}"
+    # Ensure the predictions are numeric
     predictions_rounded = np.around(predictions, 1)
+    
+    prediction_date = f"{datetime.date.today():%Y-%m-%d}"
     
     fmt_str_contents = [prediction_date] + list([str(prediction) for prediction in predictions_rounded])
     fmt_str = ", ".join(fmt_str_contents)
