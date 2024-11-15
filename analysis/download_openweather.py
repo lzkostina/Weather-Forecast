@@ -4,7 +4,7 @@ import json
 import os  # Import os to manage file paths
 
 # Your OpenWeatherMap API Key
-API_KEY = 'd817ee55d93f6b51d9b15bc850821726'
+API_KEY = os.getenv('OPENWEATHER_API_KEY')
 
 # Coordinates for each location
 locations = {
