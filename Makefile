@@ -21,6 +21,8 @@ process_data:
 	python3 analysis/process_kaggle.py || exit 1
 	@echo "Processing NOAA datasets..."
 	python3 analysis/process_noaa.py || exit 1
+	@echo "Restructuring NOAA datasets..."
+	python3 analysis/restructure_noaa.py || exit 1
 	@echo "Processing complete."
 
 # Target to run the prediction script
