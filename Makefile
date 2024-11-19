@@ -28,7 +28,7 @@ process_data:
 # Target to run the prediction script
 predictions:
 	@echo "Running predictions..."
-	python3 predictor/main.py || exit 1
+	python3 main.py || exit 1
 	@echo "Predictions complete."
 
 

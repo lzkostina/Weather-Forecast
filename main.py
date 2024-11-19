@@ -10,15 +10,17 @@ from predictor import utils
 from predictor import test_predictor
 from predictor.test_predictor import Predictor
 from predictor.test_predictor import TestPredictor
+from predictor.test_predictor import PreviousDayPredictor
 
 import logging
 
 
 if __name__ == "__main__":
 
-    model = TestPredictor()
+    #model = TestPredictor()
+    model = PreviousDayPredictor()
     data = []
-    predictions = model.predict(data)
+    predictions = model.predict("2023-11-19")
     
     # Ensure the predictions are numeric
     predictions_rounded = np.around(predictions, 1)

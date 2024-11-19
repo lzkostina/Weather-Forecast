@@ -7,7 +7,6 @@ import json
 
 
 
-
 # paths
 raw_noaa_cache = "data"
 processed_noaa_cache = "data/processed"
