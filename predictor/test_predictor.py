@@ -33,14 +33,28 @@ class TestPredictor(Predictor):
         
         return predictions
 
+
 class PreviousDayPredictor(Predictor):
-    def __init__(self, input_directory= "data/processed/openweather_hourly"):
+    """
+    A predictor that uses the previous day's temperature data to predict the temperature for the next 5 days.
+    """
+
+    def __init__(self, input_directory="data/processed/openweather_hourly"):
+        """
+        Initializes the PreviousDayPredictor with the specified input directory.
+
+        Args:
+            input_directory (str): The directory containing the CSV files with weather data.
+        """
         self.input_directory = input_directory
         self.data = self._load_data()
 
     def _load_data(self):
         """
         Loads all CSV files from the input directory and concatenates them into a single DataFrame.
+
+        Returns:
+            pd.DataFrame: A DataFrame containing the combined weather data from all CSV files.
         """
         all_files = [os.path.join(self.input_directory, f) for f in os.listdir(self.input_directory) if f.endswith('.csv')]
         dataframes = []
@@ -64,7 +78,7 @@ class PreviousDayPredictor(Predictor):
             start_date (str): The start date for prediction in 'YYYY-MM-DD' format.
 
         Returns:
-            str: A formatted string with the current date and 300 predictions in the format XX.X.
+            list: A list of 300 temperature predictions in the format XX.X.
         """
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
         previous_day = start_date - timedelta(days=1)
@@ -94,7 +108,6 @@ class PreviousDayPredictor(Predictor):
                 predictions.extend([min_temp, avg_temp, max_temp])
 
         return predictions
-
 
 
 # Example usage
