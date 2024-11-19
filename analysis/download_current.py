@@ -34,7 +34,7 @@ city_coordinates = {
 BASE_URL = 'https://api.openweathermap.org/data/2.5/weather'
 
 # Directory to save the combined weather data file
-output_dir = 'openweather/current'
+output_dir = '../data/original'
 os.makedirs(output_dir, exist_ok=True)
 
 # CSV file path
