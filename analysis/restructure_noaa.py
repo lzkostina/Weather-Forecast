@@ -99,5 +99,5 @@ def process_all_files_in_directory(input_directory, output_directory, core_outpu
     print("Processing complete for all files in the directory.")
 
 process_all_files_in_directory('data/processed',
-                               'data/restructured',
-                               'data/restructured_simple')
+                               '../data/restructured',
+                               '../data/restructured_simple')
