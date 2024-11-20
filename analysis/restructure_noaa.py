@@ -28,7 +28,6 @@ def restructure_climate_data(input_csv, output_csv):
 
     # Combine all processed rows into a DataFrame
     expanded_data = pd.DataFrame(all_days)
-
     # Pivot data to ensure all elements are included as separate columns
     final_data = expanded_data.pivot_table(
         index=['YEAR', 'MONTH', 'DAY'],
@@ -43,10 +42,10 @@ def restructure_climate_data(input_csv, output_csv):
             final_data[col] = final_data[col].apply(lambda x: (x / 10 * 9 / 5 + 32)  if pd.notna(x) else x)
 
     # Filter out columns that have 4000 or more missing values for the years 2014-2024
-    filtered_data = final_data[(final_data['YEAR'] >= 2014) & (final_data['YEAR'] <= 2024)]
-    missing_values_count_filtered = filtered_data.isna().sum()
-    columns_to_drop = missing_values_count_filtered[missing_values_count_filtered >= 4000].index
-    final_data = final_data.drop(columns=columns_to_drop)
+    # filtered_data = final_data[(final_data['YEAR'] >= 2014) & (final_data['YEAR'] <= 2024)]
+    # missing_values_count_filtered = filtered_data.isna().sum()
+    # columns_to_drop = missing_values_count_filtered[missing_values_count_filtered >= 4000].index
+    # final_data = final_data.drop(columns=columns_to_drop)
 
     # Save the restructured data to a new CSV file
     final_data.to_csv(output_csv, index=False)

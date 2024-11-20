@@ -26,18 +26,15 @@ def parse_line(line):
 
     # Extract VALUE, MFLAG, QFLAG, SFLAG columns
     for i in range(31):
-        value_str = line[21 + i*5:26 + i*5].strip()
-        
-        # Try to convert the value to an integer, but handle non-numeric values
+        start = 21 + i * 8
+        value_str = line[start:start + 5].strip()
         try:
-            data[f'VALUE{i+1}'] = int(value_str) if value_str else None  # Assign None if the value is empty
+            data[f'VALUE{i + 1}'] = int(value_str) if value_str else None
         except ValueError:
-            data[f'VALUE{i+1}'] = None  # If there's a conversion error, assign None
-        
-        # Extract MFLAG, QFLAG, SFLAG (which should be single characters)
-        data[f'MFLAG{i+1}'] = line[26 + i*5:27 + i*5].strip()
-        data[f'QFLAG{i+1}'] = line[27 + i*5:28 + i*5].strip()
-        data[f'SFLAG{i+1}'] = line[28 + i*5:29 + i*5].strip()
+            data[f'VALUE{i + 1}'] = None
+        data[f'MFLAG{i + 1}'] = line[start + 5:start + 6].strip()
+        data[f'QFLAG{i + 1}'] = line[start + 6:start + 7].strip()
+        data[f'SFLAG{i + 1}'] = line[start + 7:start + 8].strip()
     
     return data
 
