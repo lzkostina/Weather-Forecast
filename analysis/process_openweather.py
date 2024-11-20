@@ -10,40 +10,41 @@ def process_and_save_data(data_json, city_name):
     rows = []
 
     # Loop through each entry in the "list" field of the JSON data
-    for entry in data_json['list']:
-        # Extract the Unix timestamp and convert to datetime
-        dt = datetime.utcfromtimestamp(entry['dt'])
+    for chunk in data_json:
+        for entry in chunk:
+            # Extract the Unix timestamp and convert to datetime
+            dt = datetime.utcfromtimestamp(entry['dt'])
 
-        # Extract the components: year, month, day, time
-        year = dt.year
-        month = dt.month
-        day = dt.day
-        time = dt.strftime('%H:%M:%S')  # Time in HH:MM:SS format
+            # Extract the components: year, month, day, time
+            year = dt.year
+            month = dt.month
+            day = dt.day
+            time = dt.strftime('%H:%M:%S')  # Time in HH:MM:SS format
 
-        # Extract temperature, which is already in Fahrenheit
-        temp = entry['main']['temp']
-        feels_like = entry['main']['feels_like']
-        temp_min = entry['main']['temp_min']
-        temp_max = entry['main']['temp_max']
+            # Extract temperature, which is already in Fahrenheit
+            temp = entry['main']['temp']
+            feels_like = entry['main']['feels_like']
+            temp_min = entry['main']['temp_min']
+            temp_max = entry['main']['temp_max']
 
-        # Extract pressure and humidity
-        pressure = entry['main']['pressure']
-        humidity = entry['main']['humidity']
+            # Extract pressure and humidity
+            pressure = entry['main']['pressure']
+            humidity = entry['main']['humidity']
 
-        # Extract wind details
-        wind_speed = entry['wind']['speed']
-        wind_deg = entry['wind']['deg']
-        wind_gust = entry['wind'].get('gust', None)
+            # Extract wind details
+            wind_speed = entry['wind']['speed']
+            wind_deg = entry['wind']['deg']
+            wind_gust = entry['wind'].get('gust', None)
 
-        # Extract cloud coverage
-        clouds_all = entry['clouds']['all']
+            # Extract cloud coverage
+            clouds_all = entry['clouds']['all']
 
-        # Extract weather description
-        weather_description = entry['weather'][0]['description']
+            # Extract weather description
+            weather_description = entry['weather'][0]['description']
 
-        # Append the data as a row
-        rows.append([year, month, day, time, temp, feels_like, temp_min, temp_max, pressure, humidity, wind_speed,
-                     wind_deg, wind_gust, clouds_all, weather_description])
+            # Append the data as a row
+            rows.append([year, month, day, time, temp, feels_like, temp_min, temp_max, pressure, humidity, wind_speed,
+                         wind_deg, wind_gust, clouds_all, weather_description])
 
     # Create a DataFrame with the specified column names
     df = pd.DataFrame(rows, columns=['Year', 'Month', 'Day', 'Time', 'Temperature (F)', 'Feels Like (F)',
