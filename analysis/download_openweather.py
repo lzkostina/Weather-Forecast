@@ -4,7 +4,7 @@ import json
 import os  # Import os to manage file paths
 
 # Your OpenWeatherMap API Key
-API_KEY = os.getenv('OPENWEATHER_API_KEY')
+API_KEY = 'd817ee55d93f6b51d9b15bc850821726'
 
 # Coordinates for each location
 locations = {
@@ -30,37 +30,68 @@ locations = {
     "Washington DC": {"lat": 38.9072, "lon": -77.0369, "id": "KDCA"}
 }
 
-# Define the time range: past 1 year (in Unix timestamps)
-end_time = int(time.time())  # Current time in Unix timestamp
-start_time = end_time - (364 * 24 * 3600)  # One year ago in Unix timestamp
-
 # Directory where data will be saved
 directory = '../data/original/openweather_hourly/'
 
 # Ensure the directory exists
 os.makedirs(directory, exist_ok=True)
 
-# Loop through each location and retrieve the historical weather data
-for city, coords in locations.items():
-    lat = coords["lat"]
-    lon = coords["lon"]
+# Define the time range: past 1 year (in Unix timestamps)
+end_time = int(time.time())  # Current time in Unix timestamp
+start_time = end_time - (364 * 24 * 3600)  # One year ago in Unix timestamp
 
+
+# Function to retrieve data for a specific time range
+def get_data_for_range(city, lat, lon, start_time, end_time):
     # Construct the URL for the API call with units=imperial for Fahrenheit
     url = f'https://history.openweathermap.org/data/2.5/history/city?lat={lat}&lon={lon}&type=hour&start={start_time}&end={end_time}&units=imperial&appid={API_KEY}'
 
     # Send the API request
     response = requests.get(url)
-    data_json = response.json()
 
-    # Check if the request was successful
-    if response.status_code == 200 and 'list' in data_json:
-        print(f"Data retrieval successful for {city}!")
-        # Save the data as a JSON file for later use
+    if response.status_code == 200:
+        data_json = response.json()  # If request is successful, return data_json
+        return data_json
+    else:
+        print(f"Failed to retrieve data: {response.status_code}, {response.text}")
+        return None  # Return None if the request failed
+
+
+# Loop through each location and retrieve the historical weather data in chunks
+for city, coords in locations.items():
+    lat = coords["lat"]
+    lon = coords["lon"]
+
+    # Initialize an empty list to store the full data for this city
+    full_data = []
+
+    # Define the time range in chunks (1 week at a time)
+    current_start_time = start_time
+    while current_start_time < end_time:
+        current_end_time = min(current_start_time + (7 * 24 * 3600), end_time)  # One week ahead, or until end_time
+
+        # Get the data for this chunk
+        data_json = get_data_for_range(city, lat, lon, current_start_time, current_end_time)
+
+        if data_json and 'list' in data_json:
+            print(
+                f"Data retrieval successful for {city} from {time.strftime('%Y-%m-%d', time.gmtime(current_start_time))} to {time.strftime('%Y-%m-%d', time.gmtime(current_end_time))}")
+            full_data.append(data_json['list'])  # Append the data chunk to the full data list
+        else:
+            print(
+                f"Failed to retrieve data for {city} from {time.strftime('%Y-%m-%d', time.gmtime(current_start_time))} to {time.strftime('%Y-%m-%d', time.gmtime(current_end_time))}.")
+
+        # Move the start time forward by one week
+        current_start_time = current_end_time
+
+    # Save the full data as a JSON file for later use
+    if full_data:
         file_name = f'{city}_hourly_data.json'
         file_path = os.path.join(directory, file_name)
 
+        # Flatten the list of data chunks and save to file
         with open(file_path, 'w') as json_file:
-            json.dump(data_json, json_file, indent=4)
-        print(f"Data saved to '{file_path}'.")
+            json.dump(full_data, json_file, indent=4)
+        print(f"Full data saved to '{file_path}'.")
     else:
-        print(f"Failed to retrieve data for {city}. Response: {data_json}")
+        print(f"No data saved for {city}.")
