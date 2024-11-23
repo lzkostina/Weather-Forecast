@@ -44,6 +44,7 @@ os.makedirs('output', exist_ok=True)
 
 with open(output_file, 'w', encoding='utf-8') as f:
     f.write("XGBoost Model Results for All Cities:\n\n")
+    
 for filename in os.listdir(directory):
     if filename.endswith('.csv'):
         city_name = os.path.splitext(filename)[0]
