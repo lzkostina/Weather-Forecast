@@ -7,6 +7,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import warnings
 warnings.filterwarnings("ignore")
 
+
 def evaluate_model(y_test, y_pred, X_test):
     """Evaluate a model using multiple metrics, including adjusted R²."""
     n = len(y_test)  # Number of observations
@@ -18,10 +19,12 @@ def evaluate_model(y_test, y_pred, X_test):
     mae = mean_absolute_error(y_test, y_pred)  # Mean Absolute Error
     return r2, adj_r2, mse, rmse, mae
 
+
 def generate_future_predictions(data, model_min, model_max, model_avg, days=5, start_date=None, lag_features=[]):
     future_predictions = []
     current_data = data.iloc[-1][lag_features].values.reshape(1, -1)
     current_date = pd.to_datetime(start_date)
+
 
     for day in range(1, days + 1):
         pred_min = model_min.predict(current_data)[0]
@@ -35,8 +38,10 @@ def generate_future_predictions(data, model_min, model_max, model_avg, days=5, s
             'TAVG': pred_avg
         })
 
+
         current_data = np.roll(current_data, -3)  
         current_data[0, :3] = [pred_max, pred_min, pred_avg]  # Insert new predictions
+
 
     return pd.DataFrame(future_predictions)
 
@@ -45,8 +50,10 @@ directory = '.'
 output_file = 'output/AllCities_LinearRegression.txt'  
 os.makedirs('output', exist_ok=True)
 
+
 with open(output_file, 'w', encoding='utf-8') as f:
     f.write("Linear Regression Model Results for All Cities:\n\n")
+
 
 for filename in os.listdir(directory):
     if filename.endswith('.csv'):
@@ -85,12 +92,14 @@ for filename in os.listdir(directory):
         )
 
         model_min = LinearRegression()
-        model_max = LinearRegression()
-        model_avg = LinearRegression()
-
         model_min.fit(X_train, y_min_train)
+
+        model_max = LinearRegression()
         model_max.fit(X_train, y_max_train)
+
+        model_avg = LinearRegression()
         model_avg.fit(X_train, y_avg_train)
+
 
         y_min_pred = model_min.predict(X_test)
         y_max_pred = model_max.predict(X_test)
@@ -100,15 +109,27 @@ for filename in os.listdir(directory):
         r2_max, adj_r2_max, mse_max, rmse_max, mae_max = evaluate_model(y_max_test, y_max_pred, X_test)
         r2_avg, adj_r2_avg, mse_avg, rmse_avg, mae_avg = evaluate_model(y_avg_test, y_avg_pred, X_test)
 
-        future_predictions = generate_future_predictions(df, model_min, model_max, model_avg, days=5, start_date='2024-11-19', lag_features=lag_features)
+        future_predictions = generate_future_predictions(df, 
+                                                         model_min, model_max, 
+                                                         model_avg, days=5, 
+                                                         #need to be corrected
+                                                         start_date='2024-11-19', 
+                                                         lag_features=lag_features)
 
         output_text = f"City: {city_name}\n"
+
         output_text += f"TMIN Evaluation: R²: {r2_min:.4f}, Adjusted R²: {adj_r2_min:.4f}, MSE: {mse_min:.4f}, RMSE: {rmse_min:.4f}, MAE: {mae_min:.4f}\n"
+
         output_text += f"TMAX Evaluation: R²: {r2_max:.4f}, Adjusted R²: {adj_r2_max:.4f}, MSE: {mse_max:.4f}, RMSE: {rmse_max:.4f}, MAE: {mae_max:.4f}\n"
+
         output_text += f"TAVG Evaluation: R²: {r2_avg:.4f}, Adjusted R²: {adj_r2_avg:.4f}, MSE: {mse_avg:.4f}, RMSE: {rmse_avg:.4f}, MAE: {mae_avg:.4f}\n\n"
+
         output_text += "Future 5-Day Predictions (Combined):\n"
+
         output_text += future_predictions.to_string(index=False)
+
         output_text += "\n\n" + "-" * 50 + "\n\n"
+        
 
         with open(output_file, 'a', encoding='utf-8') as f:
             f.write(output_text)
