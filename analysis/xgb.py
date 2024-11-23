@@ -7,6 +7,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 import warnings
 warnings.filterwarnings("ignore")
 
+
 def evaluate_model(y_test, y_pred, X_test):
     n = len(y_test)
     p = X_test.shape[1]
@@ -44,14 +45,16 @@ os.makedirs('output', exist_ok=True)
 
 with open(output_file, 'w', encoding='utf-8') as f:
     f.write("XGBoost Model Results for All Cities:\n\n")
-    
+
 for filename in os.listdir(directory):
     if filename.endswith('.csv'):
         city_name = os.path.splitext(filename)[0]
         file_path = os.path.join(directory, filename)
         df = pd.read_csv(file_path)
         df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')
-        df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
+        # Filter data before or on 2024-11-19
+        # need to be corrected
+        df = df[df['DATE'] <= '2024-11-19']
 
         df['TAVG'] = (df['TMAX'] + df['TMIN']) / 2
         for i in range(1, 6):
@@ -71,9 +74,11 @@ for filename in os.listdir(directory):
         y_avg = df['TAVG']
 
         # Train-Test Split
+        # test_size=0.2
         X_train, X_test, y_min_train, y_min_test, y_max_train, y_max_test, y_avg_train, y_avg_test = train_test_split(
             X, y_min, y_max, y_avg, test_size=0.2, random_state=42
         )
+        
         model_min = XGBRegressor(n_estimators=100, learning_rate=0.1, max_depth=6,
                                  subsample=0.8, colsample_bytree=0.8, random_state=42)
         model_max = XGBRegressor(n_estimators=100, learning_rate=0.1, max_depth=6,
@@ -103,7 +108,9 @@ for filename in os.listdir(directory):
         output_text += future_predictions.to_string(index=False)
         output_text += "\n\n" + "-" * 50 + "\n\n"
 
+
         with open(output_file, 'a', encoding='utf-8') as f:
             f.write(output_text)
+
 
         print(f"Processed {city_name}, results appended to {output_file}")

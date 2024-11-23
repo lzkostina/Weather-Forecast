@@ -9,14 +9,13 @@ warnings.filterwarnings("ignore")
 
 
 def evaluate_model(y_test, y_pred, X_test):
-    """Evaluate a model using multiple metrics, including adjusted R²."""
-    n = len(y_test)  # Number of observations
-    p = X_test.shape[1]  # Number of predictors
+    n = len(y_test)  
+    p = X_test.shape[1]  
     r2 = r2_score(y_test, y_pred)  # R² score
     adj_r2 = 1 - (1 - r2) * (n - 1) / (n - p - 1)  # Adjusted R²
-    mse = mean_squared_error(y_test, y_pred)  # Mean Squared Error
-    rmse = np.sqrt(mse)  # Root Mean Squared Error
-    mae = mean_absolute_error(y_test, y_pred)  # Mean Absolute Error
+    mse = mean_squared_error(y_test, y_pred)  
+    rmse = np.sqrt(mse)  
+    mae = mean_absolute_error(y_test, y_pred)  
     return r2, adj_r2, mse, rmse, mae
 
 
@@ -62,8 +61,11 @@ for filename in os.listdir(directory):
         df = pd.read_csv(file_path)
 
         df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')  # Handle invalid dates
-        df = df[df['DATE'].notna()]  
-        df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
+        df = df[df['DATE'].notna()] 
+         
+        # Filter data before or on 2024-11-19
+        # need to be corrected
+        df = df[df['DATE'] <= '2024-11-19']  
         df['TMAX'] = df['TMAX'].interpolate(method='linear')
         df['TMIN'] = df['TMIN'].interpolate(method='linear')
         df['PRCP'] = df['PRCP'].interpolate(method='linear')
@@ -81,12 +83,15 @@ for filename in os.listdir(directory):
                        [f'TMIN_lag{i}' for i in range(1, 10)] + \
                        [f'TAVG_lag{i}' for i in range(1, 10)] + ['PRCP', 'SNOW', 'SNWD']
 
+
         X = df[lag_features]
         y_min = df['TMIN']
         y_max = df['TMAX']
         y_avg = df['TAVG']
 
+
         # Train-Test Split
+        # test_size=0.2
         X_train, X_test, y_min_train, y_min_test, y_max_train, y_max_test, y_avg_train, y_avg_test = train_test_split(
             X, y_min, y_max, y_avg, test_size=0.2, random_state=42
         )
@@ -129,7 +134,7 @@ for filename in os.listdir(directory):
         output_text += future_predictions.to_string(index=False)
 
         output_text += "\n\n" + "-" * 50 + "\n\n"
-        
+
 
         with open(output_file, 'a', encoding='utf-8') as f:
             f.write(output_text)
