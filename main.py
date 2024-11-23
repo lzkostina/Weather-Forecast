@@ -20,7 +20,7 @@ if __name__ == "__main__":
     #model = TestPredictor()
     model = PreviousDayPredictor()
     data = []
-    predictions = model.predict("2023-11-19")
+    predictions = model.predict("2024-11-19")
     
     # Ensure the predictions are numeric
     predictions_rounded = np.around(predictions, 1)
