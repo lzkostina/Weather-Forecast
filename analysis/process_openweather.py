@@ -2,24 +2,50 @@ import json
 import os
 import pandas as pd
 from datetime import datetime
+import pytz
 
+# Define a dictionary to map city names to their respective time zones
+city_timezones = {
+    'Anchorage': 'America/Anchorage',
+    'Boise': 'America/Boise',
+    'Chicago': 'America/Chicago',
+    'Denver': 'America/Denver',
+    'Detroit': 'America/Detroit',
+    'Honolulu': 'Pacific/Honolulu',
+    'Houston': 'America/Chicago',
+    'Miami': 'America/New_York',
+    'Minneapolis': 'America/Chicago',
+    'Oklahoma City': 'America/Chicago',
+    'Nashville': 'America/Chicago',
+    'New York': 'America/New_York',
+    'Phoenix': 'America/Phoenix',
+    'Portland ME': 'America/New_York',
+    'Portland OR': 'America/Los_Angeles',
+    'Salt Lake City': 'America/Denver',
+    'San Diego': 'America/Los_Angeles',
+    'San Francisco': 'America/Los_Angeles',
+    'Seattle': 'America/Los_Angeles',
+    'Washington DC': 'America/New_York'
+}
 
 # Function to process and save data to CSV
 def process_and_save_data(data_json, city_name):
     # Initialize an empty list to store the rows of data
     rows = []
+    timezone = pytz.timezone(city_timezones[city_name])  # Get the timezone for the city
 
     # Loop through each entry in the "list" field of the JSON data
     for chunk in data_json:
         for entry in chunk:
-            # Extract the Unix timestamp and convert to datetime
-            dt = datetime.utcfromtimestamp(entry['dt'])
+            # Extract the Unix timestamp and convert to local datetime
+            dt_utc = datetime.utcfromtimestamp(entry['dt']).replace(tzinfo=pytz.utc)
+            dt_local = dt_utc.astimezone(timezone)
 
             # Extract the components: year, month, day, time
-            year = dt.year
-            month = dt.month
-            day = dt.day
-            time = dt.strftime('%H:%M:%S')  # Time in HH:MM:SS format
+            year = dt_local.year
+            month = dt_local.month
+            day = dt_local.day
+            time = dt_local.strftime('%H:%M:%S')  # Time in HH:MM:SS format
 
             # Extract temperature, which is already in Fahrenheit
             temp = entry['main']['temp']
@@ -70,8 +96,7 @@ def process_all_json_files(json_directory):
 
     # Process each JSON file
     for json_file in json_files:
-        city_name = json_file.split('_')[
-            0]  # Extract city name from the filename (assuming format 'city_name_hourly_data_fahrenheit.json')
+        city_name = json_file.split('_')[0]  # Extract city name from the filename
         json_path = os.path.join(json_directory, json_file)
 
         # Load the JSON data
@@ -79,8 +104,10 @@ def process_all_json_files(json_directory):
             data_json = json.load(file)
 
         # Process and save the data as CSV
-        process_and_save_data(data_json, city_name)
-
+        if city_name in city_timezones:
+            process_and_save_data(data_json, city_name)
+        else:
+            print(f"Timezone for city '{city_name}' not found. Skipping.")
 
 # Directory where the JSON files are stored
 json_directory = '../data/original/openweather_hourly'

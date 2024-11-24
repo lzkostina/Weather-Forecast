@@ -2,22 +2,18 @@ import pandas as pd
 from datetime import datetime
 
 def process_weather_data(data_file, hourly_data_file):
-    # Step 1: Load the CSV files
     data = pd.read_csv(data_file)
     hourly_data = pd.read_csv(hourly_data_file)
 
-    # Step 2: Preprocess the hourly data to ensure proper date format
     # Convert the 'Datetime' column in 'hourly_data' to a datetime object and extract Year, Month, Day
     hourly_data['Datetime'] = pd.to_datetime(hourly_data[['Year', 'Month', 'Day']])
     hourly_data['Year'] = hourly_data['Datetime'].dt.year
     hourly_data['Month'] = hourly_data['Datetime'].dt.month
     hourly_data['Day'] = hourly_data['Datetime'].dt.day
 
-    # Step 3: Define the date range for filtering
     start_date = pd.to_datetime('2023-11-30')
     end_date = pd.to_datetime(datetime.today().strftime('%Y-%m-%d'))
 
-    # Step 4: Replace all feature columns in the date range (2023-11-30 to today) with NA
     data.loc[
         (data['YEAR'] == 2023) &
         ((data['MONTH'] == 11) & (data['DAY'] >= 30)) |
@@ -25,7 +21,6 @@ def process_weather_data(data_file, hourly_data_file):
         ['TAVG', 'TMIN', 'TMAX', 'PRCP', 'RHAV', 'WSF1']
     ] = None  # Replace values of these columns to NA for this date range
 
-    # Step 5: Aggregate the 'hourly_data' by day and rename columns to match 'data'
     hourly_aggregated = hourly_data.groupby(['Year', 'Month', 'Day']).agg(
         TAVG=('Temperature (F)', 'mean'),  # Average Temperature to TAVG
         TMIN=('Temp Min (F)', 'min'),      # Min Temp to TMIN
@@ -35,7 +30,7 @@ def process_weather_data(data_file, hourly_data_file):
         WSF1=('Wind Speed', 'mean')       # Wind Speed to WSF1
     ).reset_index()
 
-    # Step 6: Rename the columns in hourly_aggregated to avoid conflict during merge
+    # Rename the columns in hourly_aggregated to avoid conflict during merge
     hourly_aggregated = hourly_aggregated.rename(columns={
         'TAVG': 'TAVG_new',
         'TMIN': 'TMIN_new',
@@ -45,7 +40,7 @@ def process_weather_data(data_file, hourly_data_file):
         'WSF1': 'WSF1_new'
     })
 
-    # Step 7: Merge the aggregated hourly data with 'data', replacing NA values with hourly aggregated values
+    # Merge the aggregated hourly data with 'data', replacing NA values with hourly aggregated values
     data = pd.merge(data, hourly_aggregated, how='left', left_on=['YEAR', 'MONTH', 'DAY'], right_on=['Year', 'Month', 'Day'])
 
     # Step 8: Replace the NA values in the columns with the values from the aggregated hourly data
