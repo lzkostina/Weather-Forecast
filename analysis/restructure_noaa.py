@@ -41,6 +41,10 @@ def restructure_climate_data(input_csv, output_csv):
         if col in final_data.columns:
             final_data[col] = final_data[col].apply(lambda x: (x / 10 * 9 / 5 + 32)  if pd.notna(x) else x)
 
+    # Remove days with TMIN less than 1000
+    final_data = final_data[final_data['TMIN'] >= -1000]
+
+
     # Filter out columns that have 4000 or more missing values for the years 2014-2024
     # filtered_data = final_data[(final_data['YEAR'] >= 2014) & (final_data['YEAR'] <= 2024)]
     # missing_values_count_filtered = filtered_data.isna().sum()
@@ -99,5 +103,5 @@ def process_all_files_in_directory(input_directory, output_directory, core_outpu
     print("Processing complete for all files in the directory.")
 
 process_all_files_in_directory('data/processed',
-                               '../data/restructured',
-                               '../data/restructured_simple')
+                               'data/restructured',
+                               'data/restructured_simple')
