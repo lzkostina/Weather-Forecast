@@ -29,7 +29,7 @@ def make_predictions_station(predictor, year, month, day, station):
         np.array: An array of 15 predicted values.
     """
     # Get the data for the specified station and year
-    data = get_data_station_year(station, year, "data/restructured_simple/")
+    data = get_data_station_year(station, year, "data/restructured_simple/combined/")
     # Find current day index
     current_day_index = data[(data['YEAR'] == year) & (data['MONTH'] == month) & (data['DAY'] == day)].index[0]
     # Get the data up to the current day, not including the current day

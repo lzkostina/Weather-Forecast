@@ -125,9 +125,9 @@ def evaluate_model_years(start_year, end_year, predictor):
     # mse_list = mse_list.tolist()
     return mse_list
 
-evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
+# evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
 # evaluate_model_years(2018, 2022, predictor.test_predictor.AverageLastWeekPredictor())
-evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
+# evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
 
 
 # Testing Code
