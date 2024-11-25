@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 class Predictor(ABC): 
     @abstractmethod
-    def predict(self, data):
+    def predict(self, data, station):
         """
         Abstract method to be implemented by subclasses to perform predictions.
 
@@ -21,11 +21,11 @@ class TestPredictor(Predictor):
     def __init__(self):
         pass
 
-    def predict(self, data):
+    def predict(self, data, station):
 
         
-        # Generate 300 numbers of the form "XX.X" (all zeroes with one decimal place)
-        predictions = np.zeros(300)
+        # Generate 15 numbers of the form "XX.X" (all zeroes with one decimal place)
+        predictions = np.zeros(15)
         #predictions_rounded = np.around(predictions, 1)
         
         # Create the output string
@@ -39,81 +39,36 @@ class PreviousDayPredictor(Predictor):
     A predictor that uses the previous day's temperature data to predict the temperature for the next 5 days.
     """
 
-    def __init__(self, input_directory="data/processed/openweather_hourly"):
-        """
-        Initializes the PreviousDayPredictor with the specified input directory.
+    def __init__(self):
+        pass
 
-        Args:
-            input_directory (str): The directory containing the CSV files with weather data.
-        """
-        self.input_directory = input_directory
-        self.data = self._load_data()
+    def predict(self, data, station):
+        # take the last row of data, and get TMIN, TAVG, TMAX
+        last_row = data.iloc[-1]
+        predictions = np.array([last_row["TMIN"], last_row["TAVG"], last_row["TMAX"]])
 
-    def _load_data(self):
-        """
-        Loads all CSV files from the input directory and concatenates them into a single DataFrame.
-
-        Returns:
-            pd.DataFrame: A DataFrame containing the combined weather data from all CSV files.
-        """
-        all_files = [os.path.join(self.input_directory, f) for f in os.listdir(self.input_directory) if f.endswith('.csv')]
-        dataframes = []
-        for file in all_files:
-            location_name = os.path.basename(file).split('_')[0]
-            df = pd.read_csv(file)
-            df['Location'] = location_name
-            dataframes.append(df)
-        combined_data = pd.concat(dataframes, ignore_index=True)
-        combined_data['Datetime'] = pd.to_datetime(
-            combined_data[['Year', 'Month', 'Day']].astype(str).agg('-'.join, axis=1) + ' ' + combined_data['Time']
-        )
-        combined_data.sort_values(by='Datetime', inplace=True)
-        return combined_data
-
-    def predict(self, start_date):
-        """
-        Predicts temperature for the next 5 days using the previous day's min, avg, and max temperature.
-
-        Args:
-            start_date (str): The start date for prediction in 'YYYY-MM-DD' format.
-
-        Returns:
-            list: A list of 300 temperature predictions in the format XX.X.
-        """
-        start_date = datetime.strptime(start_date, '%Y-%m-%d')
-        previous_day = start_date - timedelta(days=1)
-
-        # List of locations
-        locations = [
-            "Anchorage", "Boise", "Chicago", "Denver", "Detroit", "Honolulu", "Houston", "Miami", "Minneapolis",
-            "Oklahoma City", "Nashville", "New York", "Phoenix", "Portland ME", "Portland OR", "Salt Lake City",
-            "San Diego", "San Francisco", "Seattle", "Washington DC"
-        ]
-
-        predictions = []
-        for location in locations:
-            # Filter data for the previous day and specific location
-            previous_day_data = self.data[(self.data['Datetime'].dt.date == previous_day.date()) & (self.data['Location'] == location)]
-
-            if previous_day_data.empty:
-                raise ValueError(f"No data available for the previous day: {previous_day.strftime('%Y-%m-%d')} for location: {location}")
-
-            # Calculate min, avg, and max temperature for the previous day
-            min_temp = previous_day_data['Temperature (F)'].min()
-            avg_temp = previous_day_data['Temperature (F)'].mean()
-            max_temp = previous_day_data['Temperature (F)'].max()
-
-            # Prepare predictions for the next 5 days for each location
-            for _ in range(5):
-                predictions.extend([min_temp, avg_temp, max_temp])
-
+        # Repeat the predictions for the next 5 days
+        predictions = np.tile(predictions, 5)
         return predictions
 
+class AverageLastWeekPredictor(Predictor):
+    """
+    """
+
+    def __init__(self):
+        pass
+
+    def predict(self, data, station):
+        # take the last week of data
+        last_week = data.iloc[-7:]
+        # get the average of TMIN, TAVG, TMAX
+        predictions = last_week[["TMIN", "TAVG", "TMAX"]].mean().values
+        # Repeat the predictions for the next 5 days
+        predictions = np.tile(predictions, 5)
+        return predictions
 
 # Example usage
 #predictor = PreviousDayPredictor("data/processed/openweather_hourly")
 # predictor._load_data()
 #print(predictor.predict("2023-11-19"))
-
-# previous_day_data = predictor.data[(predictor.data['Datetime'].dt.date == previous_day.date()) & (predictor.data['Location'] == location)]
 

@@ -80,6 +80,21 @@ def restructure_climate_data(input_csv, output_csv):
     final_data['SNOW'] = final_data['SNOW'].fillna(0)
     final_data['SNWD'] = final_data['SNWD'].fillna(0)
 
+    final_data = final_data.reset_index(drop=True)
+
+    # If TMIN or TMAX is <-1000, use the previous days value
+    def replace_invalid_temperatures(data):
+        for i in range(1, len(data)):
+            if data.loc[i, 'TMIN'] < -1000 and pd.notna(data.loc[i - 1, 'TMIN']):
+                data.loc[i, 'TMIN'] = data.loc[i - 1, 'TMIN']
+            if data.loc[i, 'TMAX'] < -1000 and pd.notna(data.loc[i - 1, 'TMAX']):
+                data.loc[i, 'TMAX'] = data.loc[i - 1, 'TMAX']
+        return data
+
+    # Apply the replacement function
+    final_data = final_data.sort_values(by=['YEAR', 'MONTH', 'DAY'])  # Ensure data is sorted chronologically
+    final_data = replace_invalid_temperatures(final_data)
+
 
     # Save the restructured data to a new CSV file
     final_data.to_csv(output_csv, index=False)
@@ -115,6 +130,19 @@ def count_missing_values_all_stations(input_directory):
     print("Missing value counting complete for all files in the directory.")
 
 # count_missing_values_all_stations('data/restructured_simple')
+
+# function to count values < -1000 for each column
+def count_values_below_threshold(output_csv, threshold):
+    # Load the restructured dataset
+    final_data = pd.read_csv(output_csv)
+    filtered_data = final_data[(final_data['YEAR'] >= 2014) & (final_data['YEAR'] <= 2023)]
+
+    # Count rows with values below the threshold for each column
+    below_threshold_count = final_data[filtered_data < threshold].count()
+    print(f"Values below {threshold} for each column:")
+    print(below_threshold_count)
+
+# count_values_below_threshold('data/restructured_simple/PHNL.csv', -1000)
 
 
 def create_core_elements_dataset(output_csv, core_output_csv):
