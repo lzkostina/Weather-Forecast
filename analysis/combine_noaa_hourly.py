@@ -89,7 +89,7 @@ def process_all_weather_data(data_directory, hourly_data_directory, locations):
             final_data = process_weather_data(data_file, hourly_data_file)
 
             # Save the processed data to the 'combined' directory
-            output_file = os.path.join(combined_directory, f"processed_{airport_id}_data.csv")
+            output_file = os.path.join(combined_directory, f"{airport_id}_data_combined.csv")
             final_data.to_csv(output_file, index=False)
             print(f"Processed data saved to {output_file}")
 
