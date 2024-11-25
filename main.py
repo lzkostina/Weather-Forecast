@@ -27,6 +27,11 @@ if __name__ == "__main__":
     day = current_date.day
 
     # make predictions for all stations
+    try:
+        predictions = make_predictions_all_stations(model, year, month, day)
+    except Exception as e:
+        logging.error(f"Error making predictions: {e}")
+        sys.exit(1)
     predictions = make_predictions_all_stations(model, year, month, day)
     
     # Ensure the predictions are numeric
