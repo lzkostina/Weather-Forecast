@@ -12,12 +12,12 @@ import joblib
 from predictor.utils import stations_list
 
 import warnings
+
 warnings.filterwarnings("ignore")
 np.set_printoptions(suppress=True, precision=2)
 
-
-
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
+
 
 class Predictor(ABC):
     @abstractmethod
@@ -29,13 +29,12 @@ class Predictor(ABC):
         """
         pass
 
+
 class TestPredictor(Predictor):
     def __init__(self):
         pass
 
     def predict(self, data, station):
-
-
         # Generate 15 numbers of the form "XX.X" (all zeroes with one decimal place)
         predictions = np.zeros(15)
         #predictions_rounded = np.around(predictions, 1)
@@ -63,6 +62,7 @@ class PreviousDayPredictor(Predictor):
         predictions = np.tile(predictions, 5)
         return predictions
 
+
 class AverageLastWeekPredictor(Predictor):
     """
     """
@@ -79,34 +79,44 @@ class AverageLastWeekPredictor(Predictor):
         predictions = np.tile(predictions, 5)
         return predictions
 
+
 class LinearRegressionPredictor(Predictor):
 
     def __init__(self, model_path="predictor/models/LinearRegression/"):
-        self.model = None
-        self.model_path = model_path
+        self.repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-    def train_and_save_model(self, model_path):
+        self.model = None
+        self.model_path = os.path.join(self.repo_root, model_path)
+
+    def train_and_save_model(self, full = True):
         """
         Train a linear regression model and save it.
         """
+        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(model_dir, exist_ok=True)
         # Train the model
         for station in stations_list:
             # print station
             print(station)
 
-            # Get the data for the specified station
-            station_data = pd.read_csv(f"analysis/regression_data/{station}.csv")
+            if full:
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data_full/{station}.csv")
+            else:
+                # Get the data for the specified station
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
+            # Load the data for the specified station
+            station_data = pd.read_csv(station_file_path)
             # The first 153 columns are the features, the last 15 columns are the labels
             X = station_data.iloc[:, 3:153]
             y = station_data.iloc[:, 153:]
-
 
             # Train the model
             model = LinearRegression()
             model.fit(X, y)
 
             # Save the model
-            joblib.dump(model, os.path.join(model_path, f"{station}.joblib"))
+            model_save_path = os.path.join(model_dir, f"{station}.joblib")
+            joblib.dump(model, model_save_path)
 
     def load_model(self, model_path, station):
         """
@@ -134,37 +144,46 @@ class LinearRegressionPredictor(Predictor):
         predictions = self.model.predict(X)
         return predictions.reshape(-1)
 
+
 class RidgeRegressionPredictor(Predictor):
 
     def __init__(self, model_path="predictor/models/RidgeRegression/"):
-        self.model = None
-        self.model_path = model_path
+        self.repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-    def train_and_save_model(self, model_path):
+        self.model = None
+        self.model_path = os.path.join(self.repo_root, model_path)
+
+    def train_and_save_model(self, full=True):
         """
         Train a linear regression model and save it.
         """
 
         alphas = [0.1, 1.0, 10.0, 100.0]
-
+        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(model_dir, exist_ok=True)
         # Train the model
         for station in stations_list:
             # print station
             print(station)
 
-            # Get the data for the specified station
-            station_data = pd.read_csv(f"analysis/regression_data/{station}.csv")
+            if full:
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data_full/{station}.csv")
+            else:
+                # Get the data for the specified station
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
+            # Load the data for the specified station
+            station_data = pd.read_csv(station_file_path)
             # The first 153 columns are the features, the last 15 columns are the labels
             X = station_data.iloc[:, 3:153]
             y = station_data.iloc[:, 153:]
-
 
             # Train the model
             model = RidgeCV(alphas=alphas, store_cv_values=True)
             model.fit(X, y)
 
             # Save the model
-            joblib.dump(model, os.path.join(model_path, f"{station}.joblib"))
+            model_save_path = os.path.join(model_dir, f"{station}.joblib")
+            joblib.dump(model, model_save_path)
 
     def load_model(self, model_path, station):
         """
@@ -191,6 +210,7 @@ class RidgeRegressionPredictor(Predictor):
         predictions = self.model.predict(X)
         return predictions.reshape(-1)
 
+
 class LassoPredictor(Predictor):
     def __init__(self, model_path="predictor/models/LassoCV/"):
         self.repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -198,16 +218,21 @@ class LassoPredictor(Predictor):
         self.model = None
         self.model_path = os.path.join(self.repo_root, model_path)
 
-    def train_and_save_model(self):
+    def train_and_save_model(self, full=True):
         """
         Train a Lasso Regression model with cross-validation for each station and save it.
         """
         # Ensure the model path exists
-        os.makedirs(self.model_path, exist_ok=True)
+        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(model_dir, exist_ok=True)
 
         for station in stations_list:
             print(f"Training Lasso model for station: {station}")
-            station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
+            if full:
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data_full/{station}.csv")
+            else:
+                # Get the data for the specified station
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
 
             # Load the data for the specified station
             station_data = pd.read_csv(station_file_path)
@@ -221,8 +246,9 @@ class LassoPredictor(Predictor):
             model.fit(X, y)
 
             # Save the trained model
-            joblib.dump(model, os.path.join(self.model_path, f"{station}.joblib"))
-            print(f"Model for station {station} saved successfully!")
+
+            model_save_path = os.path.join(model_dir, f"{station}.joblib")
+            joblib.dump(model, model_save_path)
 
     def load_model(self, station):
         """
@@ -254,6 +280,8 @@ class LassoPredictor(Predictor):
         # Make predictions
         predictions = self.model.predict(X)
         return predictions.reshape(-1)
+
+
 class RandomForestPredictor:
     def __init__(self, model_path="predictor/models/RandomForest/"):
         self.repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -261,26 +289,29 @@ class RandomForestPredictor:
         self.model = None
         self.model_path = os.path.join(self.repo_root, model_path)
 
-    def train_and_save_model(self):
+    def train_and_save_model(self, full = True):
         """
         Train a Random Forest model for each station and save it.
         """
         # Ensure the model path exists
         os.makedirs(self.model_path, exist_ok=True)
-
+        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(model_dir, exist_ok=True)
         # Hyperparameter grid for Random Forest
 
         param_grid = {
             'n_estimators': [100, 200],
             'max_depth': [None, 10, 20],
-            'min_samples_leaf': [1,  4]
+            'min_samples_leaf': [1, 4]
         }
-
-
 
         for station in stations_list:
             print(f"Training model for station: {station}")
-            station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
+            if full:
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data_full/{station}.csv")
+            else:
+                # Get the data for the specified station
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
             # Load the data for the specified station
             station_data = pd.read_csv(station_file_path)
             # The first 153 columns are the features, the last 15 columns are the labels
@@ -304,8 +335,6 @@ class RandomForestPredictor:
                 verbose=2
             )
 
-           
-
             # Fit the GridSearchCV to find the best model
             grid_search.fit(X, y)
 
@@ -313,9 +342,8 @@ class RandomForestPredictor:
             best_model = grid_search.best_estimator_
             print(f"Best parameters for station {station}: {grid_search.best_params_}")
             # Save the best model
-            joblib.dump(best_model, os.path.join(self.model_path, f"{station}.joblib"))
-
-
+            model_save_path = os.path.join(model_dir, f"{station}.joblib")
+            joblib.dump(best_model, model_save_path)
     def load_model(self, station):
         """
         Load a Random Forest model for a specific station.
@@ -348,7 +376,6 @@ class RandomForestPredictor:
         return predictions.reshape(-1)
 
 
-
 class XGBoostPredictor:
     def __init__(self, model_path="predictor/models/XGBoost/"):
         self.repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -356,12 +383,13 @@ class XGBoostPredictor:
         self.model = None
         self.model_path = os.path.join(self.repo_root, model_path)
 
-    def train_and_save_model(self):
+    def train_and_save_model(self, full = True):
         """
         Train an XGBoost model for each station and save it.
         """
         # Ensure the model path exists
-        os.makedirs(self.model_path, exist_ok=True)
+        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(model_dir, exist_ok=True)
         param_grid = {
             'n_estimators': [100, 200],
             'max_depth': [3, 6],
@@ -370,7 +398,11 @@ class XGBoostPredictor:
 
         for station in stations_list:
             print(f"Training model for station: {station}")
-            station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
+            if full:
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data_full/{station}.csv")
+            else:
+                # Get the data for the specified station
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
 
             # Load the data for the specified station
             station_data = pd.read_csv(station_file_path)
@@ -407,7 +439,8 @@ class XGBoostPredictor:
             print(f"Best parameters for station {station}: {grid_search.best_params_}")
 
             # Save the best model
-            joblib.dump(best_model, os.path.join(self.model_path, f"{station}.joblib"))
+            model_save_path = os.path.join(model_dir, f"{station}.joblib")
+            joblib.dump(best_model, model_save_path)
 
     def load_model(self, station):
         """
@@ -485,7 +518,6 @@ class WeightedPredictor(Predictor):
 
         return weighted_predictions
 
-
 #predictor_list = [PreviousDayPredictor(),LinearRegressionPredictor()]
 #weights = [0.5, 0.5]
 #model = WeightedPredictor(predictor_list, weights)
@@ -500,4 +532,3 @@ class WeightedPredictor(Predictor):
 #predictor = PreviousDayPredictor("data/processed/openweather_hourly")
 # predictor._load_data()
 #print(predictor.predict("2023-11-19"))
-

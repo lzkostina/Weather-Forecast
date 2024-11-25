@@ -69,8 +69,8 @@ def create_regression_example(year, month, day, station):
         np.array: A single row of the regression dataset.
     """
     # Get the data for the specified station and year
-    filename = f"{station}.csv"
-    file_path = os.path.join("data/restructured_simple/", filename)
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    file_path = os.path.join(repo_root, f"data/restructured_simple/{station}.csv")
     df = pd.read_csv(file_path)
 
     # Find current day index
@@ -117,9 +117,12 @@ def create_regression_dataset(station):
     # Initialize an empty list to store the regression examples
     regression_examples = []
     # Loop through all days from 2014 to 2023
-    for year in range(2014, 2024):
+    for year in range(2014, 2025):
         for month in range(1, 13):
             for day in range(1, 32):
+
+                if year == 2024 and month >= 11:
+                    continue
                 # Skip days from November 15 to December 15
                 if month == 11 and day >= 15 and day <= 30:
                     continue
@@ -135,8 +138,9 @@ def create_regression_dataset(station):
 
     # Save the regression examples in a CSV
     regression_df = pd.DataFrame(regression_examples)
-
-    regression_df.to_csv(f'analysis/regression_data/{station}.csv', index=False)
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    path_dir = os.path.join(repo_root, f'analysis/regression_data/{station}.csv')
+    regression_df.to_csv(path_dir, index=False)
 
 
 
@@ -154,10 +158,13 @@ def create_regression_dataset_full(station):
     # Initialize an empty list to store the regression examples
     regression_examples = []
     # Loop through all days from 2014 to 2023
-    for year in range(2014, 2024):
+    for year in range(2014, 2025):
         for month in range(1, 13):
             for day in range(1, 32):
                 # Skip invalid dates
+                if year == 2024 and month >= 11:
+                    continue
+
                 if not is_valid_date(year, month, day):
                     continue
 
@@ -167,8 +174,9 @@ def create_regression_dataset_full(station):
 
     # Save the regression examples in a CSV
     regression_df = pd.DataFrame(regression_examples)
-
-    regression_df.to_csv(f'analysis/regression_data_full/{station}.csv', index=False)
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    path_dir = os.path.join(repo_root, f'analysis/regression_data_full/{station}.csv')
+    regression_df.to_csv(path_dir, index=False)
 
 # do the same for all stations
 for station in stations_list:

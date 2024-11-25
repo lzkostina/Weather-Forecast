@@ -173,6 +173,10 @@ def testing_weight_predictor(predictor_list, start_year, end_year, iters):
     mse_list = np.round(mse_list, 2)
     combined = np.column_stack((weights_list, mse_list))
     combined = combined[combined[:,num_predictors].argsort()]
+
+    # save combined to a csv
+    np.savetxt("predictor/weights/weight_mse.csv", combined, delimiter=",", fmt='%s')
+
     return combined
 
 
@@ -185,7 +189,7 @@ predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
                   predictor.test_predictor.XGBoostPredictor()
                   ]
 
-testing_weight_predictor(predictor_list,2021,2022, 5)
+testing_weight_predictor(predictor_list,2019,2022, 50)
 
 #weights = [0,1]
 #model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)
