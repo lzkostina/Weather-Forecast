@@ -269,12 +269,13 @@ class RandomForestPredictor:
         os.makedirs(self.model_path, exist_ok=True)
 
         # Hyperparameter grid for Random Forest
-        '''
+
         param_grid = {
-            'n_estimators': [100, 200, 300],
-            'max_depth': [None, 10, 20, 30]
+            'n_estimators': [100, 200],
+            'max_depth': [None, 10, 20],
+            'min_samples_leaf': [1,  4]
         }
-        '''
+
 
 
         for station in stations_list:
@@ -285,16 +286,16 @@ class RandomForestPredictor:
             # The first 153 columns are the features, the last 15 columns are the labels
             X = station_data.iloc[:, 3:153]
             y = station_data.iloc[:, 153:]
-
+            '''
             # Initialize the base Random Forest model
             model = RandomForestRegressor(n_estimators=100, random_state=42)
             model.fit(X, y)
-            joblib.dump(model, os.path.join(self.model_path, f"{station}.joblib"))
-
-
+            joblib.dump(model, os.path.join(self.model_path, f"{station}.joblib"))            
             '''
+
+            rf = RandomForestRegressor(random_state=42)
             # Set up GridSearchCV for hyperparameter tuning with 5-fold CV
-             grid_search = GridSearchCV(
+            grid_search = GridSearchCV(
                 estimator=rf,
                 param_grid=param_grid,
                 cv=5,
@@ -302,7 +303,7 @@ class RandomForestPredictor:
                 n_jobs=-1,
                 verbose=2
             )
-            
+
            
 
             # Fit the GridSearchCV to find the best model
@@ -313,7 +314,7 @@ class RandomForestPredictor:
             print(f"Best parameters for station {station}: {grid_search.best_params_}")
             # Save the best model
             joblib.dump(best_model, os.path.join(self.model_path, f"{station}.joblib"))
-            '''
+
 
     def load_model(self, station):
         """

@@ -14,7 +14,7 @@ np.set_printoptions(suppress=True, precision=2)
 # Given the year X, we want data from Oct 1, X to Dec. 31, X.
 # Input: station (string), year (int), directory (string)
 
-def get_data_station_year(station, year, directory = "data/restructured_simple/"):
+def get_data_station_year(station, year, directory = "../data/restructured_simple/"):
     # Get the data for the specified station and year
     filename = f"{station}.csv"
     file_path = os.path.join(directory, filename)
@@ -145,7 +145,7 @@ def eval_all_models_years(start_year, end_year):
         print(str(model))
         print(evaluate_model_years(start_year, end_year, model).round(2))
 
-eval_all_models_years(2018, 2022)
+#eval_all_models_years(2018, 2022)
 
 
 # evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
