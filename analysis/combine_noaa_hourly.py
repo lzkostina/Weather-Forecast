@@ -17,7 +17,7 @@ def process_weather_data(data_file, hourly_data_file):
 
     data.loc[
         (data['YEAR'] == 2024) &
-        ((data['MONTH'] == 11) & (data['DAY'] >= 15)),
+        ((data['MONTH'] == 11) & (data['DAY'] >= 12)),
         ['TAVG', 'TMIN', 'TMAX', 'PRCP']
     ] = None  # Replace values of these columns to NA for this date range
 
@@ -122,8 +122,10 @@ cities = {
 }
 
 # Directory paths (these should be adjusted to your specific directory structure)
-data_directory = "../data/restructured_simple"
-hourly_data_directory = "../data/processed/openweather_hourly"
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# Directory where the JSON files are stored
+data_directory = os.path.join(repo_root, 'data/restructured_simple')
+hourly_data_directory = os.path.join(repo_root, 'data/processed/openweather_hourly')
 
 # Process all weather data
 process_all_weather_data(data_directory, hourly_data_directory, cities)

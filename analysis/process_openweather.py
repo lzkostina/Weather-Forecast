@@ -30,6 +30,7 @@ city_timezones = {
 
 # Function to process and save data to CSV
 def process_and_save_data(data_json, city_name):
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     # Initialize an empty list to store the rows of data
     rows = []
     timezone = pytz.timezone(city_timezones[city_name])  # Get the timezone for the city
@@ -82,11 +83,11 @@ def process_and_save_data(data_json, city_name):
     df = pd.DataFrame(rows, columns=[
         'Year', 'Month', 'Day', 'Time', 'Temperature (F)', 'Feels Like (F)',
         'Temp Min (F)', 'Temp Max (F)', 'Pressure', 'Humidity', 'Wind Speed',
-        'Wind Deg', 'Wind Gust', 'Clouds All', 'Rain (1h)', 'Snow (1h)'
+        'Wind Deg', 'Wind Gust', 'Clouds All', 'Rain (1h)', 'Snow (1h)', 'Weather_description'
     ])
 
     # Ensure the directory exists
-    directory = '../data/processed/openweather_hourly'
+    directory = os.path.join(repo_root, 'data/processed/openweather_hourly')
     os.makedirs(directory, exist_ok=True)
 
     # Define the file path for saving the CSV
@@ -117,8 +118,8 @@ def process_all_json_files(json_directory):
         else:
             print(f"Timezone for city '{city_name}' not found. Skipping.")
 
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 # Directory where the JSON files are stored
-json_directory = '../data/original/openweather_hourly'
-
+json_directory = os.path.join(repo_root, 'data/original/openweather_hourly')
 # Call the function to process all JSON files in the specified directory
 process_all_json_files(json_directory)
