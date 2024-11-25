@@ -22,7 +22,6 @@ def is_valid_date(year, month, day):
   except ValueError:
     return False
 
-
 def restructure_climate_data(input_csv, output_csv):
     # Load the dataset
     data = pd.read_csv(input_csv, low_memory=False)

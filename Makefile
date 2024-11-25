@@ -24,6 +24,8 @@ process_data:
 	@echo "Restructuring NOAA datasets..."
 	python3 analysis/restructure_noaa.py || exit 1
 	@echo "Processing complete."
+	python3 analysis/create_regression_dataset.py || exit 1
+	@echo "Regression datasets created."
 
 # Target to run the prediction script
 predictions:
