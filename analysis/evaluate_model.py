@@ -132,28 +132,27 @@ def evaluate_model_years(start_year, end_year, predictor):
     return mse_list
 
 # function to evaluate all models for a given amount of years
-def eval_all_models_years(start_year, end_year):
+def eval_all_models_years(models, start_year, end_year):
     # create a list of all models in predictor.test_predictor
-    models = [predictor.test_predictor.PreviousDayPredictor(),
-              predictor.test_predictor.AverageLastWeekPredictor(),
-              predictor.test_predictor.LinearRegressionPredictor(),
-              predictor.test_predictor.RidgeRegressionPredictor()]
-              #predictor.test_predictor.LassoPredictor()]
+
 
     # print the model name and the mean mse for each year
     for model in models:
         print(str(model))
         print(evaluate_model_years(start_year, end_year, model).round(2))
 
-eval_all_models_years(2018, 2022)
+predictor_list = [predictor.test_predictor.PreviousDayPredictor(),
+                  predictor.test_predictor.AverageLastWeekPredictor()]
+weights = [0,1]
+model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)
+
+models = [predictor.test_predictor.PreviousDayPredictor(),
+              predictor.test_predictor.AverageLastWeekPredictor(),
+              #predictor.test_predictor.LinearRegressionPredictor(),
+              #predictor.test_predictor.RidgeRegressionPredictor(),
+              #predictor.test_predictor.LassoPredictor(),
+          model]
+
+eval_all_models_years(models,2018, 2022)
 
 
-# evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
-# evaluate_model_years(2018, 2022, predictor.test_predictor.AverageLastWeekPredictor())
-
-# evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
-#evaluate_model_years(2018, 2022, predictor.test_predictor.RidgeRegressionPredictor())
-
-# Testing Code
-#data = get_data_station_year("KDCA", 2023)
-#predict_station_day("KDCA", predictor.test_predictor.LinearRegressionPredictor(), data)

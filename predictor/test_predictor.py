@@ -414,8 +414,55 @@ class XGBoostPredictor:
         return predictions.reshape(-1)
 
 
+class WeightedPredictor(Predictor):
+    """
+    A predictor that combines predictions from multiple predictors using a weighted average.
+    """
+
+    def __init__(self, predictors, weights):
+        """
+        Initialize the WeightedPredictor.
+
+        Parameters:
+        - predictors: List of Predictor objects.
+        - weights: List of weights corresponding to the predictors.
+        """
+        if len(predictors) != len(weights):
+            raise ValueError("The number of predictors must match the number of weights.")
+
+        self.predictors = predictors
+        self.weights = np.array(weights) / np.sum(weights)  # Normalize weights
+
+    def predict(self, data, station):
+        """
+        Generate predictions as a weighted average of the individual predictor outputs.
+
+        Parameters:
+        - data: Input data for the predictors.
+        - station: Station name.
+
+        Returns:
+        - Weighted average predictions as a numpy array.
+        """
+        # Collect predictions from all predictors
+        all_predictions = []
+        for predictor in self.predictors:
+            predictions = predictor.predict(data, station)
+            all_predictions.append(predictions)
+
+        # Convert to a numpy array for matrix operations
+        all_predictions = np.array(all_predictions)  # Shape: (num_predictors, num_predictions)
+
+        # Calculate the weighted average
+        weighted_predictions = np.average(all_predictions, axis=0, weights=self.weights)
+
+        return weighted_predictions
+
+
 # Train Linear Regression model
-#model = LinearRegressionPredictor()
+predictor_list = [PreviousDayPredictor(),LinearRegressionPredictor()]
+weights = [0.5, 0.5]
+model = WeightedPredictor(predictor_list, weights)
 # model.train_and_save_model("predictor/models/LinearRegression/")
 #model.predict("../data/restructured_simple/PANC.csv", "PANC")
 
