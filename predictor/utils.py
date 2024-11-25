@@ -1,7 +1,7 @@
 import os
 import urllib.request
 import logging
-
+import datetime
 import pandas as pd
 import json
 
@@ -53,3 +53,21 @@ def load_data(data_folder):
     return station_to_processed_data
 
 
+def is_valid_date(year, month, day):
+  """
+  Checks if a given date is valid.
+
+  Args:
+    year (int): The year.
+    month (int): The month (1-12).
+    day (int): The day.
+
+  Returns:
+    bool: True if the date is valid, False otherwise.
+  """
+
+  try:
+    datetime.date(year, month, day)
+    return True
+  except ValueError:
+    return False
