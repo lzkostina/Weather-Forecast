@@ -189,7 +189,7 @@ predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
                   predictor.test_predictor.XGBoostPredictor()
                   ]
 
-testing_weight_predictor(predictor_list,2019,2022, 50)
+# testing_weight_predictor(predictor_list,2019,2022, 50)
 
 #weights = [0,1]
 #model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)

@@ -1,32 +1,6 @@
 [
     [
         {
-            "dt": 1730667600,
-            "main": {
-                "temp": 60.08,
-                "feels_like": 57.29,
-                "pressure": 1029,
-                "humidity": 32,
-                "temp_min": 56.48,
-                "temp_max": 62.42
-            },
-            "wind": {
-                "speed": 6.91,
-                "deg": 60
-            },
-            "clouds": {
-                "all": 0
-            },
-            "weather": [
-                {
-                    "id": 800,
-                    "main": "Clear",
-                    "description": "clear sky",
-                    "icon": "01d"
-                }
-            ]
-        },
-        {
             "dt": 1730671200,
             "main": {
                 "temp": 57.34,
@@ -4369,9 +4343,7 @@
                     "icon": "01d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731272400,
             "main": {
@@ -4397,7 +4369,9 @@
                     "icon": "03d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731276000,
             "main": {
@@ -8841,9 +8815,7 @@
                     "icon": "01d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731877200,
             "main": {
@@ -8869,7 +8841,9 @@
                     "icon": "01d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731880800,
             "main": {
@@ -13328,9 +13302,7 @@
                     "icon": "01d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1732482000,
             "main": {
@@ -13356,7 +13328,9 @@
                     "icon": "01d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1732485600,
             "main": {
@@ -13953,6 +13927,32 @@
                     "main": "Clear",
                     "description": "clear sky",
                     "icon": "01d"
+                }
+            ]
+        },
+        {
+            "dt": 1732568400,
+            "main": {
+                "temp": 57.58,
+                "feels_like": 55.62,
+                "pressure": 1016,
+                "humidity": 55,
+                "temp_min": 54.97,
+                "temp_max": 59.52
+            },
+            "wind": {
+                "speed": 6.91,
+                "deg": 170
+            },
+            "clouds": {
+                "all": 40
+            },
+            "weather": [
+                {
+                    "id": 802,
+                    "main": "Clouds",
+                    "description": "scattered clouds",
+                    "icon": "03d"
                 }
             ]
         }

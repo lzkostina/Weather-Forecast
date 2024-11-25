@@ -1,5 +1,4 @@
 Year,Month,Day,Time,Temperature (F),Feels Like (F),Temp Min (F),Temp Max (F),Pressure,Humidity,Wind Speed,Wind Deg,Wind Gust,Clouds All,Rain (1h),Snow (1h),Weather_description
-2024,11,3,14:00:00,70.12,68.52,67.91,72.52,1003,36,18.01,286,23.0,38,0.0,0,scattered clouds
 2024,11,3,15:00:00,69.96,68.22,66.63,72.5,1003,33,15.99,278,20.0,31,0.0,0,scattered clouds
 2024,11,3,16:00:00,66.45,64.72,62.6,69.89,1002,41,21.85,10,37.98,75,0.0,0,broken clouds
 2024,11,3,17:00:00,63.25,61.57,59.61,65.8,1003,49,5.01,330,8.01,29,0.0,0,scattered clouds
@@ -526,3 +525,4 @@ Year,Month,Day,Time,Temperature (F),Feels Like (F),Temp Min (F),Temp Max (F),Pre
 2024,11,25,11:00:00,68.68,66.81,65.59,72.14,1020,33,4.0,65,7.0,100,0.0,0,overcast clouds
 2024,11,25,12:00:00,71.53,69.84,68.76,74.62,1020,31,1.01,59,4.0,99,0.0,0,overcast clouds
 2024,11,25,13:00:00,73.92,72.34,71.37,76.15,1019,28,3.44,0,,75,0.0,0,broken clouds
+2024,11,25,14:00:00,75.25,73.74,72.91,77.7,1018,27,1.99,243,7.0,99,0.0,0,overcast clouds

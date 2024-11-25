@@ -1,32 +1,6 @@
 [
     [
         {
-            "dt": 1730667600,
-            "main": {
-                "temp": 47.89,
-                "feels_like": 42.58,
-                "pressure": 1009,
-                "humidity": 93,
-                "temp_min": 46.17,
-                "temp_max": 49.37
-            },
-            "wind": {
-                "speed": 12.66,
-                "deg": 130
-            },
-            "clouds": {
-                "all": 100
-            },
-            "weather": [
-                {
-                    "id": 701,
-                    "main": "Mist",
-                    "description": "mist",
-                    "icon": "50d"
-                }
-            ]
-        },
-        {
             "dt": 1730671200,
             "main": {
                 "temp": 48.02,
@@ -4477,9 +4451,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731272400,
             "main": {
@@ -4505,7 +4477,9 @@
                     "icon": "04d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731276000,
             "main": {
@@ -8953,9 +8927,7 @@
                     "icon": "01d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731877200,
             "main": {
@@ -8982,7 +8954,9 @@
                     "icon": "01d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731880800,
             "main": {
@@ -13529,9 +13503,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1732482000,
             "main": {
@@ -13558,7 +13530,9 @@
                     "icon": "04d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1732485600,
             "main": {
@@ -14172,6 +14146,33 @@
                     "main": "Clouds",
                     "description": "scattered clouds",
                     "icon": "03d"
+                }
+            ]
+        },
+        {
+            "dt": 1732568400,
+            "main": {
+                "temp": 28.8,
+                "feels_like": 16.66,
+                "pressure": 1021,
+                "humidity": 62,
+                "temp_min": 27.07,
+                "temp_max": 30.56
+            },
+            "wind": {
+                "speed": 17.27,
+                "deg": 290,
+                "gust": 31.07
+            },
+            "clouds": {
+                "all": 0
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "clear sky",
+                    "icon": "01d"
                 }
             ]
         }

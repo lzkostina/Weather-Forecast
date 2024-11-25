@@ -1,33 +1,6 @@
 [
     [
         {
-            "dt": 1730667600,
-            "main": {
-                "temp": 82.26,
-                "feels_like": 88.9,
-                "pressure": 1008,
-                "humidity": 78,
-                "temp_min": 79.18,
-                "temp_max": 84.22
-            },
-            "wind": {
-                "speed": 19.57,
-                "deg": 170,
-                "gust": 33.38
-            },
-            "clouds": {
-                "all": 75
-            },
-            "weather": [
-                {
-                    "id": 803,
-                    "main": "Clouds",
-                    "description": "broken clouds",
-                    "icon": "04d"
-                }
-            ]
-        },
-        {
             "dt": 1730671200,
             "main": {
                 "temp": 82.09,
@@ -4442,9 +4415,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731272400,
             "main": {
@@ -4470,7 +4441,9 @@
                     "icon": "04d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731276000,
             "main": {
@@ -8939,9 +8912,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731877200,
             "main": {
@@ -8968,7 +8939,9 @@
                     "icon": "04d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731880800,
             "main": {
@@ -13387,9 +13360,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1732482000,
             "main": {
@@ -13416,7 +13387,9 @@
                     "icon": "04d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1732485600,
             "main": {
@@ -14012,6 +13985,33 @@
             "wind": {
                 "speed": 16.11,
                 "deg": 200
+            },
+            "clouds": {
+                "all": 40
+            },
+            "weather": [
+                {
+                    "id": 802,
+                    "main": "Clouds",
+                    "description": "scattered clouds",
+                    "icon": "03d"
+                }
+            ]
+        },
+        {
+            "dt": 1732568400,
+            "main": {
+                "temp": 84.36,
+                "feels_like": 88.14,
+                "pressure": 1016,
+                "humidity": 60,
+                "temp_min": 82.22,
+                "temp_max": 86.32
+            },
+            "wind": {
+                "speed": 12.66,
+                "deg": 220,
+                "gust": 21.85
             },
             "clouds": {
                 "all": 40
