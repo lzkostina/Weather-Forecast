@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 
+
 def process_weather_data(data_file, hourly_data_file):
     data = pd.read_csv(data_file)
     hourly_data = pd.read_csv(hourly_data_file)
@@ -15,19 +16,17 @@ def process_weather_data(data_file, hourly_data_file):
     end_date = pd.to_datetime(datetime.today().strftime('%Y-%m-%d'))
 
     data.loc[
-        (data['YEAR'] == 2023) &
-        ((data['MONTH'] == 11) & (data['DAY'] >= 30)) |
-        (data['YEAR'] > 2023),
-        ['TAVG', 'TMIN', 'TMAX', 'PRCP', 'RHAV', 'WSF1']
+        (data['YEAR'] == 2024) &
+        ((data['MONTH'] == 11) & (data['DAY'] >= 15)),
+        ['TAVG', 'TMIN', 'TMAX', 'PRCP']
     ] = None  # Replace values of these columns to NA for this date range
 
     hourly_aggregated = hourly_data.groupby(['Year', 'Month', 'Day']).agg(
         TAVG=('Temperature (F)', 'mean'),  # Average Temperature to TAVG
-        TMIN=('Temp Min (F)', 'min'),      # Min Temp to TMIN
-        TMAX=('Temp Max (F)', 'max'),      # Max Temp to TMAX
-        PRCP=('Pressure', 'mean'),        # Pressure to PRCP
-        RHAV=('Humidity', 'mean'),        # Humidity to RHAV
-        WSF1=('Wind Speed', 'mean')       # Wind Speed to WSF1
+        TMIN=('Temp Min (F)', 'min'),  # Min Temp to TMIN
+        TMAX=('Temp Max (F)', 'max'),  # Max Temp to TMAX
+        PRCP=('Rain (1h)', 'sum'),  # Pressure to PRCP
+        SNOW=('Snow (1h)', 'sum')
     ).reset_index()
 
     # Rename the columns in hourly_aggregated to avoid conflict during merge
@@ -36,25 +35,28 @@ def process_weather_data(data_file, hourly_data_file):
         'TMIN': 'TMIN_new',
         'TMAX': 'TMAX_new',
         'PRCP': 'PRCP_new',
-        'RHAV': 'RHAV_new',
-        'WSF1': 'WSF1_new'
+        'SNOW': 'SNOW_new'
     })
 
     # Merge the aggregated hourly data with 'data', replacing NA values with hourly aggregated values
-    data = pd.merge(data, hourly_aggregated, how='left', left_on=['YEAR', 'MONTH', 'DAY'], right_on=['Year', 'Month', 'Day'])
+    data = pd.merge(data, hourly_aggregated, how='outer', left_on=['YEAR', 'MONTH', 'DAY'],
+                    right_on=['Year', 'Month', 'Day'])
 
-    # Step 8: Replace the NA values in the columns with the values from the aggregated hourly data
+    # Replace the NA values in the columns with the values from the aggregated hourly
+    data['YEAR'] = data['YEAR'].combine_first(data['Year']).astype(int)
+    data['MONTH'] = data['MONTH'].combine_first(data['Month']).astype(int)
+    data['DAY'] = data['DAY'].combine_first(data['Day']).astype(int)
+
+    data['TAVG'] = data['TAVG_new'].combine_first(data['TAVG'])
     data['TAVG'] = data['TAVG_new'].combine_first(data['TAVG'])  # Replace NA in 'TAVG' with hourly aggregated value
     data['TMIN'] = data['TMIN_new'].combine_first(data['TMIN'])  # Replace NA in 'TMIN' with hourly aggregated value
     data['TMAX'] = data['TMAX_new'].combine_first(data['TMAX'])  # Replace NA in 'TMAX' with hourly aggregated value
     data['PRCP'] = data['PRCP_new'].combine_first(data['PRCP'])  # Replace NA in 'PRCP' with hourly aggregated value
-    data['RHAV'] = data['RHAV_new'].combine_first(data['RHAV'])  # Replace NA in 'RHAV' with hourly aggregated value
-    data['WSF1'] = data['WSF1_new'].combine_first(data['WSF1'])  # Replace NA in 'WSF1' with hourly aggregated value
-
-    # Step 9: Drop the extra columns created during the merge (e.g., columns with '_new' suffix)
+    data['SNOW'] = data['SNOW_new'].combine_first(data['SNOW'])
+    # Drop the extra columns created during the merge (e.g., columns with '_new' suffix)
+    data['SNWD'] = data['SNWD'].fillna(0)
     data = data.drop(columns=[col for col in data.columns if col.endswith('_new') or col in ['Year', 'Month', 'Day']])
 
-    # Step 10: Return the final merged dataset
     return data
 
 
@@ -120,7 +122,7 @@ cities = {
 }
 
 # Directory paths (these should be adjusted to your specific directory structure)
-data_directory = "../data/restructured"
+data_directory = "../data/restructured_simple"
 hourly_data_directory = "../data/processed/openweather_hourly"
 
 # Process all weather data

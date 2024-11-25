@@ -65,17 +65,25 @@ def process_and_save_data(data_json, city_name):
             # Extract cloud coverage
             clouds_all = entry['clouds']['all']
 
+            # Extract rain and snow data, default to 0 if not present
+            rain = entry.get('rain', {}).get('1h', 0)
+            snow = entry.get('snow', {}).get('1h', 0)
             # Extract weather description
             weather_description = entry['weather'][0]['description']
 
             # Append the data as a row
-            rows.append([year, month, day, time, temp, feels_like, temp_min, temp_max, pressure, humidity, wind_speed,
-                         wind_deg, wind_gust, clouds_all, weather_description])
+            rows.append([
+                year, month, day, time, temp, feels_like, temp_min, temp_max,
+                pressure, humidity, wind_speed, wind_deg, wind_gust, clouds_all,
+                rain, snow, weather_description
+            ])
 
     # Create a DataFrame with the specified column names
-    df = pd.DataFrame(rows, columns=['Year', 'Month', 'Day', 'Time', 'Temperature (F)', 'Feels Like (F)',
-                                     'Temp Min (F)', 'Temp Max (F)', 'Pressure', 'Humidity', 'Wind Speed',
-                                     'Wind Deg', 'Wind Gust', 'Clouds All', 'Weather Description'])
+    df = pd.DataFrame(rows, columns=[
+        'Year', 'Month', 'Day', 'Time', 'Temperature (F)', 'Feels Like (F)',
+        'Temp Min (F)', 'Temp Max (F)', 'Pressure', 'Humidity', 'Wind Speed',
+        'Wind Deg', 'Wind Gust', 'Clouds All', 'Rain (1h)', 'Snow (1h)'
+    ])
 
     # Ensure the directory exists
     directory = '../data/processed/openweather_hourly'
