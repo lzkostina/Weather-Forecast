@@ -117,9 +117,12 @@ def create_regression_dataset(station):
     # Initialize an empty list to store the regression examples
     regression_examples = []
     # Loop through all days from 2014 to 2023
-    for year in range(2014, 2024):
+    for year in range(2014, 2025):
         for month in range(1, 13):
             for day in range(1, 32):
+
+                if year == 2024 and month >= 11:
+                    continue
                 # Skip days from November 15 to December 15
                 if month == 11 and day >= 15 and day <= 30:
                     continue
@@ -155,10 +158,13 @@ def create_regression_dataset_full(station):
     # Initialize an empty list to store the regression examples
     regression_examples = []
     # Loop through all days from 2014 to 2023
-    for year in range(2014, 2024):
+    for year in range(2014, 2025):
         for month in range(1, 13):
             for day in range(1, 32):
                 # Skip invalid dates
+                if year == 2024 and month >= 11:
+                    continue
+
                 if not is_valid_date(year, month, day):
                     continue
 
