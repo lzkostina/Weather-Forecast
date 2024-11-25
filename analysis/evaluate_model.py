@@ -48,7 +48,7 @@ def get_mse_station_day(station, year, month, day, predictor, data):
     actual_temps = actual_temps.tolist()
 
     # grab the data up to the current day
-    data = data.loc[:current_day_index]
+    data = data.loc[:current_day_index - 1]
 
     # Get the predicted temperatures for the next five days
     predicted_temps = predict_station_day(station, predictor, data)

@@ -18,8 +18,8 @@ import logging
 
 if __name__ == "__main__":
 
-    model = TestPredictor()
-    # model = PreviousDayPredictor()
+    # model = TestPredictor()
+    model = PreviousDayPredictor()
 
     # get current year, month, and day
     current_date = datetime.date.today()
