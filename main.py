@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # make predictions for all stations
     try:
         #predictions = make_predictions_all_stations(model, year, month, day)
-        predictions = predict((model)
+        predictions = predict(model, year, month, day)
         
     except Exception as e:
         logging.error(f"Error making predictions: {e}")
