@@ -28,11 +28,16 @@ process_data:
 	python3 analysis/create_regression_dataset.py || exit 1
 	@echo "Regression datasets created."
 
-# Target to train and save all models
+train_models_full:
+	@echo "Training models on full dataset..."
+	PYTHONPATH=$(CURDIR) python3 predictor/train_all_full_data.py || exit 1
+	@echo "Models trained and saved on full dataset."
+
 train_models:
-	@echo "Training models..."
-	PYTHONPATH=$(CURDIR) python3 predictor/train_models.py|| exit 1
-	@echo "Models trained and saved."
+	@echo "Training models on partial dataset..."
+	PYTHONPATH=$(CURDIR) python3 predictor/train_all_partial.py || exit 1
+	@echo "Models trained and saved on partial dataset."
+
 
 # Target to run the prediction script
 predictions:
