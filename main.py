@@ -93,6 +93,7 @@ if __name__ == "__main__":
         sys.exit(1)
 =======
     model = TestPredictor()
+<<<<<<< HEAD
     data = []
 <<<<<<< HEAD
     predictions = model.predict(data)
@@ -102,10 +103,18 @@ if __name__ == "__main__":
     predictions = model.predict(data, station)
 >>>>>>> 44fcec22fda7ed8c35aabc254c6efa6789e48ded
     
+=======
+        
+    data = [] 
+    station = None  
+
+    predictions = model.predict(data, station)
+>>>>>>> 5633b4665d8c8272a8ed94952084092ffc430c8a
     predictions_rounded = np.around(predictions, 1)
-    
+
     prediction_date = f"{datetime.date.today():%Y-%m-%d}"
-    
+
     fmt_str_contents = [prediction_date] + list([str(prediction) for prediction in predictions_rounded])
     fmt_str = ", ".join(fmt_str_contents)
+
     print(fmt_str)
