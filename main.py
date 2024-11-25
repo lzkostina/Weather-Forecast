@@ -94,8 +94,13 @@ if __name__ == "__main__":
 =======
     model = TestPredictor()
     data = []
+<<<<<<< HEAD
     predictions = model.predict(data)
 >>>>>>> c7bd8e9d9d4da17e0bf8dbd5229c0011dd40606b
+=======
+    station = None
+    predictions = model.predict(data, station)
+>>>>>>> 44fcec22fda7ed8c35aabc254c6efa6789e48ded
     
     # Ensure the predictions are numeric
     predictions_rounded = np.around(predictions, 1)
