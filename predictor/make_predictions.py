@@ -59,6 +59,8 @@ def make_predictions_all_stations(predictor, year, month, day):
     all_predictions = None
     for station in stations_list:
         predictions = make_predictions_station(predictor, year, month, day, station)
+        print(station)
+        print(predictions)
         if all_predictions is None:
             all_predictions = predictions
         else:

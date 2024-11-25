@@ -94,6 +94,11 @@ def restructure_climate_data(input_csv, output_csv):
     final_data = final_data.sort_values(by=['YEAR', 'MONTH', 'DAY'])  # Ensure data is sorted chronologically
     final_data = replace_invalid_temperatures(final_data)
 
+    # If SNWD, SNOW, or PRCP is <0, use 0
+    final_data['SNWD'] = final_data['SNWD'].apply(lambda x: 0 if x < 0 else x)
+    final_data['SNOW'] = final_data['SNOW'].apply(lambda x: 0 if x < 0 else x)
+    final_data['PRCP'] = final_data['PRCP'].apply(lambda x: 0 if x < 0 else x)
+
 
     # Save the restructured data to a new CSV file
     final_data.to_csv(output_csv, index=False)

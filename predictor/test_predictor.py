@@ -13,6 +13,8 @@ from predictor.utils import stations_list
 
 import warnings
 warnings.filterwarnings("ignore")
+np.set_printoptions(suppress=True, precision=2)
+
 
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -124,8 +126,10 @@ class LinearRegressionPredictor(Predictor):
         self.load_model(self.model_path, station)
         # Transform data
         X = self.transform_data_to_predict(data)
-        # X = np.zeros(150)
         X = X.reshape(1, -1)
+
+        print(station)
+        print(X)
         # Predict
         predictions = self.model.predict(X)
         return predictions.reshape(-1)
@@ -182,6 +186,7 @@ class RidgeRegressionPredictor(Predictor):
         X = self.transform_data_to_predict(data)
         # X = np.zeros(150)
         X = X.reshape(1, -1)
+
         # Predict
         predictions = self.model.predict(X)
         return predictions.reshape(-1)
@@ -406,9 +411,11 @@ class XGBoostPredictor:
         # Make predictions
         predictions = self.model.predict(X)
         return predictions.reshape(-1)
+
+
 # Train Linear Regression model
-#model = RandomForestPredictor()
-#model.train_and_save_model("predictor/models/RandomForest/")
+#model = LinearRegressionPredictor()
+# model.train_and_save_model("predictor/models/LinearRegression/")
 #model.predict("../data/restructured_simple/PANC.csv", "PANC")
 
 # summarize the model

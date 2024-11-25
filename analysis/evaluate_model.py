@@ -8,6 +8,7 @@ import predictor.test_predictor
 from predictor.utils import stations_list
 import warnings
 warnings.filterwarnings("ignore")
+np.set_printoptions(suppress=True, precision=2)
 
 # Helper function to get data for a specific station at a specific year.
 # Given the year X, we want data from Oct 1, X to Dec. 31, X.
@@ -125,11 +126,32 @@ def evaluate_model_years(start_year, end_year, predictor):
         # print(mse)
     # make mse_list into python list
     # mse_list = mse_list.tolist()
+
+    # round to 2 decimal places
+    mse_list = np.round(mse_list, 2)
     return mse_list
+
+# function to evaluate all models for a given amount of years
+def eval_all_models_years(start_year, end_year):
+    # create a list of all models in predictor.test_predictor
+    models = [predictor.test_predictor.PreviousDayPredictor(),
+              predictor.test_predictor.AverageLastWeekPredictor(),
+              predictor.test_predictor.LinearRegressionPredictor(),
+              predictor.test_predictor.RidgeRegressionPredictor()]
+              #predictor.test_predictor.LassoPredictor()]
+
+    # print the model name and the mean mse for each year
+    for model in models:
+        print(str(model))
+        print(evaluate_model_years(start_year, end_year, model).round(2))
+
+eval_all_models_years(2018, 2022)
+
 
 # evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
 # evaluate_model_years(2018, 2022, predictor.test_predictor.AverageLastWeekPredictor())
-#evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
+
+# evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
 #evaluate_model_years(2018, 2022, predictor.test_predictor.RidgeRegressionPredictor())
 
 # Testing Code
