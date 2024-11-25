@@ -67,7 +67,8 @@ if __name__ == "__main__":
 
     model = TestPredictor()
     data = []
-    predictions = model.predict(data)
+    station = None
+    predictions = model.predict(data, station)
     
     # Ensure the predictions are numeric
     predictions_rounded = np.around(predictions, 1)
