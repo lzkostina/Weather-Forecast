@@ -30,12 +30,12 @@ process_data:
 
 # Target to run the prediction script
 predictions:
-    @echo "Pulling current data..."
-    python3 analysis/download_openweather.py || exit 1
-    @echo "Combining new data to NOAA dataset..."
-    python3 analysis/combine_noaa_hourly.py || exit 1
-    @echo "Creating regression dataset..."
-    python3 analysis/create_regression_dataset.py || exit 1
+    	@echo "Pulling current data..."
+   	python3 analysis/download_openweather.py || exit 1
+    	@echo "Combining new data to NOAA dataset..."
+    	python3 analysis/combine_noaa_hourly.py || exit 1
+    	@echo "Creating regression dataset..."
+    	python3 analysis/create_regression_dataset.py || exit 1
 	@echo "Running predictions..."
 	python3 main.py || exit 1
 	@echo "Predictions complete."
