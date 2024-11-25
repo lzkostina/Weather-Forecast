@@ -8,8 +8,6 @@ clean_data:
 
 # Target to download data from Kaggle and NOAA
 download_data: clean_data
-	@echo "Downloading Kaggle dataset..."
-	python3 analysis/download_kaggle.py || exit 1
 	@echo "Downloading NOAA datasets..."
 	python3 analysis/download_noaa.py || exit 1
 	@echo "Downloading OpenWeather datasets..."
@@ -17,9 +15,7 @@ download_data: clean_data
 	@echo "Download complete."
 
 # Target to convert data from Kaggle and NOAA to dataframes
-process_data: 
-	@echo "Processing Kaggle dataset..."
-	python3 analysis/process_kaggle.py || exit 1
+process_data:
 	@echo "Processing NOAA datasets..."
 	python3 analysis/process_noaa.py || exit 1
 	@echo "Processing OpenWeather datasets..."
@@ -34,9 +30,16 @@ process_data:
 
 # Target to run the prediction script
 predictions:
+    @echo "Pulling current data..."
+    python3 analysis/download_openweather.py || exit 1
+    @echo "Combining new data to NOAA dataset..."
+    python3 analysis/combine_noaa_hourly.py || exit 1
+    @echo "Creating regression dataset..."
+    python3 analysis/create_regression_dataset.py || exit 1
 	@echo "Running predictions..."
 	python3 main.py || exit 1
 	@echo "Predictions complete."
+
 
 
     

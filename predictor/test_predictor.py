@@ -362,6 +362,11 @@ class XGBoostPredictor:
         """
         # Ensure the model path exists
         os.makedirs(self.model_path, exist_ok=True)
+        param_grid = {
+            'n_estimators': [100, 200],
+            'max_depth': [3, 6],
+            'learning_rate': [0.01, 0.1]
+        }
 
         for station in stations_list:
             print(f"Training model for station: {station}")
@@ -372,7 +377,7 @@ class XGBoostPredictor:
             # The first 153 columns are the features, the last 15 columns are the labels
             X = station_data.iloc[:, 3:153]
             y = station_data.iloc[:, 153:]
-
+            '''
             # Initialize the XGBoost model
             model = XGBRegressor(objective='reg:squarederror', learning_rate=0.01, max_depth = 6, n_estimators=200, random_state=42)
 
@@ -381,6 +386,28 @@ class XGBoostPredictor:
 
             # Save the model
             joblib.dump(model, os.path.join(self.model_path, f"{station}.joblib"))
+            '''
+            xgb = XGBRegressor(objective='reg:squarederror', random_state=42)
+
+            # Set up GridSearchCV for hyperparameter tuning with 5-fold CV
+            grid_search = GridSearchCV(
+                estimator=xgb,
+                param_grid=param_grid,
+                cv=3,
+                scoring='neg_mean_squared_error',
+                n_jobs=-1,
+                verbose=2
+            )
+
+            # Fit the GridSearchCV to find the best model
+            grid_search.fit(X, y)
+
+            # Extract the best model
+            best_model = grid_search.best_estimator_
+            print(f"Best parameters for station {station}: {grid_search.best_params_}")
+
+            # Save the best model
+            joblib.dump(best_model, os.path.join(self.model_path, f"{station}.joblib"))
 
     def load_model(self, station):
         """
