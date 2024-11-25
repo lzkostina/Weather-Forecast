@@ -17,8 +17,8 @@ import logging
 
 if __name__ == "__main__":
 
-    # model = TestPredictor()
-    model = predictor.test_predictor.LinearRegressionPredictor()
+    model = test_predictor.TestPredictor()
+    #model = predictor.test_predictor.LinearRegressionPredictor()
 
     # get current year, month, and day
     current_date = datetime.date.today()
@@ -27,7 +27,11 @@ if __name__ == "__main__":
     day = current_date.day
 
     # make predictions for all stations
-    predictions = make_predictions_all_stations(model, year, month, day)
+    try:
+        predictions = make_predictions_all_stations(model, year, month, day)
+    except Exception as e:
+        logging.error(f"Error making predictions: {e}")
+        sys.exit(1)
     
     # Ensure the predictions are numeric
     predictions_rounded = np.around(predictions, 1)
