@@ -70,7 +70,6 @@ if __name__ == "__main__":
     station = None
     predictions = model.predict(data, station)
     
-    # Ensure the predictions are numeric
     predictions_rounded = np.around(predictions, 1)
     
     prediction_date = f"{datetime.date.today():%Y-%m-%d}"
