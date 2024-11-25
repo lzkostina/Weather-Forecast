@@ -141,18 +141,62 @@ def eval_all_models_years(models, start_year, end_year):
         print(str(model))
         print(evaluate_model_years(start_year, end_year, model).round(2))
 
-predictor_list = [predictor.test_predictor.PreviousDayPredictor(),
-                  predictor.test_predictor.AverageLastWeekPredictor()]
-weights = [0,1]
-model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)
+# define a function that takes in a list of predictors and a year range, and returns the mean mse across the years,
+# for different weights of the models with WeightedPredictor
 
-models = [predictor.test_predictor.PreviousDayPredictor(),
-              predictor.test_predictor.AverageLastWeekPredictor(),
+def testing_weight_predictor(predictor_list, start_year, end_year, iters):
+    # get number of predictors
+    num_predictors = len(predictor_list)
+    # create a list of a list of weights to iterate through. Each row is a different set of weights,
+    # must have num_predictor floats, and sum to 1.
+    weights_list = np.random.dirichlet(np.ones(num_predictors), size=iters)
+
+    # create a list to store the mean mse for each set of weights
+    mse_list = []
+
+    # iterate through each set of weights
+    for weights in weights_list:
+        print("once")
+
+        # create a WeightedPredictor object with the given weights
+        model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)
+        # get the mean mse for the given set of weights
+        mse = evaluate_model_years(start_year, end_year, model)
+        # find mean of mse
+        mse = np.mean(mse)
+        # add to mse_list
+        mse_list.append(mse)
+
+    # combine the weights list with the mse list, and sort by mse lowest to highest
+    mse_list = np.array(mse_list)
+    weights_list = np.round(weights_list, 2)
+    mse_list = np.round(mse_list, 2)
+    combined = np.column_stack((weights_list, mse_list))
+    combined = combined[combined[:,num_predictors].argsort()]
+    return combined
+
+
+
+predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
+                  predictor.test_predictor.LinearRegressionPredictor(),
+                  predictor.test_predictor.RidgeRegressionPredictor(),
+                  predictor.test_predictor.LassoPredictor(),
+                  predictor.test_predictor.RandomForestPredictor(),
+                  predictor.test_predictor.XGBoostPredictor()
+                  ]
+
+testing_weight_predictor(predictor_list,2021,2022, 5)
+
+#weights = [0,1]
+#model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)
+
+# models = [predictor.test_predictor.PreviousDayPredictor(),
+              # predictor.test_predictor.AverageLastWeekPredictor(),
               #predictor.test_predictor.LinearRegressionPredictor(),
               #predictor.test_predictor.RidgeRegressionPredictor(),
               #predictor.test_predictor.LassoPredictor(),
-          model]
+          #model]
 
-eval_all_models_years(models,2018, 2022)
+# eval_all_models_years(predictor_list,2018, 2022)
 
 

@@ -486,10 +486,9 @@ class WeightedPredictor(Predictor):
         return weighted_predictions
 
 
-# Train Linear Regression model
-predictor_list = [PreviousDayPredictor(),LinearRegressionPredictor()]
-weights = [0.5, 0.5]
-model = WeightedPredictor(predictor_list, weights)
+#predictor_list = [PreviousDayPredictor(),LinearRegressionPredictor()]
+#weights = [0.5, 0.5]
+#model = WeightedPredictor(predictor_list, weights)
 # model.train_and_save_model("predictor/models/LinearRegression/")
 #model.predict("../data/restructured_simple/PANC.csv", "PANC")
 
