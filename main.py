@@ -66,14 +66,16 @@ import logging
 if __name__ == "__main__":
 
     model = TestPredictor()
-    data = []
-    station = None
+        
+    data = [] 
+    station = None  
+
     predictions = model.predict(data, station)
-    
     predictions_rounded = np.around(predictions, 1)
-    
+
     prediction_date = f"{datetime.date.today():%Y-%m-%d}"
-    
+
     fmt_str_contents = [prediction_date] + list([str(prediction) for prediction in predictions_rounded])
     fmt_str = ", ".join(fmt_str_contents)
+
     print(fmt_str)
