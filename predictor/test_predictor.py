@@ -128,8 +128,8 @@ class LinearRegressionPredictor(Predictor):
         X = self.transform_data_to_predict(data)
         X = X.reshape(1, -1)
 
-        print(station)
-        print(X)
+        # print(station)
+        # print(X)
         # Predict
         predictions = self.model.predict(X)
         return predictions.reshape(-1)

@@ -145,7 +145,7 @@ def eval_all_models_years(start_year, end_year):
         print(str(model))
         print(evaluate_model_years(start_year, end_year, model).round(2))
 
-eval_all_models_years(2018, 2022)
+# eval_all_models_years(2018, 2022)
 
 
 # evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
