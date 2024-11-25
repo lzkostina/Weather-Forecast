@@ -32,7 +32,6 @@ if __name__ == "__main__":
     except Exception as e:
         logging.error(f"Error making predictions: {e}")
         sys.exit(1)
-    predictions = make_predictions_all_stations(model, year, month, day)
     
     # Ensure the predictions are numeric
     predictions_rounded = np.around(predictions, 1)
