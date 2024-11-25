@@ -138,7 +138,40 @@ def create_regression_dataset(station):
 
     regression_df.to_csv(f'analysis/regression_data/{station}.csv', index=False)
 
+
+
+def create_regression_dataset_full(station):
+
+    """
+    Create the regression dataset for a given station.
+
+    Args:
+        station (str): The station for which to create the regression dataset.
+
+    Returns:
+        pd.DataFrame: The regression dataset for the specified station.
+    """
+    # Initialize an empty list to store the regression examples
+    regression_examples = []
+    # Loop through all days from 2014 to 2023
+    for year in range(2014, 2024):
+        for month in range(1, 13):
+            for day in range(1, 32):
+                # Skip invalid dates
+                if not is_valid_date(year, month, day):
+                    continue
+
+                # Create a regression example for the current day
+                example = create_regression_example(year, month, day, station)
+                regression_examples.append(example)
+
+    # Save the regression examples in a CSV
+    regression_df = pd.DataFrame(regression_examples)
+
+    regression_df.to_csv(f'analysis/regression_data_full/{station}.csv', index=False)
+
 # do the same for all stations
 for station in stations_list:
     create_regression_dataset(station)
+    create_regression_dataset_full(station)
     print(f"Created regression dataset for station {station}")
