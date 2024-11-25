@@ -14,7 +14,7 @@ np.set_printoptions(suppress=True, precision=2)
 # Given the year X, we want data from Oct 1, X to Dec. 31, X.
 # Input: station (string), year (int), directory (string)
 
-def get_data_station_year(station, year, directory = "data/restructured_simple/"):
+def get_data_station_year(station, year, directory = "../data/restructured_simple/"):
     # Get the data for the specified station and year
     filename = f"{station}.csv"
     file_path = os.path.join(directory, filename)
@@ -180,7 +180,7 @@ def testing_weight_predictor(predictor_list, start_year, end_year, iters):
     return combined
 
 
-
+'''
 predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
                   predictor.test_predictor.LinearRegressionPredictor(),
                   predictor.test_predictor.RidgeRegressionPredictor(),
@@ -188,8 +188,10 @@ predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
                   predictor.test_predictor.RandomForestPredictor(),
                   predictor.test_predictor.XGBoostPredictor()
                   ]
+'''
 
-testing_weight_predictor(predictor_list,2019,2022, 50)
+
+#testing_weight_predictor(predictor_list,2019,2022, 50)
 
 #weights = [0,1]
 #model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)
