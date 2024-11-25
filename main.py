@@ -1,6 +1,8 @@
 import os
 import sys
 
+import predictor.test_predictor
+
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 import numpy as np
@@ -8,9 +10,6 @@ import datetime
 
 from predictor import utils
 from predictor import test_predictor
-from predictor.test_predictor import Predictor
-from predictor.test_predictor import TestPredictor
-from predictor.test_predictor import PreviousDayPredictor
 from predictor.make_predictions import make_predictions_all_stations
 
 import logging
@@ -19,7 +18,7 @@ import logging
 if __name__ == "__main__":
 
     # model = TestPredictor()
-    model = PreviousDayPredictor()
+    model = predictor.test_predictor.PreviousDayPredictor()
 
     # get current year, month, and day
     current_date = datetime.date.today()

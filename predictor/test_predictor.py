@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 import numpy as np
 from abc import ABC, abstractmethod
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, RidgeCV
 import joblib
 from predictor.utils import stations_list
 
@@ -123,9 +123,62 @@ class LinearRegressionPredictor(Predictor):
         predictions = self.model.predict(X)
         return predictions.reshape(-1)
 
+class RidgeRegressionPredictor(Predictor):
+
+    def __init__(self, model_path="predictor/models/RidgeRegression/"):
+        self.model = None
+        self.model_path = model_path
+
+    def train_and_save_model(self, model_path):
+        """
+        Train a linear regression model and save it.
+        """
+        # Train the model
+        for station in stations_list:
+            # print station
+            print(station)
+
+            # Get the data for the specified station
+            station_data = pd.read_csv(f"analysis/regression_data/{station}.csv")
+            # The first 153 columns are the features, the last 15 columns are the labels
+            X = station_data.iloc[:, 3:153]
+            y = station_data.iloc[:, 153:]
+
+
+            # Train the model
+            model = RidgeCV()
+            model.fit(X, y)
+
+            # Save the model
+            joblib.dump(model, os.path.join(model_path, f"{station}.joblib"))
+
+    def load_model(self, model_path, station):
+        """
+        Load a linear regression model.
+        """
+        self.model = joblib.load(os.path.join(model_path, f"{station}.joblib"))
+
+    def transform_data_to_predict(self, data):
+        # Get the previous 30 days data of TMIN, TAVG, TMAX, SNOW, PRCP, flattened into a 1D array
+        previous_data = data[['TMIN', 'TAVG', 'TMAX', 'SNOW', 'PRCP']].tail(30).values
+        # print(np.shape(previous_data))
+        previous_data = previous_data.flatten()
+        return previous_data
+
+    def predict(self, data, station):
+        # Load model for station
+        self.load_model(self.model_path, station)
+        # Transform data
+        X = self.transform_data_to_predict(data)
+        # X = np.zeros(150)
+        X = X.reshape(1, -1)
+        # Predict
+        predictions = self.model.predict(X)
+        return predictions.reshape(-1)
+
 # Train Linear Regression model
-model = LinearRegressionPredictor()
-#model.train_and_save_model("predictor/models/LinearRegression/")
+model = RidgeRegressionPredictor()
+#model.train_and_save_model("predictor/models/RidgeRegression/")
 # model.predict("data/restructured_simple/KBNA.csv", "KBNA")
 
 # summarize the model

@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import predictor.test_predictor
 from predictor.utils import stations_list
+import warnings
+warnings.filterwarnings("ignore")
 
 # Helper function to get data for a specific station at a specific year.
 # Given the year X, we want data from Oct 1, X to Dec. 31, X.
@@ -88,7 +90,7 @@ def evaluate_model_station_year(station, year, predictor):
     avg_mse = np.mean(mses)
     return avg_mse
 
-evaluate_model_station_year("KSLC", 2019, predictor.test_predictor.LinearRegressionPredictor())
+# evaluate_model_station_year("KSLC", 2019, predictor.test_predictor.LinearRegressionPredictor())
 
 # Function to evaluate for all stations in a given year
 # Input: year (int), predictor (Predictor object)
@@ -127,8 +129,8 @@ def evaluate_model_years(start_year, end_year, predictor):
 
 # evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
 # evaluate_model_years(2018, 2022, predictor.test_predictor.AverageLastWeekPredictor())
-# evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
-
+evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
+evaluate_model_years(2018, 2022, predictor.test_predictor.RidgeRegressionPredictor())
 
 # Testing Code
 #data = get_data_station_year("KDCA", 2023)
