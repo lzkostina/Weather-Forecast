@@ -131,8 +131,7 @@ class LinearRegressionPredictor(Predictor):
         return previous_data
 
     def predict(self, data, station):
-        if isinstance(data, str):
-            data = pd.read_csv(data)   # Load model for station
+        # Load model for stationa_path)
         self.load_model(self.model_path, station)
         # Transform data
         X = self.transform_data_to_predict(data)
@@ -184,7 +183,7 @@ class RidgeRegressionPredictor(Predictor):
 
             # Save the model
 
-            joblib.dump(model, os.path.join(self.model_dir, f"{station}.joblib") )
+            joblib.dump(model, os.path.join(self.model_dir, f"{station}.joblib"))
 
     def load_model(self, model_path, station):
         """
@@ -201,8 +200,6 @@ class RidgeRegressionPredictor(Predictor):
 
     def predict(self, data, station):
         # Load model for station
-        if isinstance(data, str):              
-            data = pd.read_csv(data)
         self.load_model(self.model_path, station)
         # Transform data
         X = self.transform_data_to_predict(data)
@@ -272,8 +269,6 @@ class LassoPredictor(Predictor):
         """
         Predict using the loaded model for the specified station.
         """
-        if isinstance(data, str):
-            data = pd.read_csv(data)
         # Load the model for the station
         self.load_model(station)
         # Transform the data into the required format
@@ -366,8 +361,6 @@ class RandomForestPredictor:
         """
         Predict using the loaded model for the specified station.
         """
-        if isinstance(data, str):
-            data = pd.read_csv(data)
         # Load the model for the station
         self.load_model(station)
         # Transform the data into the required format
@@ -464,8 +457,6 @@ class XGBoostPredictor:
         """
         Predict using the loaded model for the specified station.
         """
-        if isinstance(data, str):
-            data = pd.read_csv(data)
         # Load the model for the station
         self.load_model(station)
         # Transform the data into the required format
