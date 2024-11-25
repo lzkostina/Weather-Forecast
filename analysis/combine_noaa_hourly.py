@@ -1,5 +1,8 @@
 import pandas as pd
 from datetime import datetime
+import warnings
+
+warnings.filterwarnings("ignore")
 
 
 def process_weather_data(data_file, hourly_data_file):
@@ -11,9 +14,6 @@ def process_weather_data(data_file, hourly_data_file):
     hourly_data['Year'] = hourly_data['Datetime'].dt.year
     hourly_data['Month'] = hourly_data['Datetime'].dt.month
     hourly_data['Day'] = hourly_data['Datetime'].dt.day
-
-    start_date = pd.to_datetime('2023-11-30')
-    end_date = pd.to_datetime(datetime.today().strftime('%Y-%m-%d'))
 
     data.loc[
         (data['YEAR'] == 2024) &

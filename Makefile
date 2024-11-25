@@ -28,17 +28,23 @@ process_data:
 	python3 analysis/create_regression_dataset.py || exit 1
 	@echo "Regression datasets created."
 
+# Target to train and save all models
+train_models:
+	@echo "Training models..."
+	PYTHONPATH=$(CURDIR) python3 predictor/train_models.py|| exit 1
+	@echo "Models trained and saved."
+
 # Target to run the prediction script
 predictions:
-    @echo "Pulling current data..."
-    python3 analysis/download_openweather.py || exit 1
-    @echo "Combining new data to NOAA dataset..."
-    python3 analysis/combine_noaa_hourly.py || exit 1
-    @echo "Creating regression dataset..."
-    python3 analysis/create_regression_dataset.py || exit 1
+	@echo "Downloading new data..."
+	python3 analysis/download_openweather.py || exit 1
+	@echo "Combining new data to NOAA dataset..."
+	python3 analysis/combine_noaa_hourly.py || exit 1
 	@echo "Running predictions..."
 	python3 main.py || exit 1
 	@echo "Predictions complete."
+
+
 
 
 

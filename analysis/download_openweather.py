@@ -39,7 +39,7 @@ os.makedirs(directory, exist_ok=True)
 
 # Define the time range: past 1 year (in Unix timestamps)
 end_time = int(time.time())  # Current time in Unix timestamp
-start_time = end_time - (20 * 24 * 3600)  # One year ago in Unix timestamp
+start_time = end_time - (22 * 24 * 3600)  # One year ago in Unix timestamp
 
 
 # Function to retrieve data for a specific time range
