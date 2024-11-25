@@ -129,8 +129,8 @@ def evaluate_model_years(start_year, end_year, predictor):
 
 # evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
 # evaluate_model_years(2018, 2022, predictor.test_predictor.AverageLastWeekPredictor())
-evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
-evaluate_model_years(2018, 2022, predictor.test_predictor.RidgeRegressionPredictor())
+#evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
+#evaluate_model_years(2018, 2022, predictor.test_predictor.RidgeRegressionPredictor())
 
 # Testing Code
 #data = get_data_station_year("KDCA", 2023)
