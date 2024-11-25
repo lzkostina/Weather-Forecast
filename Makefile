@@ -29,6 +29,8 @@ process_data:
 	@echo "Combining NOAA and OpenWeather..."
 	python3 analysis/combine_noaa_hourly.py || exit 1
 	@echo "Processing complete."
+	python3 analysis/create_regression_dataset.py || exit 1
+	@echo "Regression datasets created."
 
 # Target to run the prediction script
 predictions:

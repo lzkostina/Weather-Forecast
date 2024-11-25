@@ -54,13 +54,13 @@ def get_mse_station_day(station, year, month, day, predictor, data):
     predicted_temps = predict_station_day(station, predictor, data)
     # print(predicted_temps)
     # Calculate the mean squared error
-    #print(actual_temps)
+    # print(actual_temps)
     #print(predicted_temps)
     mse = np.mean((actual_temps - predicted_temps) ** 2)
     #print(mse)
     return mse
 
-# get_mse_station_day("KBNA", 2023, 11, 19, predictor.test_predictor.TestPredictor(), None)
+# get_mse_station_day("KSLC", 2023, 12, 1, predictor.test_predictor.TestPredictor(), None)
 
 
 # Evaluate the model on a given station and year
@@ -83,12 +83,12 @@ def evaluate_model_station_year(station, year, predictor):
             mse = get_mse_station_day(station, year, month, day, predictor, df)
             #print(mse)
             mses.append(mse)
-    #print(mses)
+    # print(mses)
     # Calculate the average MSE for the year
     avg_mse = np.mean(mses)
     return avg_mse
 
-evaluate_model_station_year("KDCA", 2023, predictor.test_predictor.TestPredictor())
+evaluate_model_station_year("KSLC", 2019, predictor.test_predictor.LinearRegressionPredictor())
 
 # Function to evaluate for all stations in a given year
 # Input: year (int), predictor (Predictor object)
@@ -109,7 +109,7 @@ def evaluate_model_year(year, predictor):
     mean_mse = np.mean(mse_list)
     return mean_mse
 
-# evaluate_model_year(2021, predictor.test_predictor.TestPredictor())
+# evaluate_model_year(2019, predictor.test_predictor.LinearRegressionPredictor())
 
 # Function to evaluate the model for a given amount of years
 # Input: start_year (int), end_year (int), predictor (Predictor object)
@@ -125,6 +125,11 @@ def evaluate_model_years(start_year, end_year, predictor):
     # mse_list = mse_list.tolist()
     return mse_list
 
-evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
-evaluate_model_years(2018, 2022, predictor.test_predictor.AverageLastWeekPredictor())
+# evaluate_model_years(2018, 2022, predictor.test_predictor.PreviousDayPredictor())
+# evaluate_model_years(2018, 2022, predictor.test_predictor.AverageLastWeekPredictor())
+# evaluate_model_years(2018, 2022, predictor.test_predictor.LinearRegressionPredictor())
 
+
+# Testing Code
+#data = get_data_station_year("KDCA", 2023)
+#predict_station_day("KDCA", predictor.test_predictor.LinearRegressionPredictor(), data)
