@@ -1,6 +1,26 @@
 import pandas as pd
 import numpy as np
 import os
+import datetime
+
+def is_valid_date(year, month, day):
+  """
+  Checks if a given date is valid.
+
+  Args:
+    year (int): The year.
+    month (int): The month (1-12).
+    day (int): The day.
+
+  Returns:
+    bool: True if the date is valid, False otherwise.
+  """
+
+  try:
+    datetime.date(year, month, day)
+    return True
+  except ValueError:
+    return False
 
 
 def restructure_climate_data(input_csv, output_csv):
@@ -41,8 +61,9 @@ def restructure_climate_data(input_csv, output_csv):
         if col in final_data.columns:
             final_data[col] = final_data[col].apply(lambda x: (x / 10 * 9 / 5 + 32)  if pd.notna(x) else x)
 
-    # Remove days with TMIN less than 1000
-    final_data = final_data[final_data['TMIN'] >= -1000]
+    # Remove days that are invalid
+    final_data = final_data[
+        final_data.apply(lambda x: is_valid_date(int(x['YEAR']), int(x['MONTH']), int(x['DAY'])), axis=1)]
 
 
     # Filter out columns that have 4000 or more missing values for the years 2014-2024
@@ -50,6 +71,15 @@ def restructure_climate_data(input_csv, output_csv):
     # missing_values_count_filtered = filtered_data.isna().sum()
     # columns_to_drop = missing_values_count_filtered[missing_values_count_filtered >= 4000].index
     # final_data = final_data.drop(columns=columns_to_drop)
+
+    # If missing value for TAVG, calculate the average of TMAX and TMIN
+    final_data['TAVG'] = final_data.apply(
+        lambda x: (x['TMAX'] + x['TMIN']) / 2 if pd.isna(x['TAVG']) else x['TAVG'], axis=1)
+
+    # If missing value for SNOW or SNWD, fill with 0
+    final_data['SNOW'] = final_data['SNOW'].fillna(0)
+    final_data['SNWD'] = final_data['SNWD'].fillna(0)
+
 
     # Save the restructured data to a new CSV file
     final_data.to_csv(output_csv, index=False)
@@ -62,16 +92,29 @@ def count_missing_values(output_csv):
     final_data = pd.read_csv(output_csv)
 
     # 1) Count rows with missing values for each column
-    missing_values_count = final_data.isna().sum().sort_values()
-    print("Missing values for each column (sorted low to high):")
-    pd.set_option('display.max_rows', None)
-    print(missing_values_count)
+    #missing_values_count = final_data.isna().sum().sort_values()
+    #print("Missing values for each column (sorted low to high):")
+    #pd.set_option('display.max_rows', None)
+    #print(missing_values_count)
 
     # 2) Count rows with missing values for each column for the years 2014-2024
-    filtered_data = final_data[(final_data['YEAR'] >= 2014) & (final_data['YEAR'] <= 2024)]
+    filtered_data = final_data[(final_data['YEAR'] >= 2014) & (final_data['YEAR'] <= 2023)]
     missing_values_count_filtered = filtered_data.isna().sum().sort_values()
     print("Missing values for each column (2014-2024, sorted low to high):")
     print(missing_values_count_filtered)
+
+# Print missing values for all stations
+def count_missing_values_all_stations(input_directory):
+    # Process all CSV files in the specified directory
+    for filename in os.listdir(input_directory):
+        if filename.endswith('.csv') and len(filename) == 8:
+            input_csv = os.path.join(input_directory, filename)
+            print(f"Counting missing values for file: {filename}")
+            count_missing_values(input_csv)
+
+    print("Missing value counting complete for all files in the directory.")
+
+# count_missing_values_all_stations('data/restructured_simple')
 
 
 def create_core_elements_dataset(output_csv, core_output_csv):
@@ -105,3 +148,4 @@ def process_all_files_in_directory(input_directory, output_directory, core_outpu
 process_all_files_in_directory('data/processed',
                                'data/restructured',
                                'data/restructured_simple')
+
