@@ -47,12 +47,12 @@ process_data:
 
 train_models_full:
 	@echo "Training models on full dataset..."
-	PYTHONPATH=$(CURDIR) . /Weather-Forecast/venv/bin/activate && python3 predictor/train_all_full_data.py || exit 1
+	. /Weather-Forecast/venv/bin/activate && python3 predictor/train_all_full_data.py || exit 1
 	@echo "Models trained and saved on full dataset."
 
 train_models:
 	@echo "Training models on partial dataset..."
-	PYTHONPATH=$(CURDIR) . /Weather-Forecast/venv/bin/activate && python3 predictor/train_all_partial.py || exit 1
+	. /Weather-Forecast/venv/bin/activate && python3 predictor/train_all_partial.py || exit 1
 	@echo "Models trained and saved on partial dataset."
 
 
