@@ -83,7 +83,7 @@ def process_all_weather_data(data_directory, hourly_data_directory, locations):
         data_file = f"{data_directory}/{airport_id}.csv"
 
         if os.path.exists(data_file) and os.path.exists(hourly_data_file):
-            print(f"Processing data for {city}...")
+            #print(f"Processing data for {city}...")
 
             # Process the data using the process_weather_data function
             final_data = process_weather_data(data_file, hourly_data_file)
@@ -91,7 +91,7 @@ def process_all_weather_data(data_directory, hourly_data_directory, locations):
             # Save the processed data to the 'combined' directory
             output_file = os.path.join(combined_directory, f"{airport_id}.csv")
             final_data.to_csv(output_file, index=False)
-            print(f"Processed data saved to {output_file}")
+            #print(f"Processed data saved to {output_file}")
 
         else:
             print(f"Files not found for {city}. Skipping...")
