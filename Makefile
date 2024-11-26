@@ -1,19 +1,19 @@
-.PHONY: download_data clean_data process_data predictions clean rawdata
+.PHONY: download_data process_data predictions clean rawdata
 
 # Target to clean up the original and processed data directories
-clean_data:
+clean:
 	@echo "Cleaning up data/processed directories..."
 	rm -rf data/processed
 	@echo "Cleaning complete."
 
-# Target to delete all except code and raw data
-clean:
-	@echo "Cleaning project directory..."
-	# Remove everything except .py, .md files, raw data directory, and .git directory
-	find . -type f ! -name '*.py' ! -name '*.md' ! -path './data/raw/*' ! -path './.git/*' -delete
-	# Remove all non-empty directories except for the raw data directory and .git directory
-	find . -type d ! -path './data/raw' ! -path './.git' -empty -delete
-	@echo "Project cleaned except for code, raw data, and git repository."
+## Target to delete all except code and raw data
+#clean:
+#	@echo "Cleaning project directory..."
+#	# Remove everything except .py, .md files, raw data directory, and .git directory
+#	find . -type f ! -name '*.py' ! -name '*.md' ! -path './data/raw/*' ! -path './.git/*' -delete
+#	# Remove all non-empty directories except for the raw data directory and .git directory
+#	find . -type d ! -path './data/raw' ! -path './.git' -empty -delete
+#	@echo "Project cleaned except for code, raw data, and git repository."
 
 # Target to delete and re-download raw data
 rawdata: clean_data
