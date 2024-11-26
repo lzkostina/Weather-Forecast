@@ -61,19 +61,10 @@ predictions:
 
 	@echo "Activating virtual environment and downloading new data..."
 	. /Weather-Forecast/venv/bin/activate && python3 analysis/download_openweather.py || exit 1
-	@echo "Combining new data to NOAA dataset..."
-	. /Weather-Forecast/venv/bin/activate && python3 analysis/combine_noaa_hourly.py || exit 1
-	@echo "Processing NOAA datasets..."
-	. /Weather-Forecast/venv/bin/activate && python3 analysis/process_noaa.py || exit 1
 	@echo "Processing OpenWeather datasets..."
 	. /Weather-Forecast/venv/bin/activate && python3 analysis/process_openweather.py || exit 1
-	@echo "Restructuring NOAA datasets..."
-	. /Weather-Forecast/venv/bin/activate && python3 analysis/restructure_noaa.py || exit 1
-	@echo "Combining NOAA and OpenWeather..."
+	@echo "Combining new data to NOAA dataset..."
 	. /Weather-Forecast/venv/bin/activate && python3 analysis/combine_noaa_hourly.py || exit 1
-	@echo "Processing complete."
-	. /Weather-Forecast/venv/bin/activate && python3 analysis/create_regression_dataset.py || exit 1
-	@echo "Regression datasets created."
 	@echo "Running predictions..."
 	. /Weather-Forecast/venv/bin/activate && python3 main.py || exit 1
 	@echo "Predictions complete."
