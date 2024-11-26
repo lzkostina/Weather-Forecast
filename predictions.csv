@@ -1,0 +1,344 @@
+Activating virtual environment and downloading new data...
+. /Weather-Forecast/venv/bin/activate && python3 analysis/download_openweather.py || exit 1
+Data retrieval successful for Anchorage from 2024-11-04 to 2024-11-11
+Data retrieval successful for Anchorage from 2024-11-11 to 2024-11-18
+Data retrieval successful for Anchorage from 2024-11-18 to 2024-11-25
+Data retrieval successful for Anchorage from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Anchorage_hourly_data.json'.
+Data retrieval successful for Boise from 2024-11-04 to 2024-11-11
+Data retrieval successful for Boise from 2024-11-11 to 2024-11-18
+Data retrieval successful for Boise from 2024-11-18 to 2024-11-25
+Data retrieval successful for Boise from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Boise_hourly_data.json'.
+Data retrieval successful for Chicago from 2024-11-04 to 2024-11-11
+Data retrieval successful for Chicago from 2024-11-11 to 2024-11-18
+Data retrieval successful for Chicago from 2024-11-18 to 2024-11-25
+Data retrieval successful for Chicago from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Chicago_hourly_data.json'.
+Data retrieval successful for Denver from 2024-11-04 to 2024-11-11
+Data retrieval successful for Denver from 2024-11-11 to 2024-11-18
+Data retrieval successful for Denver from 2024-11-18 to 2024-11-25
+Data retrieval successful for Denver from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Denver_hourly_data.json'.
+Data retrieval successful for Detroit from 2024-11-04 to 2024-11-11
+Data retrieval successful for Detroit from 2024-11-11 to 2024-11-18
+Data retrieval successful for Detroit from 2024-11-18 to 2024-11-25
+Data retrieval successful for Detroit from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Detroit_hourly_data.json'.
+Data retrieval successful for Honolulu from 2024-11-04 to 2024-11-11
+Data retrieval successful for Honolulu from 2024-11-11 to 2024-11-18
+Data retrieval successful for Honolulu from 2024-11-18 to 2024-11-25
+Data retrieval successful for Honolulu from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Honolulu_hourly_data.json'.
+Data retrieval successful for Houston from 2024-11-04 to 2024-11-11
+Data retrieval successful for Houston from 2024-11-11 to 2024-11-18
+Data retrieval successful for Houston from 2024-11-18 to 2024-11-25
+Data retrieval successful for Houston from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Houston_hourly_data.json'.
+Data retrieval successful for Miami from 2024-11-04 to 2024-11-11
+Data retrieval successful for Miami from 2024-11-11 to 2024-11-18
+Data retrieval successful for Miami from 2024-11-18 to 2024-11-25
+Data retrieval successful for Miami from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Miami_hourly_data.json'.
+Data retrieval successful for Minneapolis from 2024-11-04 to 2024-11-11
+Data retrieval successful for Minneapolis from 2024-11-11 to 2024-11-18
+Data retrieval successful for Minneapolis from 2024-11-18 to 2024-11-25
+^[[AData retrieval successful for Minneapolis from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Minneapolis_hourly_data.json'.
+Data retrieval successful for Oklahoma City from 2024-11-04 to 2024-11-11
+Data retrieval successful for Oklahoma City from 2024-11-11 to 2024-11-18
+Data retrieval successful for Oklahoma City from 2024-11-18 to 2024-11-25
+Data retrieval successful for Oklahoma City from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Oklahoma City_hourly_data.json'.
+^[[AData retrieval successful for Nashville from 2024-11-04 to 2024-11-11
+^[[AData retrieval successful for Nashville from 2024-11-11 to 2024-11-18
+Data retrieval successful for Nashville from 2024-11-18 to 2024-11-25
+Data retrieval successful for Nashville from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Nashville_hourly_data.json'.
+Data retrieval successful for New York from 2024-11-04 to 2024-11-11
+Data retrieval successful for New York from 2024-11-11 to 2024-11-18
+Data retrieval successful for New York from 2024-11-18 to 2024-11-25
+Data retrieval successful for New York from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/New York_hourly_data.json'.
+Data retrieval successful for Phoenix from 2024-11-04 to 2024-11-11
+Data retrieval successful for Phoenix from 2024-11-11 to 2024-11-18
+Data retrieval successful for Phoenix from 2024-11-18 to 2024-11-25
+Data retrieval successful for Phoenix from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Phoenix_hourly_data.json'.
+Data retrieval successful for Portland ME from 2024-11-04 to 2024-11-11
+Data retrieval successful for Portland ME from 2024-11-11 to 2024-11-18
+^[[AData retrieval successful for Portland ME from 2024-11-18 to 2024-11-25
+^[[BData retrieval successful for Portland ME from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Portland ME_hourly_data.json'.
+Data retrieval successful for Portland OR from 2024-11-04 to 2024-11-11
+Data retrieval successful for Portland OR from 2024-11-11 to 2024-11-18
+Data retrieval successful for Portland OR from 2024-11-18 to 2024-11-25
+Data retrieval successful for Portland OR from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Portland OR_hourly_data.json'.
+Data retrieval successful for Salt Lake City from 2024-11-04 to 2024-11-11
+Data retrieval successful for Salt Lake City from 2024-11-11 to 2024-11-18
+Data retrieval successful for Salt Lake City from 2024-11-18 to 2024-11-25
+Data retrieval successful for Salt Lake City from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Salt Lake City_hourly_data.json'.
+Data retrieval successful for San Diego from 2024-11-04 to 2024-11-11
+Data retrieval successful for San Diego from 2024-11-11 to 2024-11-18
+Data retrieval successful for San Diego from 2024-11-18 to 2024-11-25
+Data retrieval successful for San Diego from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/San Diego_hourly_data.json'.
+^[[BData retrieval successful for San Francisco from 2024-11-04 to 2024-11-11
+Data retrieval successful for San Francisco from 2024-11-11 to 2024-11-18
+Data retrieval successful for San Francisco from 2024-11-18 to 2024-11-25
+Data retrieval successful for San Francisco from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/San Francisco_hourly_data.json'.
+Data retrieval successful for Seattle from 2024-11-04 to 2024-11-11
+Data retrieval successful for Seattle from 2024-11-11 to 2024-11-18
+Data retrieval successful for Seattle from 2024-11-18 to 2024-11-25
+Data retrieval successful for Seattle from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Seattle_hourly_data.json'.
+Data retrieval successful for Washington DC from 2024-11-04 to 2024-11-11
+Data retrieval successful for Washington DC from 2024-11-11 to 2024-11-18
+Data retrieval successful for Washington DC from 2024-11-18 to 2024-11-25
+Data retrieval successful for Washington DC from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Washington DC_hourly_data.json'.
+Processing OpenWeather datasets...
+. /Weather-Forecast/venv/bin/activate && python3 analysis/process_openweather.py || exit 1
+/Weather-Forecast/analysis/process_openweather.py:42: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+  dt_utc = datetime.utcfromtimestamp(entry['dt']).replace(tzinfo=pytz.utc)
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Minneapolis_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Salt Lake City_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Oklahoma City_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Houston_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Detroit_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Phoenix_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Portland ME_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Miami_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/San Francisco_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/San Diego_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Honolulu_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Nashville_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Anchorage_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/New York_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Portland OR_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Boise_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Chicago_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Denver_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Washington DC_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Seattle_hourly_data.csv'.
+Combining new data to NOAA dataset...
+. /Weather-Forecast/venv/bin/activate && python3 analysis/combine_noaa_hourly.py || exit 1
+Processing data for Anchorage...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/PANC.csv
+Processing data for Boise...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KBOI.csv
+Processing data for Chicago...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KORD.csv
+Processing data for Denver...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KDEN.csv
+Processing data for Detroit...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KDTW.csv
+Processing data for Honolulu...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/PHNL.csv
+Processing data for Houston...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KIAH.csv
+Processing data for Miami...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KMIA.csv
+Processing data for Minneapolis...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KMSP.csv
+Processing data for Oklahoma City...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KOKC.csv
+Processing data for Nashville...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KBNA.csv
+Processing data for New York...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KJFK.csv
+Processing data for Phoenix...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KPHX.csv
+Processing data for Portland ME...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KPWM.csv
+Processing data for Portland OR...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KPDX.csv
+Processing data for Salt Lake City...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KSLC.csv
+Processing data for San Diego...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KSAN.csv
+Processing data for San Francisco...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KSFO.csv
+Processing data for Seattle...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KSEA.csv
+Processing data for Washington DC...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KDCA.csv
+Running predictions...
+. /Weather-Forecast/venv/bin/activate && python3 main.py || exit 1
+2024-11-26, 28.3, 33.1, 38.4, 26.7, 32.6, 37.5, 26.3, 31.7, 37.8, 27.1, 31.6, 35.9, 24.7, 31.2, 36.6, 33.3, 42.8, 53.2, 33.8, 43.4, 53.3, 33.6, 42.4, 52.4, 33.2, 41.7, 50.4, 31.9, 40.1, 49.9, 35.3, 43.7, 50.9, 36.4, 44.7, 53.2, 37.3, 44.5, 51.0, 35.9, 43.9, 51.3, 33.9, 42.6, 49.7, 24.0, 36.6, 50.3, 22.3, 35.4, 47.3, 20.9, 33.5, 46.4, 20.5, 33.2, 46.9, 20.1, 33.6, 47.3, 36.4, 43.1, 49.2, 36.3, 43.2, 50.4, 36.2, 42.5, 48.6, 35.1, 42.3, 49.0, 33.8, 41.9, 48.5, 69.2, 75.5, 82.6, 69.3, 75.3, 82.3, 69.4, 75.3, 82.4, 69.8, 75.6, 82.6, 70.0, 75.6, 82.7, 58.7, 70.5, 81.6, 56.8, 68.4, 79.8, 59.2, 68.9, 80.8, 59.9, 70.2, 82.1, 59.7, 71.0, 82.0, 63.8, 72.0, 80.8, 64.5, 72.7, 81.2, 65.0, 73.0, 81.4, 66.1, 73.7, 82.2, 66.7, 74.0, 81.8, 23.8, 30.5, 39.6, 25.4, 33.1, 42.2, 25.4, 34.9, 43.5, 23.3, 32.3, 41.2, 24.5, 32.4, 40.7, 41.9, 50.8, 64.1, 43.0, 53.2, 63.5, 40.6, 51.8, 64.2, 41.1, 52.2, 64.5, 41.9, 53.0, 67.5, 49.3, 59.5, 68.8, 46.9, 57.5, 66.3, 44.9, 54.2, 64.2, 45.0, 55.0, 65.9, 44.7, 54.8, 64.5, 39.4, 47.1, 55.4, 39.8, 48.1, 55.8, 40.1, 48.2, 57.2, 41.1, 48.6, 56.4, 40.9, 48.2, 55.6, 52.0, 72.7, 78.8, 51.5, 59.6, 77.4, 50.5, 57.7, 76.4, 50.0, 56.2, 76.3, 49.9, 50.6, 75.4, 32.1, 41.9, 52.4, 33.6, 43.2, 51.1, 36.3, 44.5, 53.3, 36.7, 45.5, 53.3, 35.1, 43.7, 51.7, 39.9, 46.4, 53.7, 40.1, 46.6, 53.9, 39.8, 47.0, 55.4, 39.2, 46.9, 54.0, 39.4, 46.3, 54.0, 24.9, 34.6, 45.5, 26.6, 35.6, 46.5, 26.9, 36.8, 46.0, 25.8, 35.3, 46.2, 26.6, 35.0, 44.8, 49.6, 62.8, 77.0, 50.4, 62.0, 73.7, 49.2, 60.3, 71.9, 48.2, 59.4, 70.5, 48.5, 58.3, 67.9, 46.5, 52.4, 58.6, 46.6, 53.0, 60.9, 46.7, 54.2, 62.2, 46.7, 54.4, 62.8, 47.0, 54.3, 62.9, 41.0, 45.4, 51.8, 40.0, 46.1, 53.0, 40.2, 46.0, 53.1, 40.3, 46.6, 53.5, 40.4, 46.4, 53.0, 37.7, 47.9, 58.6, 41.1, 50.6, 61.3, 42.1, 51.3, 60.8, 42.9, 51.9, 61.6, 43.2, 51.7, 59.8
+Predictions complete.
+Activating virtual environment and downloading new data...
+. /Weather-Forecast/venv/bin/activate && python3 analysis/download_openweather.py || exit 1
+Data retrieval successful for Anchorage from 2024-11-04 to 2024-11-11
+Data retrieval successful for Anchorage from 2024-11-11 to 2024-11-18
+Data retrieval successful for Anchorage from 2024-11-18 to 2024-11-25
+Data retrieval successful for Anchorage from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Anchorage_hourly_data.json'.
+Data retrieval successful for Boise from 2024-11-04 to 2024-11-11
+Data retrieval successful for Boise from 2024-11-11 to 2024-11-18
+Data retrieval successful for Boise from 2024-11-18 to 2024-11-25
+Data retrieval successful for Boise from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Boise_hourly_data.json'.
+Data retrieval successful for Chicago from 2024-11-04 to 2024-11-11
+Data retrieval successful for Chicago from 2024-11-11 to 2024-11-18
+Data retrieval successful for Chicago from 2024-11-18 to 2024-11-25
+Data retrieval successful for Chicago from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Chicago_hourly_data.json'.
+Data retrieval successful for Denver from 2024-11-04 to 2024-11-11
+Data retrieval successful for Denver from 2024-11-11 to 2024-11-18
+Data retrieval successful for Denver from 2024-11-18 to 2024-11-25
+Data retrieval successful for Denver from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Denver_hourly_data.json'.
+Data retrieval successful for Detroit from 2024-11-04 to 2024-11-11
+Data retrieval successful for Detroit from 2024-11-11 to 2024-11-18
+^ZData retrieval successful for Detroit from 2024-11-18 to 2024-11-25
+Data retrieval successful for Detroit from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Detroit_hourly_data.json'.
+Data retrieval successful for Honolulu from 2024-11-04 to 2024-11-11
+Data retrieval successful for Honolulu from 2024-11-11 to 2024-11-18
+Data retrieval successful for Honolulu from 2024-11-18 to 2024-11-25
+Data retrieval successful for Honolulu from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Honolulu_hourly_data.json'.
+Data retrieval successful for Houston from 2024-11-04 to 2024-11-11
+Data retrieval successful for Houston from 2024-11-11 to 2024-11-18
+Data retrieval successful for Houston from 2024-11-18 to 2024-11-25
+Data retrieval successful for Houston from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Houston_hourly_data.json'.
+Data retrieval successful for Miami from 2024-11-04 to 2024-11-11
+Data retrieval successful for Miami from 2024-11-11 to 2024-11-18
+Data retrieval successful for Miami from 2024-11-18 to 2024-11-25
+Data retrieval successful for Miami from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Miami_hourly_data.json'.
+Data retrieval successful for Minneapolis from 2024-11-04 to 2024-11-11
+Data retrieval successful for Minneapolis from 2024-11-11 to 2024-11-18
+Data retrieval successful for Minneapolis from 2024-11-18 to 2024-11-25
+Data retrieval successful for Minneapolis from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Minneapolis_hourly_data.json'.
+Data retrieval successful for Oklahoma City from 2024-11-04 to 2024-11-11
+Data retrieval successful for Oklahoma City from 2024-11-11 to 2024-11-18
+Data retrieval successful for Oklahoma City from 2024-11-18 to 2024-11-25
+Data retrieval successful for Oklahoma City from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Oklahoma City_hourly_data.json'.
+Data retrieval successful for Nashville from 2024-11-04 to 2024-11-11
+Data retrieval successful for Nashville from 2024-11-11 to 2024-11-18
+Data retrieval successful for Nashville from 2024-11-18 to 2024-11-25
+Data retrieval successful for Nashville from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Nashville_hourly_data.json'.
+Data retrieval successful for New York from 2024-11-04 to 2024-11-11
+Data retrieval successful for New York from 2024-11-11 to 2024-11-18
+Data retrieval successful for New York from 2024-11-18 to 2024-11-25
+Data retrieval successful for New York from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/New York_hourly_data.json'.
+Data retrieval successful for Phoenix from 2024-11-04 to 2024-11-11
+Data retrieval successful for Phoenix from 2024-11-11 to 2024-11-18
+Data retrieval successful for Phoenix from 2024-11-18 to 2024-11-25
+Data retrieval successful for Phoenix from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Phoenix_hourly_data.json'.
+Data retrieval successful for Portland ME from 2024-11-04 to 2024-11-11
+Data retrieval successful for Portland ME from 2024-11-11 to 2024-11-18
+Data retrieval successful for Portland ME from 2024-11-18 to 2024-11-25
+Data retrieval successful for Portland ME from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Portland ME_hourly_data.json'.
+Data retrieval successful for Portland OR from 2024-11-04 to 2024-11-11
+Data retrieval successful for Portland OR from 2024-11-11 to 2024-11-18
+Data retrieval successful for Portland OR from 2024-11-18 to 2024-11-25
+Data retrieval successful for Portland OR from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Portland OR_hourly_data.json'.
+Data retrieval successful for Salt Lake City from 2024-11-04 to 2024-11-11
+Data retrieval successful for Salt Lake City from 2024-11-11 to 2024-11-18
+Data retrieval successful for Salt Lake City from 2024-11-18 to 2024-11-25
+Data retrieval successful for Salt Lake City from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Salt Lake City_hourly_data.json'.
+Data retrieval successful for San Diego from 2024-11-04 to 2024-11-11
+Data retrieval successful for San Diego from 2024-11-11 to 2024-11-18
+Data retrieval successful for San Diego from 2024-11-18 to 2024-11-25
+Data retrieval successful for San Diego from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/San Diego_hourly_data.json'.
+Data retrieval successful for San Francisco from 2024-11-04 to 2024-11-11
+Data retrieval successful for San Francisco from 2024-11-11 to 2024-11-18
+Data retrieval successful for San Francisco from 2024-11-18 to 2024-11-25
+Data retrieval successful for San Francisco from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/San Francisco_hourly_data.json'.
+Data retrieval successful for Seattle from 2024-11-04 to 2024-11-11
+Data retrieval successful for Seattle from 2024-11-11 to 2024-11-18
+Data retrieval successful for Seattle from 2024-11-18 to 2024-11-25
+Data retrieval successful for Seattle from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Seattle_hourly_data.json'.
+Data retrieval successful for Washington DC from 2024-11-04 to 2024-11-11
+Data retrieval successful for Washington DC from 2024-11-11 to 2024-11-18
+Data retrieval successful for Washington DC from 2024-11-18 to 2024-11-25
+Data retrieval successful for Washington DC from 2024-11-25 to 2024-11-26
+Full data saved to '/Weather-Forecast/data/original/openweather_hourly/Washington DC_hourly_data.json'.
+Processing OpenWeather datasets...
+. /Weather-Forecast/venv/bin/activate && python3 analysis/process_openweather.py || exit 1
+/Weather-Forecast/analysis/process_openweather.py:42: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+  dt_utc = datetime.utcfromtimestamp(entry['dt']).replace(tzinfo=pytz.utc)
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Minneapolis_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Salt Lake City_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Oklahoma City_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Houston_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Detroit_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Phoenix_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Portland ME_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Miami_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/San Francisco_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/San Diego_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Honolulu_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Nashville_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Anchorage_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/New York_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Portland OR_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Boise_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Chicago_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Denver_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Washington DC_hourly_data.csv'.
+Data saved to '/Weather-Forecast/data/processed/openweather_hourly/Seattle_hourly_data.csv'.
+Combining new data to NOAA dataset...
+. /Weather-Forecast/venv/bin/activate && python3 analysis/combine_noaa_hourly.py || exit 1
+Processing data for Anchorage...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/PANC.csv
+Processing data for Boise...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KBOI.csv
+Processing data for Chicago...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KORD.csv
+Processing data for Denver...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KDEN.csv
+Processing data for Detroit...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KDTW.csv
+Processing data for Honolulu...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/PHNL.csv
+Processing data for Houston...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KIAH.csv
+Processing data for Miami...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KMIA.csv
+Processing data for Minneapolis...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KMSP.csv
+Processing data for Oklahoma City...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KOKC.csv
+Processing data for Nashville...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KBNA.csv
+Processing data for New York...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KJFK.csv
+Processing data for Phoenix...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KPHX.csv
+Processing data for Portland ME...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KPWM.csv
+Processing data for Portland OR...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KPDX.csv
+Processing data for Salt Lake City...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KSLC.csv
+Processing data for San Diego...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KSAN.csv
+Processing data for San Francisco...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KSFO.csv
+Processing data for Seattle...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KSEA.csv
+Processing data for Washington DC...
+Processed data saved to /Weather-Forecast/data/restructured_simple/combined/KDCA.csv
+Running predictions...
+. /Weather-Forecast/venv/bin/activate && python3 main.py || exit 1
+2024-11-26, 28.3, 33.1, 38.4, 26.7, 32.6, 37.5, 26.3, 31.7, 37.8, 27.1, 31.6, 35.9, 24.7, 31.2, 36.6, 33.3, 42.8, 53.2, 33.8, 43.4, 53.3, 33.6, 42.4, 52.4, 33.2, 41.7, 50.4, 31.9, 40.1, 49.9, 35.3, 43.7, 50.9, 36.4, 44.7, 53.2, 37.3, 44.5, 51.0, 35.9, 43.9, 51.3, 33.9, 42.6, 49.7, 24.0, 36.6, 50.3, 22.3, 35.4, 47.3, 20.9, 33.5, 46.4, 20.5, 33.2, 46.9, 20.1, 33.6, 47.3, 36.4, 43.1, 49.2, 36.3, 43.2, 50.4, 36.2, 42.5, 48.6, 35.1, 42.3, 49.0, 33.8, 41.9, 48.5, 69.2, 75.5, 82.6, 69.3, 75.3, 82.3, 69.4, 75.3, 82.4, 69.8, 75.6, 82.6, 70.0, 75.6, 82.7, 58.7, 70.5, 81.6, 56.8, 68.4, 79.8, 59.2, 68.9, 80.8, 59.9, 70.2, 82.1, 59.7, 71.0, 82.0, 63.8, 72.0, 80.8, 64.5, 72.7, 81.2, 65.0, 73.0, 81.4, 66.1, 73.7, 82.2, 66.7, 74.0, 81.8, 23.8, 30.5, 39.6, 25.4, 33.1, 42.2, 25.4, 34.9, 43.5, 23.3, 32.3, 41.2, 24.5, 32.4, 40.7, 41.9, 50.8, 64.1, 43.0, 53.2, 63.5, 40.6, 51.8, 64.2, 41.1, 52.2, 64.5, 41.9, 53.0, 67.5, 49.3, 59.5, 68.8, 46.9, 57.5, 66.3, 44.9, 54.2, 64.2, 45.0, 55.0, 65.9, 44.7, 54.8, 64.5, 39.4, 47.1, 55.4, 39.8, 48.1, 55.8, 40.1, 48.2, 57.2, 41.1, 48.6, 56.4, 40.9, 48.2, 55.6, 52.0, 72.7, 78.8, 51.5, 59.6, 77.4, 50.5, 57.7, 76.4, 50.0, 56.2, 76.3, 49.9, 50.6, 75.4, 32.1, 41.9, 52.4, 33.6, 43.2, 51.1, 36.3, 44.5, 53.3, 36.7, 45.5, 53.3, 35.1, 43.7, 51.7, 39.9, 46.4, 53.7, 40.1, 46.6, 53.9, 39.8, 47.0, 55.4, 39.2, 46.9, 54.0, 39.4, 46.3, 54.0, 24.9, 34.6, 45.5, 26.6, 35.6, 46.5, 26.9, 36.8, 46.0, 25.8, 35.3, 46.2, 26.6, 35.0, 44.8, 49.6, 62.8, 77.0, 50.4, 62.0, 73.7, 49.2, 60.3, 71.9, 48.2, 59.4, 70.5, 48.5, 58.3, 67.9, 46.5, 52.4, 58.6, 46.6, 53.0, 60.9, 46.7, 54.2, 62.2, 46.7, 54.4, 62.8, 47.0, 54.3, 62.9, 41.0, 45.4, 51.8, 40.0, 46.1, 53.0, 40.2, 46.0, 53.1, 40.3, 46.6, 53.5, 40.4, 46.4, 53.0, 37.7, 47.9, 58.6, 41.1, 50.6, 61.3, 42.1, 51.3, 60.8, 42.9, 51.9, 61.6, 43.2, 51.7, 59.8
+Predictions complete.
