@@ -55,6 +55,9 @@ for filename in os.listdir(directory):
 
         df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')  # Handle invalid dates
         df = df[df['DATE'].notna()]  
+
+        # just for test
+        # need to be corrected
         # df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
 
         df['TMAX'] = df['TMAX'].interpolate(method='linear')
