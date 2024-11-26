@@ -58,10 +58,17 @@ train_models:
 
 # Target to run the prediction script
 predictions:
-	@echo "Downloading new data..."
-	python3 analysis/download_openweather.py || exit 1
+	#@echo "Downloading new data..."
+	#python3 analysis/download_openweather.py || exit 1
+	#@echo "Combining new data to NOAA dataset..."
+	#python3 analysis/combine_noaa_hourly.py || exit 1
+	#@echo "Running predictions..."
+	#python3 main.py || exit 1
+	#@echo "Predictions complete."
+	@echo "Activating virtual environment and downloading new data..."
+	. /Weather-Forecast/venv/bin/activate && python3 analysis/download_openweather.py || exit 1
 	@echo "Combining new data to NOAA dataset..."
-	python3 analysis/combine_noaa_hourly.py || exit 1
+	. /Weather-Forecast/venv/bin/activate && python3 analysis/combine_noaa_hourly.py || exit 1
 	@echo "Running predictions..."
-	python3 main.py || exit 1
+	. /Weather-Forecast/venv/bin/activate && python3 main.py || exit 1
 	@echo "Predictions complete."
