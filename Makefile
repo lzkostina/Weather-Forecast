@@ -1,4 +1,4 @@
-.PHONY: download_data clean_data process_data predictions
+.PHONY: download_data clean_data process_data predictions clean rawdata
 
 # Target to clean up the original and processed data directories
 clean_data:
@@ -14,6 +14,14 @@ clean:
 	# Remove empty directories
 	find . -type d -empty -delete
 	@echo "Project cleaned except for code and raw data."
+
+# Target to delete and re-download raw data
+rawdata: clean_data
+	@echo "Deleting raw data..."
+	rm -rf data/raw
+	@echo "Re-downloading raw data..."
+	make download_data
+	@echo "Raw data re-downloaded."
 
 # Target to download data from Kaggle and NOAA
 download_data: clean_data
