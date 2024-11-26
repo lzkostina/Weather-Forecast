@@ -18,7 +18,7 @@ import logging
 if __name__ == "__main__":
 
     # model = test_predictor.TestPredictor()
-    model = predictor.test_predictor.LinearRegressionPredictor()
+    model = predictor.test_predictor.RidgeRegressionPredictor("predictor/models/RidgeRegression/model_full")
 
     # get current year, month, and day
     current_date = datetime.date.today()
