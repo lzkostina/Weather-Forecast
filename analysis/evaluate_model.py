@@ -185,8 +185,7 @@ predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
                   predictor.test_predictor.LinearRegressionPredictor(),
                   predictor.test_predictor.RidgeRegressionPredictor(),
                   predictor.test_predictor.LassoPredictor(),
-                  predictor.test_predictor.RandomForestPredictor(),
-                  predictor.test_predictor.XGBoostPredictor()
+                  predictor.test_predictor.RandomForestPredictor()
                   ]
 
 # testing_weight_predictor(predictor_list,2019,2022, 50)
