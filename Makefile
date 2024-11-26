@@ -1,4 +1,4 @@
-.PHONY: download_data process_data predictions clean rawdata
+.PHONY: download_data process_data predictions clean rawdata train_models_full train_models
 
 # Target to clean up the original and processed data directories
 clean:
