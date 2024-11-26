@@ -1,32 +1,6 @@
 [
     [
         {
-            "dt": 1730682000,
-            "main": {
-                "temp": 64.22,
-                "feels_like": 62.69,
-                "pressure": 1017,
-                "humidity": 50,
-                "temp_min": 60.08,
-                "temp_max": 68.49
-            },
-            "wind": {
-                "speed": 18.41,
-                "deg": 290
-            },
-            "clouds": {
-                "all": 0
-            },
-            "weather": [
-                {
-                    "id": 800,
-                    "main": "Clear",
-                    "description": "clear sky",
-                    "icon": "01d"
-                }
-            ]
-        },
-        {
             "dt": 1730685600,
             "main": {
                 "temp": 62.17,
@@ -4405,9 +4379,7 @@
                     "icon": "02d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731286800,
             "main": {
@@ -4433,7 +4405,9 @@
                     "icon": "02n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731290400,
             "main": {
@@ -8890,9 +8864,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731891600,
             "main": {
@@ -8918,7 +8890,9 @@
                     "icon": "04n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731895200,
             "main": {
@@ -13542,9 +13516,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1732496400,
             "main": {
@@ -13570,7 +13542,9 @@
                     "icon": "04n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1732500000,
             "main": {
@@ -14206,6 +14180,33 @@
                     "main": "Mist",
                     "description": "mist",
                     "icon": "50d"
+                }
+            ]
+        },
+        {
+            "dt": 1732582800,
+            "main": {
+                "temp": 54.59,
+                "feels_like": 53.98,
+                "pressure": 1015,
+                "humidity": 90,
+                "temp_min": 53.01,
+                "temp_max": 56.61
+            },
+            "wind": {
+                "speed": 3,
+                "deg": 6,
+                "gust": 5.01
+            },
+            "clouds": {
+                "all": 100
+            },
+            "weather": [
+                {
+                    "id": 804,
+                    "main": "Clouds",
+                    "description": "overcast clouds",
+                    "icon": "04n"
                 }
             ]
         }
