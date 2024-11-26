@@ -10,6 +10,7 @@ from xgboost import XGBRegressor
 from sklearn.model_selection import GridSearchCV
 import joblib
 from predictor.utils import stations_list
+import xgboost
 
 import warnings
 
