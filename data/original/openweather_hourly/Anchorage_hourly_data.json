@@ -1,91 +1,6 @@
 [
     [
         {
-            "dt": 1730671200,
-            "main": {
-                "temp": 34.14,
-                "feels_like": 34.14,
-                "pressure": 991,
-                "humidity": 87,
-                "temp_min": 31.68,
-                "temp_max": 39.67
-            },
-            "wind": {
-                "speed": 1.01,
-                "deg": 41,
-                "gust": 4
-            },
-            "clouds": {
-                "all": 100
-            },
-            "weather": [
-                {
-                    "id": 804,
-                    "main": "Clouds",
-                    "description": "overcast clouds",
-                    "icon": "04d"
-                }
-            ]
-        },
-        {
-            "dt": 1730674800,
-            "main": {
-                "temp": 33.42,
-                "feels_like": 30.92,
-                "pressure": 991,
-                "humidity": 89,
-                "temp_min": 32.09,
-                "temp_max": 37.67
-            },
-            "wind": {
-                "speed": 3,
-                "deg": 40
-            },
-            "clouds": {
-                "all": 100
-            },
-            "weather": [
-                {
-                    "id": 804,
-                    "main": "Clouds",
-                    "description": "overcast clouds",
-                    "icon": "04d"
-                }
-            ]
-        },
-        {
-            "dt": 1730678400,
-            "main": {
-                "temp": 33.19,
-                "feels_like": 27.84,
-                "pressure": 992,
-                "humidity": 90,
-                "temp_min": 32.38,
-                "temp_max": 34.34
-            },
-            "wind": {
-                "speed": 5.75,
-                "deg": 220
-            },
-            "clouds": {
-                "all": 100
-            },
-            "weather": [
-                {
-                    "id": 600,
-                    "main": "Snow",
-                    "description": "light snow",
-                    "icon": "13d"
-                },
-                {
-                    "id": 701,
-                    "main": "Mist",
-                    "description": "mist",
-                    "icon": "50d"
-                }
-            ]
-        },
-        {
             "dt": 1730682000,
             "main": {
                 "temp": 33.04,
@@ -4585,9 +4500,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731276000,
             "main": {
@@ -4666,7 +4579,9 @@
                     "icon": "04d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731286800,
             "main": {
@@ -9272,9 +9187,7 @@
                     "icon": "13d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731880800,
             "main": {
@@ -9352,7 +9265,9 @@
                     "icon": "04d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731891600,
             "main": {
@@ -13756,9 +13671,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1732485600,
             "main": {
@@ -13837,7 +13750,9 @@
                     "icon": "50d"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1732496400,
             "main": {
@@ -14454,6 +14369,107 @@
             ],
             "rain": {
                 "1h": 0.51
+            }
+        },
+        {
+            "dt": 1732572000,
+            "main": {
+                "temp": 32.95,
+                "feels_like": 32.95,
+                "pressure": 1013,
+                "humidity": 91,
+                "temp_min": 30.07,
+                "temp_max": 35.85
+            },
+            "wind": {
+                "speed": 1.01,
+                "deg": 208,
+                "gust": 3
+            },
+            "clouds": {
+                "all": 75
+            },
+            "weather": [
+                {
+                    "id": 500,
+                    "main": "Rain",
+                    "description": "light rain",
+                    "icon": "10d"
+                }
+            ],
+            "rain": {
+                "1h": 0.51
+            }
+        },
+        {
+            "dt": 1732575600,
+            "main": {
+                "temp": 34.12,
+                "feels_like": 29.57,
+                "pressure": 1014,
+                "humidity": 91,
+                "temp_min": 31.08,
+                "temp_max": 35.76
+            },
+            "wind": {
+                "speed": 5.01,
+                "deg": 242,
+                "gust": 8.01
+            },
+            "clouds": {
+                "all": 100
+            },
+            "weather": [
+                {
+                    "id": 600,
+                    "main": "Snow",
+                    "description": "light snow",
+                    "icon": "13d"
+                },
+                {
+                    "id": 500,
+                    "main": "Rain",
+                    "description": "light rain",
+                    "icon": "10d"
+                }
+            ],
+            "rain": {
+                "1h": 0.25
+            }
+        },
+        {
+            "dt": 1732579200,
+            "main": {
+                "temp": 32.76,
+                "feels_like": 27.95,
+                "pressure": 1014,
+                "humidity": 92,
+                "temp_min": 30.09,
+                "temp_max": 35.35
+            },
+            "wind": {
+                "speed": 5.01,
+                "deg": 350
+            },
+            "clouds": {
+                "all": 100
+            },
+            "weather": [
+                {
+                    "id": 600,
+                    "main": "Snow",
+                    "description": "light snow",
+                    "icon": "13d"
+                },
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ],
+            "snow": {
+                "1h": 0.25
             }
         }
     ]

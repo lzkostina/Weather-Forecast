@@ -189,7 +189,7 @@ predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
                   predictor.test_predictor.XGBoostPredictor()
                   ]
 
-testing_weight_predictor(predictor_list,2019,2022, 50)
+# testing_weight_predictor(predictor_list,2019,2022, 50)
 
 #weights = [0,1]
 #model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)
@@ -200,6 +200,11 @@ testing_weight_predictor(predictor_list,2019,2022, 50)
               #predictor.test_predictor.RidgeRegressionPredictor(),
               #predictor.test_predictor.LassoPredictor(),
           #model]
+
+# evaluate_model_years(2018, 2022,
+#                      predictor.test_predictor.LinearRegressionPredictor("predictor/models/LinearRegression"))
+# evaluate_model_years(2018, 2022,
+#                      predictor.test_predictor.LinearRegressionPredictor("predictor/models/LinearRegression/model_full"))
 
 # eval_all_models_years(predictor_list,2018, 2022)
 
