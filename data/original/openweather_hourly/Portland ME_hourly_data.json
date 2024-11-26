@@ -1,60 +1,6 @@
 [
     [
         {
-            "dt": 1730682000,
-            "main": {
-                "temp": 35.28,
-                "feels_like": 32.61,
-                "pressure": 1033,
-                "humidity": 69,
-                "temp_min": 30.96,
-                "temp_max": 39.79
-            },
-            "wind": {
-                "speed": 3.33,
-                "deg": 345,
-                "gust": 5.73
-            },
-            "clouds": {
-                "all": 100
-            },
-            "weather": [
-                {
-                    "id": 804,
-                    "main": "Clouds",
-                    "description": "overcast clouds",
-                    "icon": "04n"
-                }
-            ]
-        },
-        {
-            "dt": 1730685600,
-            "main": {
-                "temp": 35.46,
-                "feels_like": 31.64,
-                "pressure": 1033,
-                "humidity": 68,
-                "temp_min": 29.88,
-                "temp_max": 38.79
-            },
-            "wind": {
-                "speed": 4.43,
-                "deg": 6,
-                "gust": 8.14
-            },
-            "clouds": {
-                "all": 100
-            },
-            "weather": [
-                {
-                    "id": 804,
-                    "main": "Clouds",
-                    "description": "overcast clouds",
-                    "icon": "04n"
-                }
-            ]
-        },
-        {
             "dt": 1730689200,
             "main": {
                 "temp": 34.93,
@@ -4457,9 +4403,7 @@
                     "icon": "01n"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731286800,
             "main": {
@@ -4513,7 +4457,9 @@
                     "icon": "04n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731294000,
             "main": {
@@ -8927,9 +8873,7 @@
                     "icon": "02n"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731891600,
             "main": {
@@ -8982,7 +8926,9 @@
                     "icon": "03n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731898800,
             "main": {
@@ -13455,9 +13401,7 @@
                     "icon": "01n"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1732496400,
             "main": {
@@ -13510,7 +13454,9 @@
                     "icon": "04n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1732503600,
             "main": {
@@ -14089,6 +14035,59 @@
                     "main": "Clear",
                     "description": "clear sky",
                     "icon": "01n"
+                }
+            ]
+        },
+        {
+            "dt": 1732582800,
+            "main": {
+                "temp": 34.52,
+                "feels_like": 30.38,
+                "pressure": 1016,
+                "humidity": 73,
+                "temp_min": 30.92,
+                "temp_max": 37.09
+            },
+            "wind": {
+                "speed": 4.61,
+                "deg": 10
+            },
+            "clouds": {
+                "all": 0
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "clear sky",
+                    "icon": "01n"
+                }
+            ]
+        },
+        {
+            "dt": 1732586400,
+            "main": {
+                "temp": 34.66,
+                "feels_like": 34.66,
+                "pressure": 1016,
+                "humidity": 78,
+                "temp_min": 29.91,
+                "temp_max": 36.82
+            },
+            "wind": {
+                "speed": 1.99,
+                "deg": 34,
+                "gust": 5.01
+            },
+            "clouds": {
+                "all": 15
+            },
+            "weather": [
+                {
+                    "id": 801,
+                    "main": "Clouds",
+                    "description": "few clouds",
+                    "icon": "02n"
                 }
             ]
         }

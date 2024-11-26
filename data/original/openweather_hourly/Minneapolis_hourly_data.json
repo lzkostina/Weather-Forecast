@@ -1,58 +1,6 @@
 [
     [
         {
-            "dt": 1730682000,
-            "main": {
-                "temp": 47.97,
-                "feels_like": 43.81,
-                "pressure": 1009,
-                "humidity": 95,
-                "temp_min": 46.17,
-                "temp_max": 50.29
-            },
-            "wind": {
-                "speed": 9.22,
-                "deg": 120
-            },
-            "clouds": {
-                "all": 100
-            },
-            "weather": [
-                {
-                    "id": 701,
-                    "main": "Mist",
-                    "description": "mist",
-                    "icon": "50n"
-                }
-            ]
-        },
-        {
-            "dt": 1730685600,
-            "main": {
-                "temp": 48.15,
-                "feels_like": 43.61,
-                "pressure": 1009,
-                "humidity": 96,
-                "temp_min": 46.45,
-                "temp_max": 50.29
-            },
-            "wind": {
-                "speed": 10.36,
-                "deg": 120
-            },
-            "clouds": {
-                "all": 100
-            },
-            "weather": [
-                {
-                    "id": 701,
-                    "main": "Mist",
-                    "description": "mist",
-                    "icon": "50n"
-                }
-            ]
-        },
-        {
             "dt": 1730689200,
             "main": {
                 "temp": 48.4,
@@ -4474,9 +4422,7 @@
                     "icon": "04n"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731286800,
             "main": {
@@ -4529,7 +4475,9 @@
                     "icon": "02n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731294000,
             "main": {
@@ -8951,9 +8899,7 @@
                     "icon": "01n"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731891600,
             "main": {
@@ -9005,7 +8951,9 @@
                     "icon": "01n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731898800,
             "main": {
@@ -13529,9 +13477,7 @@
                     "icon": "04n"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1732496400,
             "main": {
@@ -13584,7 +13530,9 @@
                     "icon": "04n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1732503600,
             "main": {
@@ -14161,6 +14109,59 @@
                 "speed": 14.97,
                 "deg": 290,
                 "gust": 26.46
+            },
+            "clouds": {
+                "all": 0
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "clear sky",
+                    "icon": "01n"
+                }
+            ]
+        },
+        {
+            "dt": 1732582800,
+            "main": {
+                "temp": 21.83,
+                "feels_like": 9.23,
+                "pressure": 1023,
+                "humidity": 70,
+                "temp_min": 20.12,
+                "temp_max": 23.61
+            },
+            "wind": {
+                "speed": 20.71,
+                "deg": 290,
+                "gust": 26.46
+            },
+            "clouds": {
+                "all": 0
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "clear sky",
+                    "icon": "01n"
+                }
+            ]
+        },
+        {
+            "dt": 1732586400,
+            "main": {
+                "temp": 20.68,
+                "feels_like": 8.08,
+                "pressure": 1024,
+                "humidity": 73,
+                "temp_min": 19.13,
+                "temp_max": 22.6
+            },
+            "wind": {
+                "speed": 14.97,
+                "deg": 290
             },
             "clouds": {
                 "all": 0
