@@ -14,7 +14,7 @@ RUN apt update && apt install -y \
 # Set up virtual environment
 WORKDIR /Weather-Forecast
 RUN python3 -m venv /Weather-Forecast/venv
-RUN . /Weather-Forecast/venv/bin/activate && pip install --upgrade pip && pip install pandas numpy scikit-learn seaborn matplotlib requests statsmodels kaggle xgboost
+RUN . /Weather-Forecast/venv/bin/activate && pip install --upgrade pip && pip install pandas numpy scikit-learn seaborn matplotlib requests statsmodels
 
 COPY data ./data/
 COPY analysis ./analysis/
@@ -28,7 +28,5 @@ COPY . .
 RUN find -name "*.pyc" -exec rm {} \;
 
 CMD ["/Weather-Forecast/venv/bin/python", "main.py"]
-RUN make clean
-RUN make rawdata
 
 RUN make
