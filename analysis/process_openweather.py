@@ -95,7 +95,7 @@ def process_and_save_data(data_json, city_name):
 
     # Save the DataFrame to a CSV file
     df.to_csv(file_path, index=False)
-    print(f"Data saved to '{file_path}'.")
+    # print(f"Data saved to '{file_path}'.")
 
 
 # Function to process all JSON files and convert them to CSV

@@ -75,8 +75,8 @@ for city, coords in locations.items():
         data_json = get_data_for_range(city, lat, lon, current_start_time, current_end_time)
 
         if data_json and 'list' in data_json:
-            print(
-                f"Data retrieval successful for {city} from {time.strftime('%Y-%m-%d', time.gmtime(current_start_time))} to {time.strftime('%Y-%m-%d', time.gmtime(current_end_time))}")
+            # print(
+            #    f"Data retrieval successful for {city} from {time.strftime('%Y-%m-%d', time.gmtime(current_start_time))} to {time.strftime('%Y-%m-%d', time.gmtime(current_end_time))}")
             full_data.append(data_json['list'])  # Append the data chunk to the full data list
         else:
             print(
@@ -93,6 +93,6 @@ for city, coords in locations.items():
         # Flatten the list of data chunks and save to file
         with open(file_path, 'w') as json_file:
             json.dump(full_data, json_file, indent=4)
-        print(f"Full data saved to '{file_path}'.")
+        # print(f"Full data saved to '{file_path}'.")
     else:
         print(f"No data saved for {city}.")
