@@ -34,7 +34,8 @@ for filename in os.listdir(directory):
         df = pd.read_csv(file_path)
 
         df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')
-        df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
+        # just for test
+        # df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
         df['TAVG'] = (df['TMAX'] + df['TMIN']) / 2  
         df['TMAX'] = df['TMAX'].interpolate(method='linear')
         df['TMIN'] = df['TMIN'].interpolate(method='linear')

@@ -40,6 +40,9 @@ for filename in os.listdir(directory):
         df = pd.read_csv(file_path)
 
         df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')
+
+        # need to be corrected
+        # just for test
         df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
 
         df['TMAX'] = df['TMAX'].replace(0, np.nan)

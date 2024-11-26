@@ -64,8 +64,9 @@ for filename in os.listdir(directory):
         df = df[df['DATE'].notna()] 
          
         # Filter data before or on 2024-11-19
-        # need to be corrected
-        df = df[df['DATE'] <= '2024-11-19']  
+        # need to be corrected 
+        # just for test
+        # df = df[df['DATE'] <= '2024-11-19']  
         df['TMAX'] = df['TMAX'].interpolate(method='linear')
         df['TMIN'] = df['TMIN'].interpolate(method='linear')
         df['PRCP'] = df['PRCP'].interpolate(method='linear')
