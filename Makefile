@@ -6,6 +6,15 @@ clean_data:
 	rm -rf data/processed
 	@echo "Cleaning complete."
 
+# Target to delete all except code and raw data
+clean:
+	@echo "Cleaning project directory..."
+	# Remove everything except .py and markdown files
+	find . -type f ! -name '*.py' ! -name '*.md' ! -path './data/raw/*' -delete
+	# Remove empty directories
+	find . -type d -empty -delete
+	@echo "Project cleaned except for code and raw data."
+
 # Target to download data from Kaggle and NOAA
 download_data: clean_data
 	@echo "Downloading NOAA datasets..."
