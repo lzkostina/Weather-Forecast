@@ -1,86 +1,6 @@
 [
     [
         {
-            "dt": 1730671200,
-            "main": {
-                "temp": 55.89,
-                "feels_like": 54.18,
-                "pressure": 1023,
-                "humidity": 64,
-                "temp_min": 54.84,
-                "temp_max": 57.58
-            },
-            "wind": {
-                "speed": 10.36,
-                "deg": 110
-            },
-            "clouds": {
-                "all": 0
-            },
-            "weather": [
-                {
-                    "id": 800,
-                    "main": "Clear",
-                    "description": "clear sky",
-                    "icon": "01d"
-                }
-            ]
-        },
-        {
-            "dt": 1730674800,
-            "main": {
-                "temp": 54.93,
-                "feels_like": 53.46,
-                "pressure": 1023,
-                "humidity": 71,
-                "temp_min": 53.22,
-                "temp_max": 56.25
-            },
-            "wind": {
-                "speed": 1.99,
-                "deg": 142,
-                "gust": 3
-            },
-            "clouds": {
-                "all": 99
-            },
-            "weather": [
-                {
-                    "id": 804,
-                    "main": "Clouds",
-                    "description": "overcast clouds",
-                    "icon": "04n"
-                }
-            ]
-        },
-        {
-            "dt": 1730678400,
-            "main": {
-                "temp": 54,
-                "feels_like": 52.66,
-                "pressure": 1023,
-                "humidity": 76,
-                "temp_min": 52.21,
-                "temp_max": 55.26
-            },
-            "wind": {
-                "speed": 1.01,
-                "deg": 115,
-                "gust": 1.99
-            },
-            "clouds": {
-                "all": 99
-            },
-            "weather": [
-                {
-                    "id": 804,
-                    "main": "Clouds",
-                    "description": "overcast clouds",
-                    "icon": "04n"
-                }
-            ]
-        },
-        {
             "dt": 1730682000,
             "main": {
                 "temp": 54.68,
@@ -4512,9 +4432,7 @@
                     "icon": "50d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731276000,
             "main": {
@@ -4594,7 +4512,9 @@
                     "icon": "04n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731286800,
             "main": {
@@ -9050,9 +8970,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1731880800,
             "main": {
@@ -9133,7 +9051,9 @@
                     "icon": "04n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1731891600,
             "main": {
@@ -13578,9 +13498,7 @@
                     "icon": "04d"
                 }
             ]
-        }
-    ],
-    [
+        },
         {
             "dt": 1732485600,
             "main": {
@@ -13661,7 +13579,9 @@
                     "icon": "04n"
                 }
             ]
-        },
+        }
+    ],
+    [
         {
             "dt": 1732496400,
             "main": {
@@ -14225,6 +14145,88 @@
                     "icon": "04d"
                 }
             ]
+        },
+        {
+            "dt": 1732572000,
+            "main": {
+                "temp": 48.78,
+                "feels_like": 47.89,
+                "pressure": 1009,
+                "humidity": 88,
+                "temp_min": 46.85,
+                "temp_max": 50.38
+            },
+            "wind": {
+                "speed": 3.44,
+                "deg": 140
+            },
+            "clouds": {
+                "all": 100
+            },
+            "weather": [
+                {
+                    "id": 804,
+                    "main": "Clouds",
+                    "description": "overcast clouds",
+                    "icon": "04d"
+                }
+            ]
+        },
+        {
+            "dt": 1732575600,
+            "main": {
+                "temp": 49.17,
+                "feels_like": 49.17,
+                "pressure": 1008,
+                "humidity": 88,
+                "temp_min": 46.49,
+                "temp_max": 50.25
+            },
+            "wind": {
+                "speed": 1.01,
+                "deg": 125,
+                "gust": 1.99
+            },
+            "clouds": {
+                "all": 100
+            },
+            "weather": [
+                {
+                    "id": 804,
+                    "main": "Clouds",
+                    "description": "overcast clouds",
+                    "icon": "04n"
+                }
+            ]
+        },
+        {
+            "dt": 1732579200,
+            "main": {
+                "temp": 49.12,
+                "feels_like": 46.76,
+                "pressure": 1008,
+                "humidity": 89,
+                "temp_min": 46.85,
+                "temp_max": 50.25
+            },
+            "wind": {
+                "speed": 5.75,
+                "deg": 190
+            },
+            "clouds": {
+                "all": 100
+            },
+            "weather": [
+                {
+                    "id": 500,
+                    "main": "Rain",
+                    "description": "light rain",
+                    "icon": "10n"
+                }
+            ],
+            "rain": {
+                "1h": 0.33
+            }
         }
     ]
 ]
