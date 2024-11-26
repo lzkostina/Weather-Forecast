@@ -9,8 +9,12 @@ from sklearn.ensemble import RandomForestRegressor
 # from xgboost import XGBRegressor
 from sklearn.model_selection import GridSearchCV
 import joblib
+<<<<<<< Updated upstream
 from predictor.utils import stations_list
 # import xgboost
+=======
+from predictor.utils import stations_list, adjust_predictions
+>>>>>>> Stashed changes
 
 import warnings
 
@@ -142,7 +146,9 @@ class LinearRegressionPredictor(Predictor):
         # print(X)
         # Predict
         predictions = self.model.predict(X)
-        return predictions.reshape(-1)
+        predictions = predictions.reshape(-1)
+        adjusted_pred = adjust_predictions(predictions)
+        return adjusted_pred
 
 
 class RidgeRegressionPredictor(Predictor):
@@ -209,8 +215,9 @@ class RidgeRegressionPredictor(Predictor):
 
         # Predict
         predictions = self.model.predict(X)
-        return predictions.reshape(-1)
-
+        predictions = predictions.reshape(-1)
+        adjusted_pred = adjust_predictions(predictions)
+        return adjusted_pred
 
 class LassoPredictor(Predictor):
     def __init__(self, model_path="predictor/models/LassoCV/"):
@@ -277,7 +284,9 @@ class LassoPredictor(Predictor):
         X = X.reshape(1, -1)
         # Make predictions
         predictions = self.model.predict(X)
-        return predictions.reshape(-1)
+        predictions = predictions.reshape(-1)
+        adjusted_pred = adjust_predictions(predictions)
+        return adjusted_pred
 
 
 class RandomForestPredictor:
@@ -369,9 +378,12 @@ class RandomForestPredictor:
         X = X.reshape(1, -1)
         # Make predictions
         predictions = self.model.predict(X)
-        return predictions.reshape(-1)
+        predictions = predictions.reshape(-1)
+        adjusted_pred = adjust_predictions(predictions)
+        return adjusted_pred
 
 
+<<<<<<< Updated upstream
 # class XGBoostPredictor:
 #     def __init__(self, model_path="predictor/models/XGBoost/"):
 #         self.repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -466,6 +478,104 @@ class RandomForestPredictor:
 #         # Make predictions
 #         predictions = self.model.predict(X)
 #         return predictions.reshape(-1)
+=======
+class XGBoostPredictor:
+    def __init__(self, model_path="predictor/models/XGBoost/"):
+        self.repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+        self.model = None
+        self.model_path = os.path.join(self.repo_root, model_path)
+        self.model_dir = self.model_path 
+
+    def train_and_save_model(self, full=True):
+        """
+        Train an XGBoost model for each station and save it.
+        """
+        # Ensure the model path exists
+        self.model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(self.model_dir, exist_ok=True)
+        param_grid = {
+            'n_estimators': [100, 200],
+            'max_depth': [3, 6],
+            'learning_rate': [0.01, 0.1]
+        }
+
+        for station in stations_list:
+            print(f"Training model for station: {station}")
+            if full:
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data_full/{station}.csv")
+            else:
+                # Get the data for the specified station
+                station_file_path = os.path.join(self.repo_root, f"analysis/regression_data/{station}.csv")
+
+            # Load the data for the specified station
+            station_data = pd.read_csv(station_file_path)
+            # The first 153 columns are the features, the last 15 columns are the labels
+            X = station_data.iloc[:, 3:153]
+            y = station_data.iloc[:, 153:]
+            '''
+            # Initialize the XGBoost model
+            model = XGBRegressor(objective='reg:squarederror', learning_rate=0.01, max_depth = 6, n_estimators=200, random_state=42)
+
+            # Train the model
+            model.fit(X, y)
+
+            # Save the model
+            joblib.dump(model, os.path.join(self.model_path, f"{station}.joblib"))
+            '''
+            xgb = XGBRegressor(objective='reg:squarederror', random_state=42)
+
+            # Set up GridSearchCV for hyperparameter tuning with 5-fold CV
+            grid_search = GridSearchCV(
+                estimator=xgb,
+                param_grid=param_grid,
+                cv=3,
+                scoring='neg_mean_squared_error',
+                n_jobs=-1,
+                verbose=2
+            )
+
+            # Fit the GridSearchCV to find the best model
+            grid_search.fit(X, y)
+
+            # Extract the best model
+            best_model = grid_search.best_estimator_
+            print(f"Best parameters for station {station}: {grid_search.best_params_}")
+
+            # Save the best model
+            joblib.dump(best_model, os.path.join(self.model_dir, f"{station}.joblib"))
+
+    def load_model(self, station):
+        """
+        Load an XGBoost model for a specific station.
+        """
+        self.model = joblib.load(os.path.join(self.model_dir, f"{station}.joblib"))
+
+    def transform_data_to_predict(self, data):
+        """
+        Transform the last 30 days of weather data into a 1D array for prediction.
+        """
+        # Extract previous 30 days of relevant columns
+        previous_data = data[['TMIN', 'TAVG', 'TMAX', 'SNOW', 'PRCP']].tail(30).values
+        # Flatten the data into a 1D array
+        previous_data = previous_data.flatten()
+        return previous_data
+
+    def predict(self, data, station):
+        """
+        Predict using the loaded model for the specified station.
+        """
+        # Load the model for the station
+        self.load_model(station)
+        # Transform the data into the required format
+        X = self.transform_data_to_predict(data)
+        X = X.reshape(1, -1)
+        # Make predictions
+        predictions = self.model.predict(X)
+        predictions = predictions.reshape(-1)
+        adjusted_pred = adjust_predictions(predictions)
+        return adjusted_pred
+>>>>>>> Stashed changes
 
 
 class WeightedPredictor(Predictor):

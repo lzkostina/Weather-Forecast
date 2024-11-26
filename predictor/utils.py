@@ -71,3 +71,29 @@ def is_valid_date(year, month, day):
     return True
   except ValueError:
     return False
+
+
+def adjust_predictions(predictions):
+    """
+    Adjust the predictions to ensure:
+    - TMIN < TAVG < TMAX for each day
+    """
+    # Ensure the predictions can be divided into groups of 3
+    if len(predictions) % 3 != 0:
+        raise ValueError("The predictions length must be a multiple of 3.")
+
+    # Split predictions into days
+    adjusted_predictions = []
+    for i in range(0, len(predictions), 3):
+        tmin, tavg, tmax = predictions[i:i+3]
+
+        # Adjust TMIN and TMAX to ensure TMIN < TMAX
+        tmin, tmax = min(tmin, tavg,tmax), max(tmin, tavg, tmax)
+
+        # Adjust TAVG to be between TMIN and TMAX
+        tavg = max(tmin, min(tavg, tmax))
+
+        # Append adjusted values
+        adjusted_predictions.extend([tmin, tavg, tmax])
+
+    return adjusted_predictions
