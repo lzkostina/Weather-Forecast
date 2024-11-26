@@ -24,7 +24,7 @@ rawdata:
 	@echo "Raw data re-downloaded."
 
 # Target to download data from Kaggle and NOAA
-download_data: clean_data
+download_data:
 	@echo "Downloading NOAA datasets..."
 	. /Weather-Forecast/venv/bin/activate && python3 analysis/download_noaa.py || exit 1
 	@echo "Downloading OpenWeather datasets..."
