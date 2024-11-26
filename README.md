@@ -6,6 +6,8 @@ git pull -to copy everything from git repo
 
 make clean_data -to clean data folder
 
+make clean -- deletes everything except for the code (i.e., markdown files) and raw data (as originally downloaded)
+
 make download_data -to download kaggle and noaa data in their original format
 
 make process_data -to convert original data into csv formats and put these files in data/processed folder

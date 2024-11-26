@@ -1,10 +1,27 @@
-.PHONY: download_data clean_data process_data predictions
+.PHONY: download_data clean_data process_data predictions clean rawdata
 
 # Target to clean up the original and processed data directories
 clean_data:
 	@echo "Cleaning up data/processed directories..."
 	rm -rf data/processed
 	@echo "Cleaning complete."
+
+# Target to delete all except code and raw data
+clean:
+	@echo "Cleaning project directory..."
+	# Remove everything except .py and markdown files
+	find . -type f ! -name '*.py' ! -name '*.md' ! -path './data/raw/*' -delete
+	# Remove empty directories
+	find . -type d -empty -delete
+	@echo "Project cleaned except for code and raw data."
+
+# Target to delete and re-download raw data
+rawdata: clean_data
+	@echo "Deleting raw data..."
+	rm -rf data/raw
+	@echo "Re-downloading raw data..."
+	make download_data
+	@echo "Raw data re-downloaded."
 
 # Target to download data from Kaggle and NOAA
 download_data: clean_data
@@ -28,11 +45,16 @@ process_data:
 	python3 analysis/create_regression_dataset.py || exit 1
 	@echo "Regression datasets created."
 
-# Target to train and save all models
+train_models_full:
+	@echo "Training models on full dataset..."
+	PYTHONPATH=$(CURDIR) python3 predictor/train_all_full_data.py || exit 1
+	@echo "Models trained and saved on full dataset."
+
 train_models:
-	@echo "Training models..."
-	PYTHONPATH=$(CURDIR) python3 predictor/train_models.py|| exit 1
-	@echo "Models trained and saved."
+	@echo "Training models on partial dataset..."
+	PYTHONPATH=$(CURDIR) python3 predictor/train_all_partial.py || exit 1
+	@echo "Models trained and saved on partial dataset."
+
 
 # Target to run the prediction script
 predictions:

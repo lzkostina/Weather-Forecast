@@ -87,13 +87,13 @@ class LinearRegressionPredictor(Predictor):
 
         self.model = None
         self.model_path = os.path.join(self.repo_root, model_path)
-
+        self.model_dir = self.model_path
     def train_and_save_model(self, full = True):
         """
         Train a linear regression model and save it.
         """
-        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
-        os.makedirs(model_dir, exist_ok=True)
+        self.model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(self.model_dir, exist_ok=True)
         # Train the model
         for station in stations_list:
             # print station
@@ -115,14 +115,13 @@ class LinearRegressionPredictor(Predictor):
             model.fit(X, y)
 
             # Save the model
-            model_save_path = os.path.join(model_dir, f"{station}.joblib")
-            joblib.dump(model, model_save_path)
+            joblib.dump(model, os.path.join(self.model_dir, f"{station}.joblib"))
 
     def load_model(self, model_path, station):
         """
         Load a linear regression model.
         """
-        self.model = joblib.load(os.path.join(model_path, f"{station}.joblib"))
+        self.model = joblib.load(os.path.join(self.model_dir, f"{station}.joblib"))
 
     def transform_data_to_predict(self, data):
         # Get the previous 30 days data of TMIN, TAVG, TMAX, SNOW, PRCP, flattened into a 1D array
@@ -132,7 +131,7 @@ class LinearRegressionPredictor(Predictor):
         return previous_data
 
     def predict(self, data, station):
-        # Load model for station
+        # Load model for stationa_path)
         self.load_model(self.model_path, station)
         # Transform data
         X = self.transform_data_to_predict(data)
@@ -152,6 +151,7 @@ class RidgeRegressionPredictor(Predictor):
 
         self.model = None
         self.model_path = os.path.join(self.repo_root, model_path)
+        self.model_dir = self.model_path
 
     def train_and_save_model(self, full=True):
         """
@@ -159,8 +159,8 @@ class RidgeRegressionPredictor(Predictor):
         """
 
         alphas = [0.1, 1.0, 10.0, 100.0]
-        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
-        os.makedirs(model_dir, exist_ok=True)
+        self.model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(self.model_dir, exist_ok=True)
         # Train the model
         for station in stations_list:
             # print station
@@ -182,14 +182,14 @@ class RidgeRegressionPredictor(Predictor):
             model.fit(X, y)
 
             # Save the model
-            model_save_path = os.path.join(model_dir, f"{station}.joblib")
-            joblib.dump(model, model_save_path)
+
+            joblib.dump(model, os.path.join(self.model_dir, f"{station}.joblib"))
 
     def load_model(self, model_path, station):
         """
         Load a linear regression model.
         """
-        self.model = joblib.load(os.path.join(model_path, f"{station}.joblib"))
+        self.model = joblib.load(os.path.join(self.model_dir, f"{station}.joblib"))
 
     def transform_data_to_predict(self, data):
         # Get the previous 30 days data of TMIN, TAVG, TMAX, SNOW, PRCP, flattened into a 1D array
@@ -217,14 +217,15 @@ class LassoPredictor(Predictor):
 
         self.model = None
         self.model_path = os.path.join(self.repo_root, model_path)
+        self.model_dir = self.model_path
 
     def train_and_save_model(self, full=True):
         """
         Train a Lasso Regression model with cross-validation for each station and save it.
         """
         # Ensure the model path exists
-        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
-        os.makedirs(model_dir, exist_ok=True)
+        self.model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(self.model_dir, exist_ok=True)
 
         for station in stations_list:
             print(f"Training Lasso model for station: {station}")
@@ -246,15 +247,13 @@ class LassoPredictor(Predictor):
             model.fit(X, y)
 
             # Save the trained model
-
-            model_save_path = os.path.join(model_dir, f"{station}.joblib")
-            joblib.dump(model, model_save_path)
+            joblib.dump(model, os.path.join(self.model_dir, f"{station}.joblib"))
 
     def load_model(self, station):
         """
         Load a Lasso Regression model for a specific station.
         """
-        self.model = joblib.load(os.path.join(self.model_path, f"{station}.joblib"))
+        self.model = joblib.load(os.path.join(self.model_dir, f"{station}.joblib"))
 
     def transform_data_to_predict(self, data):
         """
@@ -270,8 +269,6 @@ class LassoPredictor(Predictor):
         """
         Predict using the loaded model for the specified station.
         """
-        if isinstance(data, str):
-            data = pd.read_csv(data)
         # Load the model for the station
         self.load_model(station)
         # Transform the data into the required format
@@ -288,6 +285,7 @@ class RandomForestPredictor:
 
         self.model = None
         self.model_path = os.path.join(self.repo_root, model_path)
+        self.model_dir = self.model_path
 
     def train_and_save_model(self, full = True):
         """
@@ -295,8 +293,8 @@ class RandomForestPredictor:
         """
         # Ensure the model path exists
         os.makedirs(self.model_path, exist_ok=True)
-        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
-        os.makedirs(model_dir, exist_ok=True)
+        self.model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(self.model_dir, exist_ok=True)
         # Hyperparameter grid for Random Forest
 
         param_grid = {
@@ -342,13 +340,12 @@ class RandomForestPredictor:
             best_model = grid_search.best_estimator_
             print(f"Best parameters for station {station}: {grid_search.best_params_}")
             # Save the best model
-            model_save_path = os.path.join(model_dir, f"{station}.joblib")
-            joblib.dump(best_model, model_save_path)
+            joblib.dump(best_model, os.path.join(self.model_dir, f"{station}.joblib"))
     def load_model(self, station):
         """
         Load a Random Forest model for a specific station.
         """
-        self.model = joblib.load(os.path.join(self.model_path, f"{station}.joblib"))
+        self.model = joblib.load(os.path.join(self.model_dir, f"{station}.joblib"))
 
     def transform_data_to_predict(self, data):
         """
@@ -364,8 +361,6 @@ class RandomForestPredictor:
         """
         Predict using the loaded model for the specified station.
         """
-        if isinstance(data, str):
-            data = pd.read_csv(data)
         # Load the model for the station
         self.load_model(station)
         # Transform the data into the required format
@@ -382,14 +377,15 @@ class XGBoostPredictor:
 
         self.model = None
         self.model_path = os.path.join(self.repo_root, model_path)
+        self.model_dir = self.model_path 
 
-    def train_and_save_model(self, full = True):
+    def train_and_save_model(self, full=True):
         """
         Train an XGBoost model for each station and save it.
         """
         # Ensure the model path exists
-        model_dir = os.path.join(self.model_path, "model_full" if full else "model")
-        os.makedirs(model_dir, exist_ok=True)
+        self.model_dir = os.path.join(self.model_path, "model_full" if full else "model")
+        os.makedirs(self.model_dir, exist_ok=True)
         param_grid = {
             'n_estimators': [100, 200],
             'max_depth': [3, 6],
@@ -439,14 +435,13 @@ class XGBoostPredictor:
             print(f"Best parameters for station {station}: {grid_search.best_params_}")
 
             # Save the best model
-            model_save_path = os.path.join(model_dir, f"{station}.joblib")
-            joblib.dump(best_model, model_save_path)
+            joblib.dump(best_model, os.path.join(self.model_dir, f"{station}.joblib"))
 
     def load_model(self, station):
         """
         Load an XGBoost model for a specific station.
         """
-        self.model = joblib.load(os.path.join(self.model_path, f"{station}.joblib"))
+        self.model = joblib.load(os.path.join(self.model_dir, f"{station}.joblib"))
 
     def transform_data_to_predict(self, data):
         """
@@ -462,8 +457,6 @@ class XGBoostPredictor:
         """
         Predict using the loaded model for the specified station.
         """
-        if isinstance(data, str):
-            data = pd.read_csv(data)
         # Load the model for the station
         self.load_model(station)
         # Transform the data into the required format

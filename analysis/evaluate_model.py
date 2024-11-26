@@ -151,11 +151,6 @@ def testing_weight_predictor(predictor_list, start_year, end_year, iters):
     # must have num_predictor floats, and sum to 1.
     weights_list = np.random.dirichlet(np.ones(num_predictors), size=iters)
 
-    # append a list of weights representing only a single predictor
-    for i in range(num_predictors):
-        weights_list = np.append(weights_list, np.zeros((1,num_predictors)), axis=0)
-        weights_list[-1][i] = 1
-
     # create a list to store the mean mse for each set of weights
     mse_list = []
 
@@ -180,21 +175,21 @@ def testing_weight_predictor(predictor_list, start_year, end_year, iters):
     combined = combined[combined[:,num_predictors].argsort()]
 
     # save combined to a csv
-    np.savetxt("predictor/weights/weight_mse2.csv", combined, delimiter=",", fmt='%s')
+    np.savetxt("predictor/weights/weight_mse.csv", combined, delimiter=",", fmt='%s')
 
     return combined
 
 
 
-predictor_list = [# predictor.test_predictor.PreviousDayPredictor(),
+predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
                   predictor.test_predictor.LinearRegressionPredictor(),
                   predictor.test_predictor.RidgeRegressionPredictor(),
                   predictor.test_predictor.LassoPredictor(),
                   predictor.test_predictor.RandomForestPredictor(),
-                  # predictor.test_predictor.XGBoostPredictor()
+                  predictor.test_predictor.XGBoostPredictor()
                   ]
 
-testing_weight_predictor(predictor_list,2019,2022, 100)
+testing_weight_predictor(predictor_list,2019,2022, 50)
 
 #weights = [0,1]
 #model = predictor.test_predictor.WeightedPredictor(predictor_list, weights)
@@ -206,6 +201,6 @@ testing_weight_predictor(predictor_list,2019,2022, 100)
               #predictor.test_predictor.LassoPredictor(),
           #model]
 
-# eval_all_models_years(predictor_list,2019, 2022)
+# eval_all_models_years(predictor_list,2018, 2022)
 
 
