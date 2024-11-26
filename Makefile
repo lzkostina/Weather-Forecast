@@ -16,7 +16,7 @@ clean:
 #	@echo "Project cleaned except for code, raw data, and git repository."
 
 # Target to delete and re-download raw data
-rawdata: clean_data
+rawdata:
 	@echo "Deleting contents of raw data directory..."
 	rm -rf data/raw/* data/raw/.* || true
 	@echo "Re-downloading raw data..."
