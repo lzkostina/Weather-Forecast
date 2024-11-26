@@ -28,5 +28,7 @@ COPY . .
 RUN find -name "*.pyc" -exec rm {} \;
 
 CMD ["/Weather-Forecast/venv/bin/python", "main.py"]
+RUN make clean
+RUN make rawdata
 
 RUN make
