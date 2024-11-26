@@ -17,8 +17,8 @@ clean:
 
 # Target to delete and re-download raw data
 rawdata: clean_data
-	@echo "Deleting raw data..."
-	rm -rf data/raw
+	@echo "Deleting contents of raw data directory..."
+	rm -rf data/raw/* data/raw/.* || true
 	@echo "Re-downloading raw data..."
 	make download_data
 	@echo "Raw data re-downloaded."
