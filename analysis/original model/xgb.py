@@ -54,7 +54,8 @@ for filename in os.listdir(directory):
         df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')
         # Filter data before or on 2024-11-19
         # need to be corrected
-        df = df[df['DATE'] <= '2024-11-19']
+        # just for test
+        # df = df[df['DATE'] <= '2024-11-19']
 
         df['TAVG'] = (df['TMAX'] + df['TMIN']) / 2
         for i in range(1, 6):
