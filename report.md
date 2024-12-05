@@ -30,43 +30,51 @@ To utilize the strengths of publicly available datasets, we sourced data from NO
    The NOAA dataset served as the backbone of our analysis, offering a long-term historical perspective essential for training robust prediction models.
    
 * 2. **OpenWeather Dataset**  
-    To complement the historical data provided by NOAA, we utilized the OpenWeather History API for recent weather data. This dataset offers hourly historical weather data dating back to January 1, 1979, and includes a wide range of weather parameters such as:  
+    To complement the historical data provided by NOAA, we utilized the OpenWeather History API for recent weather data. The OpenWeather dataset offered high-resolution, recent weather data, providing a contemporary perspective to complement the long-term historical insights from NOAA. This dataset offers hourly historical weather data dating back to January 1, 1979, and includes a wide range of weather parameters such as:  
     - Minimum, maximum, and average temperatures,  
     - Humidity,  
     - Precipitation details (rainfall and snowfall), and  
     - Wind speed and direction.  
 
-For our analysis, we focused on data from 20 locations, specified by their geographic coordinates (longitude and latitude), covering the period from November 12, 2024, to the day of making predictions. The data was retrieved using Python’s `requests` module, downloaded in weekly chunks to stay within the API limits. The raw data was provided in JSON format, requiring additional processing for integration with our models.  
 
-The OpenWeather dataset offered high-resolution, recent weather data, providing a contemporary perspective to complement the long-term historical insights from NOAA.    
+### Data Collection
+
+For our analysis, we focused on data from 20 locations of interest.
+
+* **NOAA Dataset** was downloaded directly from NOAA's public server using python `urllib.request` module. We retrieved all available data of each station by their specific NOAA code, ranging from 1940s to November 11, 2024. All the raw data retrieved was in `.dly` format, which will be further processed for the further model training and prediction.
+
+* **OpenWeather Dataset** was retrieved using OpenWeather History API, which is free for students. However, each API calls is limited to retrieving data for one week at a time. To build the dataset, we collected the data inweekly chunks and combined them into a single dataset. The data ranging from November 12, 2024 to November 25, 2024 was retrieved for model training. The data from November 12, 2024 to the day of making predictions was retrieved when making predictions to ensure that the prediction better captures the short-term weather patterns at the location. 
+
+
 
 
 ### Data Preprocessing
 
 Preprocessing both datasets was a critical step in preparing the historical weather data for analysis and model training. 
 
-*  **NOAA Dataset**
-    For NOAA dataset the main steps of the preprocessing included:
+**NOAA Dataset**
+
+For NOAA dataset the main steps of the preprocessing included:
    
 1. **Format Conversion**  
    - The raw data, provided in `.dly` format, was converted into a tabular format to enable easier analysis and integration with our workflow.  
 
 2. **Data Cleaning**  
-   - **Invalid Dates:** Removed entries with invalid dates to ensure consistency.  
-   - **Missing Average Temperatures:** Filled missing average temperature values by taking the average of the maximum and minimum temperatures for the same day.  
-   - **Snowfall and Precipitation:** Replaced missing values for snowfall and precipitation with zeros, assuming no snowfall or rainfall occurred.  
-   - **Invalid Temperature Values:** Fixed anomalous temperature readings (e.g., values below -1000) by replacing them with the previous day’s valid temperature.  
+   - **Invalid Dates:** Entries with invalid dates were removed to ensure consistency.  
+   - **Missing Average Temperatures:** All missing average temperature values were filled by taking the average of the maximum and minimum temperatures for the same day.  
+   - **Snowfall and Precipitation:** Missing values for snowfall and precipitation were replaced with zeros, assuming no snowfall or rainfall occurred.  
+   - **Invalid Temperature Values:** Anomalous temperature readings (e.g., values below -1000) were fixed by replacing them with the previous day’s valid temperature.  
 
 3. **Unit Conversion**  
-   - Converted all temperature values from Celsius to Fahrenheit to align with standard U.S. weather reporting conventions.  
+   - All temperature values were converted from Celsius to Fahrenheit to align with standard U.S. weather reporting conventions and the project requirement.  
 
 4. **Feature Selection**  
-   - Retained only the core features, including temperature (minimum, maximum, and average), precipitation and snowfall for subsequent model training.  
+   - We retained only the core features, including temperature (minimum, maximum, and average), precipitation and snowfall for subsequent model training.  
 
 These preprocessing steps ensured the NOAA dataset was clean, consistent, and ready for effective integration into the predictive models.  
 
 
-*  **OpenWeather Dataset**
+**OpenWeather Dataset**
 
 The OpenWeather dataset also underwent several preprocessing steps to prepare it for integration with the NOAA data and subsequent model training. The main steps included:  
 
