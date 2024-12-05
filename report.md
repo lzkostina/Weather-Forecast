@@ -23,9 +23,8 @@ To utilize the strengths of publicly available datasets, we sourced data from NO
 * 1. **NOAA Dataset**  
    The NOAA dataset provided us with historical weather data dating back to January 1, 1948. Specifically, we utilized the **Global Historical Climatology Network - Daily (GHCN-D)** dataset, which integrates daily climate observations from approximately 30 sources. This comprehensive and consistent dataset includes measurements which we further used in our models:  
    - Minimum, maximum, and average temperatures,  
-   - Precipitation,  
-   - Snowfall, and  
-   - Snow depth.  
+   - Precipitation, and 
+   - Snowfall
 
    The NOAA dataset served as the backbone of our analysis, offering a long-term historical perspective essential for training robust prediction models.
    
@@ -119,7 +118,7 @@ The primary objective of the project was to minimize the Mean Squared Error betw
 
 #### Data Range  
 
-To ensure robust model evaluation and fair predictions, the data range was divided as follows:  
+To ensure robust model evaluation and fair predictions, the data range was as follows:  
 - **Model Training**:  
   - Models were trained on data excluding the evaluation days, with a buffer to prevent any data leakage.  
 - **Model Evaluation**:  
