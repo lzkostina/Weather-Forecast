@@ -26,7 +26,7 @@ To utilize the strengths of publicly available datasets, we sourced data from NO
    - Precipitation, and 
    - Snowfall
 
-   The NOAA dataset served as the backbone of our analysis, offering a long-term historical perspective essential for training robust prediction models.
+   The NOAA dataset served as the backbone of our analysis, offering a long-term historical perspective essential for training robust prediction models. One weakness of the NOAA dataset is that it does not have current data or data from the past few days, which is alleviated with the OpenWeather Dataset.
    
 * 2. **OpenWeather Dataset**  
     To complement the historical data provided by NOAA, we utilized the OpenWeather History API for recent weather data. The OpenWeather dataset offered high-resolution, recent weather data, providing a contemporary perspective to complement the long-term historical insights from NOAA. This dataset offers hourly historical weather data dating back to January 1, 1979, and includes a wide range of weather parameters such as:  
