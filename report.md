@@ -236,10 +236,7 @@ To ensure the accessibility and reproducibility of our results, we packaged the 
 
 ### Further work 
 
-
-```python
-
-```
+There are many possible directions for future work. One method to improve the method is to not treat the weather forecasting problem as a regression problem with temperature and precipitation as the predictors. Instead, we can consider physics-based models that better predict temperature. However, this would also come with a significant computational cost. And additional method is to not only use the previous 30 days for prediction, and instead to look at historical trends as well.
 
 ## Appendix
 
