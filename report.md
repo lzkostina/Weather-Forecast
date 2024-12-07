@@ -148,18 +148,15 @@ Additionally, we developed a **Weighted Average Predictor**, which combines the 
 To establish a benchmark for comparison, we implemented two simple baseline predictors:  
 
 1.  **Previous Day Predictor**
-    -   **Approach**: Uses the last recorded day’s weather data to
-        predict the next 5 days.  
-    -   **Mechanism**: Repeats today’s values (TMIN, TAVG, TMAX) for the
-        subsequent 5 days.  
+    -   **Approach**: Uses the last recorded day’s weather data to predict the next 5 days.  
+    -   **Mechanism**: Repeats today’s values (TMIN, TAVG, TMAX) for the subsequent 5 days.  
     -   **Strengths**: 
         -   Simplicity: The method requires no training or parameter tuning, making it extremely straightforward and computationally efficient.
         -   Quick Deployment: Since it relies solely on the most recent data, it can be easily implemented and does not require historical data beyond the last recorded day.
     -   **Limitations**:
         -   Assumes static weather patterns, making it less effective during rapid weather changes.
 2.  **Average Last Week Predictor**
-    -   **Approach**: Averages the last 7 days of weather data to
-        generate predictions.  
+    -   **Approach**: Averages the last 7 days of weather data to generate predictions.  
     -   **Mechanism**: Calculates the mean TMIN, TAVG, and TMAX over the past week and repeats these averages for the next 5 days.  
     -   **Strengths**:
         -   More robust to daily fluctuations compared to the Previous Day Predictor.  
