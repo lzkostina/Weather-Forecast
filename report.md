@@ -184,7 +184,7 @@ After implementing the baseline predictors, we advanced to regression-based mode
 
 #### Ridge Regression (5-fold with RidgeCV)  
 - **Approach**:  
-  - Ridge regression was applied with a regularization parameter $(\alpha)$ tuned via 5-fold cross-validation using RidgeCV.  
+  - Ridge regression was applied with a regularization parameter $(\alpha)$ tuned using RidgeCV via 5-fold cross-validation.  
 - **Strength**:  
   - Handles multicollinearity effectively, reducing the potential for overfitting by shrinking the coefficients.  
 - **Limitation**:  
@@ -192,7 +192,7 @@ After implementing the baseline predictors, we advanced to regression-based mode
 
 #### LASSO Regression (5-fold with LassoCV)  
 - **Approach**:  
-  - LASSO regression was also tuned using 5-fold cross-validation with LassoCV.  
+  - LASSO regression was also tuned using LassoCV with 5-fold cross-validation.  
 - **Strength**:  
   - Particularly useful for feature selection, as it tends to shrink coefficients of less important features to zero.  
 - **Limitation**:  
