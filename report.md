@@ -1,251 +1,421 @@
-# Weather Prediction 
+# Weather Prediction
 
 Authors: Feifan Jiang, Liza Kostina, Judy Wu, Daniel Zou
 
 Date: November 2024
 
-## Objective: 
-The objective of this project is to accurately predict the minimum, average, and maximum daily temperatures (in Fahrenheit) for each of 20 selected cities in the United States, over five future days, across nine consecutive days. These predictions aim to minimize the mean squared error and are submitted daily at noon, starting November 26, 2024, and concluding on December 4, 2024. A total of 2,700 temperature predictions will be made, considering 3 temperature variables, 20 cities, 5 prediction days, and 9 submission days. The project focuses on implementing robust forecasting techniques to achieve precision across diverse geographic locations, from Anchorage to Miami, and varying climates.
+## Objective:
 
+The objective of this project is to accurately predict the minimum,
+average, and maximum daily temperatures (in Fahrenheit) for each of 20
+selected cities in the United States, over five future days, across nine
+consecutive days. These predictions aim to minimize the mean squared
+error and are submitted daily at noon, starting November 26, 2024, and
+concluding on December 4, 2024. A total of 2,700 temperature predictions
+will be made, considering 3 temperature variables, 20 cities, 5
+prediction days, and 9 submission days. The project focuses on
+implementing robust forecasting techniques to achieve precision across
+diverse geographic locations, from Anchorage to Miami, and varying
+climates.
 
 ## Project timeline
 
-* Monday, Nov 25: Model finalized, code committed to Github, Docker image uploaded to Dockerhub
-* Tuesday, Nov 26: Begin making daily predictions, due at noon daily
-* Tuesday, Dec 3: Presentations
-* Wednesday, Dec 4: Final day making predictions; report due
+-   Monday, Nov 25: Model finalized, code committed to Github, Docker
+    image uploaded to Dockerhub
+-   Tuesday, Nov 26: Begin making daily predictions, due at noon daily
+-   Tuesday, Dec 3: Presentations
+-   Wednesday, Dec 4: Final day making predictions; report due
 
 ## Data
 
-### Data Sources  
-To utilize the strengths of publicly available datasets, we sourced data from NOAA and an additional OpenWeather dataset, leveraging them as follows:
+### Data Sources
 
-* 1. **NOAA Dataset**  
-   The NOAA dataset provided us with historical weather data dating back to January 1, 1948. Specifically, we utilized the **Global Historical Climatology Network - Daily (GHCN-D)** dataset, which integrates daily climate observations from approximately 30 sources. This comprehensive and consistent dataset includes measurements which we further used in our models:  
-   - Minimum, maximum, and average temperatures,  
-   - Precipitation, and 
-   - Snowfall
+To utilize the strengths of publicly available datasets, we sourced data
+from NOAA and an additional OpenWeather dataset, leveraging them as
+follows:
 
-   The NOAA dataset served as the backbone of our analysis, offering a long-term historical perspective essential for training robust prediction models. One weakness of the NOAA dataset is that it does not have current data or data from the past few days, which is alleviated with the OpenWeather Dataset.
-   
-* 2. **OpenWeather Dataset**  
-    To complement the historical data provided by NOAA, we utilized the OpenWeather History API for recent weather data. The OpenWeather dataset offered high-resolution, recent weather data, providing a contemporary perspective to complement the long-term historical insights from NOAA. This dataset offers hourly historical weather data dating back to January 1, 1979, and includes a wide range of weather parameters such as:  
-    - Minimum, maximum, and average temperatures,  
-    - Humidity,  
-    - Precipitation details (rainfall and snowfall), and  
-    - Wind speed and direction.  
+-   1.  **NOAA Dataset**  
+        The NOAA dataset provided us with historical weather data dating
+        back to January 1, 1948. Specifically, we utilized the **Global
+        Historical Climatology Network - Daily (GHCN-D)** dataset, which
+        integrates daily climate observations from approximately 30
+        sources. This comprehensive and consistent dataset includes
+        measurements which we further used in our models:  
 
+    -   Minimum, maximum, and average temperatures,  
+    -   Precipitation,  
+    -   Snowfall,
+    -   Snow depth.
 
-### Data Collection
+    The NOAA dataset served as the backbone of our analysis, offering a
+    long-term historical perspective essential for training robust
+    prediction models.
 
-For our analysis, we focused on data from 20 locations of interest.
+-   1.  **OpenWeather Dataset**  
+        To complement the historical data provided by NOAA, we utilized
+        the OpenWeather History API for recent weather data. This
+        dataset offers hourly historical weather data dating back to
+        January 1, 1979, and includes a wide range of weather parameters
+        such as:  
 
-* **NOAA Dataset** was downloaded directly from NOAA's public server using python `urllib.request` module. We retrieved all available data of each station by their specific NOAA code, ranging from 1940s to November 11, 2024. All the raw data retrieved was in `.dly` format, which will be further processed for the further model training and prediction.
+    -   Minimum, maximum, and average temperatures,  
+    -   Humidity,  
+    -   Precipitation details (rainfall and snowfall),  
+    -   Wind speed and direction.
 
-* **OpenWeather Dataset** was retrieved using OpenWeather History API, which is free for students. However, each API calls is limited to retrieving data for one week at a time. To build the dataset, we collected the data inweekly chunks and combined them into a single dataset. The data ranging from November 12, 2024 to November 25, 2024 was retrieved for model training. The data from November 12, 2024 to the day of making predictions was retrieved when making predictions to ensure that the prediction better captures the short-term weather patterns at the location. 
+For our analysis, we focused on data from 20 locations, specified by
+their geographic coordinates (longitude and latitude), covering the
+period from November 12, 2024, to the day of making predictions. The
+data was retrieved using Python’s `requests` module, downloaded in
+weekly chunks to stay within the API limits. The raw data was provided
+in JSON format, requiring additional processing for integration with our
+models.
 
-
-
+The OpenWeather dataset offered high-resolution, recent weather data,
+providing a contemporary perspective to complement the long-term
+historical insights from NOAA.
 
 ### Data Preprocessing
 
-Preprocessing both datasets was a critical step in preparing the historical weather data for analysis and model training. 
+Preprocessing both datasets was a critical step in preparing the
+historical weather data for analysis and model training.
 
-**NOAA Dataset**
+-   **NOAA Dataset** For NOAA dataset the main steps of the
+    preprocessing included:
 
-For NOAA dataset the main steps of the preprocessing included:
-   
-1. **Format Conversion**  
-   - The raw data, provided in `.dly` format, was converted into a tabular format to enable easier analysis and integration with our workflow.  
+1.  **Format Conversion**
+    -   The raw data, provided in `.dly` format, was converted into a
+        tabular format to enable easier analysis and integration with
+        our workflow.
+2.  **Data Cleaning**
+    -   **Invalid Dates:** Removed entries with invalid dates to ensure
+        consistency.  
+    -   **Missing Average Temperatures:** Filled missing average
+        temperature values by taking the average of the maximum and
+        minimum temperatures for the same day.  
+    -   **Snowfall and Precipitation:** Replaced missing values for
+        snowfall and precipitation with zeros, assuming no snowfall or
+        rainfall occurred.  
+    -   **Invalid Temperature Values:** Fixed anomalous temperature
+        readings (e.g., values below -1000) by replacing them with the
+        previous day’s valid temperature.
+3.  **Unit Conversion**
+    -   Converted all temperature values from Celsius to Fahrenheit to
+        align with standard U.S. weather reporting conventions.
+4.  **Feature Selection**
+    -   Retained only the core features, including temperature (minimum,
+        maximum, and average), precipitation and snowfall for subsequent
+        model training.
 
-2. **Data Cleaning**  
-   - **Invalid Dates:** Entries with invalid dates were removed to ensure consistency.  
-   - **Missing Average Temperatures:** All missing average temperature values were filled by taking the average of the maximum and minimum temperatures for the same day.  
-   - **Snowfall and Precipitation:** Missing values for snowfall and precipitation were replaced with zeros, assuming no snowfall or rainfall occurred.  
-   - **Invalid Temperature Values:** Anomalous temperature readings (e.g., values below -1000) were fixed by replacing them with the previous day’s valid temperature.  
+These preprocessing steps ensured the NOAA dataset was clean,
+consistent, and ready for effective integration into the predictive
+models.
 
-3. **Unit Conversion**  
-   - All temperature values were converted from Celsius to Fahrenheit to align with standard U.S. weather reporting conventions and the project requirement.  
+-   **OpenWeather Dataset**
 
-4. **Feature Selection**  
-   - We retained only the core features, including temperature (minimum, maximum, and average), precipitation and snowfall for subsequent model training.  
+The OpenWeather dataset also underwent several preprocessing steps to
+prepare it for integration with the NOAA data and subsequent model
+training. The main steps included:
 
-These preprocessing steps ensured the NOAA dataset was clean, consistent, and ready for effective integration into the predictive models.  
+1.  **Format Conversion**
+    -   Raw data retrieved in `.JSON` format was converted into `.csv`
+        format to facilitate analysis and storage.
+2.  **Data Aggregation**
+    -   **Time Conversion:** The UTC timestamps in the dataset were
+        converted to the local time of each city to align with
+        region-specific weather patterns.  
+    -   **Feature Extraction:** Key features, including temperature
+        (minimum, maximum, and average), precipitation, and snowfall
+        records, were extracted for analysis.  
+    -   **Daily Aggregation:** The hourly data was aggregated into daily
+        data by:
+        -   Calculating the daily average, minimum, and maximum
+            temperatures.  
+        -   Summing total precipitation and snowfall for each day.
+3.  **Dataset Integration**
+    -   The processed OpenWeather data, covering the period from
+        November 12 to November 25, 2024, was merged with the processed
+        NOAA data to create a unified dataset for model training.
 
+These preprocessing steps ensured consistency between the two datasets
+and prepared the data for effective model development.
 
-**OpenWeather Dataset**
+The code used for data downloading and preprocessing is provided in the
+Appendix section of this report for reference. Additionally, the
+original code can be found in the analysis folder, and the raw and
+processed data are stored in the data folder of our GitHub repository.
 
-The OpenWeather dataset also underwent several preprocessing steps to prepare it for integration with the NOAA data and subsequent model training. The main steps included:  
+## Regression-Based Weather Forecasting
 
-1. **Format Conversion**  
-   - Raw data retrieved in `.JSON` format was converted into `.csv` format to facilitate analysis and storage.  
+After obtaining and preprocessing the data, we framed weather
+forecasting as a regression problem. By using past weather data as
+features and future temperature data as labels, we were able to approach
+this task systematically within a supervised learning framework.
 
-2. **Data Aggregation**  
-   - **Time Conversion:** The UTC timestamps in the dataset were converted to the local time of each city to align with region-specific weather patterns.  
-   - **Feature Extraction:** Key features, including temperature (minimum, maximum, and average), precipitation, and snowfall records, were extracted for analysis.  
-   - **Daily Aggregation:** The hourly data was aggregated into daily data by:  
-     - Calculating the daily average, minimum, and maximum temperatures.  
-     - Summing total precipitation and snowfall for each day.  
+The primary objective of the project was to minimize the Mean Squared
+Error between the predicted and actual temperature values. Thus, we
+continued our analysis with preparing regression dataset in the
+following way:
 
-3. **Dataset Integration**  
-   - The processed OpenWeather data, covering the period from November 12 to November 25, 2024, was merged with the processed NOAA data to create a unified dataset for model training.  
+#### Regression Dataset Structure
 
-These preprocessing steps ensured consistency between the two datasets and prepared the data for effective model development. 
+1.  **Features**:
+    -   A flattened array of the previous 30 days’ data, including:
+        -   Minimum temperature (TMIN)  
+        -   Average temperature (TAVG)  
+        -   Maximum temperature (TMAX)  
+        -   Snowfall (SNOW)  
+        -   Precipitation (PRCP)
+2.  **Labels**:
+    -   A flattened array of the next 5 days’ data, focusing on:
+        -   Minimum temperature (TMIN)  
+        -   Average temperature (TAVG)  
+        -   Maximum temperature (TMAX)
 
-The code used for data downloading and preprocessing is provided in the Appendix section of this report for reference. Additionally, the original code can be found in the analysis folder, and the raw and processed data are stored in the data folder of our GitHub repository.
+#### Data Range
 
-## Regression-Based Weather Forecasting  
-
-After obtaining and preprocessing the data, we framed weather forecasting as a regression problem. By using past weather data as features and future temperature data as labels, we were able to approach this task systematically within a supervised learning framework.  
-
-The primary objective of the project was to minimize the Mean Squared Error between the predicted and actual temperature values. Thus, we continued our analysis with preparing regression dataset in the following way: 
-
-#### Regression Dataset Structure  
-
-1. **Features**:  
-   - A flattened array of the previous 30 days’ data, including:  
-     - Minimum temperature (TMIN)  
-     - Average temperature (TAVG)  
-     - Maximum temperature (TMAX)  
-     - Snowfall (SNOW)  
-     - Precipitation (PRCP)  
-
-2. **Labels**:  
-   - A flattened array of the next 5 days’ data, focusing on:  
-     - Minimum temperature (TMIN)  
-     - Average temperature (TAVG)  
-     - Maximum temperature (TMAX)  
-
-#### Data Range  
-
-To ensure robust model evaluation and fair predictions, the data range was as follows:  
+To ensure robust model evaluation and fair predictions, the data range
+was divided as follows:  
 - **Model Training**:  
-  - Models were trained on data excluding the evaluation days, with a buffer to prevent any data leakage.  
+    - Models were trained on data excluding the evaluation days, with a
+buffer to prevent any data leakage.  
 - **Model Evaluation**:  
-  - To simulate real-world test conditions, evaluation was conducted on data from November 25 to December 10 for each of the past five years.  
-  - For each evaluation day, predictions were made for the subsequent 5 days.  
-  - This approach ensured that the evaluation set closely resembled the actual test scenario in timing and structure.  
+    - To simulate real-world test conditions, evaluation was conducted on
+data from November 25 to December 10 for each of the past five years.  
+    - For each evaluation day, predictions were made for the subsequent 5
+days.  
+    - This approach ensured that the evaluation set closely resembled the
+actual test scenario in timing and structure.  
 - **Final Prediction**:  
-  - After selecting the best-performing model, it was trained on the full dataset from January 1, 2014, to October 31, 2024, to generate the final predictions.  
+    - After selecting the best-performing model, it was trained on the full
+dataset from January 1, 2014, to October 31, 2024, to generate the final
+predictions.
 
-This structured approach to training, evaluation, and prediction ensured a clear separation between training and testing phases while leveraging historical and recent data to create a robust predictive framework.  
+This structured approach to training, evaluation, and prediction ensured
+a clear separation between training and testing phases while leveraging
+historical and recent data to create a robust predictive framework.
 
 ## Prediction Models
 
-To address the weather forecasting challenge, we trained a series of predictors using diverse methodologies:  
+To address the weather forecasting challenge, we trained a series of
+predictors using diverse methodologies:
 
-- **Previous Day Predictor**  
-- **Average Last Week Predictor**  
-- **Linear Regression**  
-- **Ridge Regression**  
-- **LASSO**  
-- **Random Forest**  
+-   **Previous Day Predictor**  
+-   **Average Last Week Predictor**  
+-   **Linear Regression**  
+-   **Ridge Regression**  
+-   **LASSO**  
+-   **Random Forest**
 
-Additionally, we developed a **Weighted Average Predictor**, which combines the outputs of the above predictors using optimized weights to improve overall accuracy.  
+Additionally, we developed a **Weighted Average Predictor**, which
+combines the outputs of the above predictors using optimized weights to
+improve overall accuracy.
 
-#### Baseline Predictors  
+#### Baseline Predictors
 
-To establish a benchmark for comparison, we implemented two simple baseline predictors:  
+To establish a benchmark for comparison, we implemented two simple
+baseline predictors:
 
 1.  **Previous Day Predictor**
-    -   **Approach**: 
-        -   Uses the last recorded day’s weather data to predict the next 5 days.  
-    -   **Mechanism**: 
-        -   Repeats today’s values (TMIN, TAVG, TMAX) for the subsequent 5 days.  
+    -   **Approach**: Uses the last recorded day’s weather data to
+        predict the next 5 days.  
+    -   **Mechanism**: Repeats today’s values (TMIN, TAVG, TMAX) for the
+        subsequent 5 days.  
     -   **Strengths**: 
-        -   Simplicity: The method requires no training or parameter tuning, making it extremely straightforward and computationally efficient.
-        -   Quick Deployment: Since it relies solely on the most recent data, it can be easily implemented and does not require historical data beyond the last recorded day.
+        -   Simplicity: The method requires no training or parameter tuning, 
+            making it extremely straightforward and computationally efficient.
+        -   Quick Deployment: Since it relies solely on the most recent data, 
+            it can be easily implemented and does not require historical data 
+            beyond the last recorded day.
     -   **Limitations**:
-        -   Assumes static weather patterns, making it less effective during rapid weather changes.
+        -   Assumes static weather patterns, making it less effective during 
+            rapid weather changes.
 2.  **Average Last Week Predictor**
-    -   **Approach**: 
-        -   Averages the last 7 days of weather data to generate predictions.  
-    -   **Mechanism**: 
-        -   Calculates the mean TMIN, TAVG, and TMAX over the past week and repeats these averages for the next 5 days.  
+    -   **Approach**: Averages the last 7 days of weather data to
+        generate predictions.  
+    -   **Mechanism**: Calculates the mean TMIN, TAVG, and TMAX over the
+        past week and repeats these averages for the next 5 days.  
     -   **Strengths**:
-        -   More robust to daily fluctuations compared to the Previous Day Predictor.  
+        -   More robust to daily fluctuations compared to the Previous
+            Day Predictor.  
     -   **Limitations**:
-        -   Assumes weekly averages accurately reflect future trends, which might not always hold especially during abrupt weather changes.
+        -   Assumes weekly averages accurately reflect future trends,
+            which might not always hold especially during abrupt weather changes.
             
-While both baseline predictors are straightforward to implement, they come with inherent limitations, particularly in their assumptions about weather patterns. These predictors served as useful references, enabling us to evaluate the performance of more sophisticated models.  
+While both baseline predictors are straightforward to implement, they
+come with inherent limitations, particularly in their assumptions about
+weather patterns. These predictors served as useful references, enabling
+us to evaluate the performance of more sophisticated models.
 
+### Regression-Based Predictors
 
+After implementing the baseline predictors, we advanced to
+regression-based models to better capture complex weather patterns. For
+these models, the features consisted of the last 30 days of weather
+data, specifically TMIN, TAVG, TMAX, SNOW, and PRCP (precipitation),
+which were flattened into a single feature vector of size 30 x 5 = 150.
 
-### Regression-Based Predictors  
+#### Linear Regression
 
-After implementing the baseline predictors, we advanced to regression-based models to better capture complex weather patterns. For these models, the features consisted of the last 30 days of weather data, specifically TMIN, TAVG, TMAX, SNOW, and PRCP (precipitation), which were flattened into a single feature vector of size 150.
+-   **Strength**:
+    -   Simple, interpretable, and computationally efficient.
+    -   Provides clear coefficients that explain the relationship
+        between features and the target variable.  
+-   **Limitation**:
+    -   Assumes a linear relationship between features and the target,
+        which limits its ability to model more complex weather patterns
+        or interactions between variables.
 
-#### Linear Regression  
-- **Strength**:  
-  - Simple, interpretable, and computationally efficient.  
-  - Provides clear coefficients that explain the relationship between features and the target variable.  
-- **Limitation**:  
-  - Assumes a linear relationship between features and the target, which limits its ability to model more complex weather patterns or interactions between variables.
+#### Ridge Regression (5-fold with RidgeCV)
 
-#### Ridge Regression (5-fold with RidgeCV)  
-- **Approach**:  
-  - Ridge regression was applied with a regularization parameter $(\alpha)$ tuned using RidgeCV via 5-fold cross-validation.  
-- **Strength**:  
-  - Handles multicollinearity effectively, reducing the potential for overfitting by shrinking the coefficients.  
-- **Limitation**:  
-  - Despite regularization, it still assumes linear relationships between the features and target, which may not fully capture nonlinear weather patterns.
+-   **Approach**:
+    -   Ridge regression was applied with a regularization parameter
+        $(\alpha)$ tuned using RidgeCV via 5-fold cross-validation.  
+-   **Strength**:
+    -   Handles multicollinearity effectively, reducing the potential
+        for overfitting by shrinking the coefficients.  
+-   **Limitation**:
+    -   Despite regularization, it still assumes linear relationships
+        between the features and target, which may not fully capture
+        nonlinear weather patterns.
 
-#### LASSO Regression (5-fold with LassoCV)  
-- **Approach**:  
-  - LASSO regression was also tuned using LassoCV with 5-fold cross-validation.  
-- **Strength**:  
-  - Particularly useful for feature selection, as it tends to shrink coefficients of less important features to zero.  
-- **Limitation**:  
-  - LASSO may drop important features if they are highly correlated with others, which could result in the loss of valuable predictors.
+#### LASSO Regression (5-fold with LassoCV)
 
-These regression-based models introduced more complexity compared to the baseline predictors, and their strengths and limitations reflect the trade-off between interpretability and the ability to capture complex relationships in the data.
+-   **Approach**:
+    -   LASSO regression was also tuned using LassoCV with 5-fold 
+        cross-validation.  
+-   **Strength**:
+    -   Particularly useful for feature selection, as it tends to shrink
+        coefficients of less important features to zero.  
+-   **Limitation**:
+    -   LASSO may drop important features if they are highly correlated
+        with others, as it retains only one feature from a correlated group,
+        which could result in the loss of valuable predictors.
 
-### Random Forest and Weighted Average Predictor  
+These regression-based models introduced more complexity compared to the
+baseline predictors, and their strengths and limitations reflect the
+trade-off between interpretability and the ability to capture complex
+relationships in the data.
 
-After exploring linear and regularized regression models, we turned to more complex machine learning models, such as Random Forest, to capture nonlinear relationships in the data.
+### Random Forest and Weighted Average Predictor
 
-#### Random Forest (GridSearchCV with 5-fold Cross-Validation)  
-- **Features**: Same as Linear Regression (150 features, including TMIN, TAVG, TMAX, SNOW, and PRCP for the past 30 days).  
-- **Strength**:  
-  - Random Forests excel at handling complex patterns and interactions between features, which are common in weather data.  
-  - Provides feature importance, allowing us to identify which variables contribute most to the model’s predictions.  
-- **Limitation**:  
-  - Computationally intensive, especially as the number of trees and data size increases. Training and prediction times may be longer compared to simpler models.
+After exploring linear and regularized regression models, we turned to
+more complex machine learning models, such as Random Forest, to capture
+nonlinear relationships in the data.
 
-#### Weighted Average Predictor (Custom Cross-Validation over Weights)  
-- **Approach**:  
-  - The Weighted Average Predictor combines predictions from multiple models by calculating a weighted average of their outputs.  
-  - Weights for each model’s prediction are generated randomly using a Dirichlet distribution, and each weight combination is evaluated based on the Mean Squared Error (MSE). The best-performing weights are then selected.  
-- **Features and Targets**:  
-  - Features and targets are the same as those used in the individual models, with weights applied to the predictions of each model.  
-- **Strength**:  
-  - By combining predictions from multiple models, this approach improves accuracy and captures complementary patterns that individual models may miss.  
-- **Limitation**:  
-  - The quality of the model depends heavily on the choice of weights, which could lead to suboptimal performance if not carefully optimized.
+#### Random Forest (GridSearchCV with 5-fold Cross-Validation)
 
-These models represent a natural progression from simpler linear models to more sophisticated ensemble methods, with the goal of improving prediction accuracy by capturing complex relationships in the data. The Random Forest provides a powerful tool for identifying complex patterns, while the Weighted Average Predictor serves as a way to combine multiple model outputs for enhanced performance.
+-   **Features**: Same as Linear Regression (150 features, including
+    TMIN, TAVG, TMAX, SNOW, and PRCP for the past 30 days).  
+-   **Strength**:
+    -   Random Forests excel at handling complex patterns and
+        interactions between features, which are common in weather
+        data.  
+    -   Provides feature importance, allowing us to identify which
+        variables contribute most to the model’s predictions.  
+-   **Limitation**:
+    -   Computationally intensive, especially as the number of trees and
+        data size increases. Training and prediction times may be longer
+        compared to simpler models.
 
+#### Weighted Average Predictor (Custom Cross-Validation over Weights)
 
-## Conclusion 
+-   **Approach**:
+    -   The Weighted Average Predictor combines predictions from
+        multiple models by calculating a weighted average of their
+        outputs.  
+    -   Weights for each model’s prediction are generated randomly using
+        a Dirichlet distribution, and each weight combination is
+        evaluated based on the Mean Squared Error (MSE). The
+        best-performing weights are then selected.  
+-   **Features and Targets**:
+    -   Features and targets are the same as those used in the
+        individual models, with weights applied to the predictions of
+        each model.  
+-   **Strength**:
+    -   By combining predictions from multiple models, this approach
+        improves accuracy and captures complementary patterns that
+        individual models may miss.  
+-   **Limitation**:
+    -   The quality of the model depends heavily on the choice of
+        weights, which could lead to suboptimal performance if not
+        carefully optimized.
 
-After training and evaluating the Weighted Average Predictor, we determined the optimal weights to assign to each model in the ensemble. Our final configuration gave full weight to the Ridge Regression model, with a weight of 1.0, and assigned zero weight to the other models (Lasso, Random Forest, and Baselines). This weight configuration was chosen to minimize the Mean Squared Error (MSE), which resulted in an optimal MSE of 49.97.
+These models represent a natural progression from simpler linear models
+to more sophisticated ensemble methods, with the goal of improving
+prediction accuracy by capturing complex relationships in the data. The
+Random Forest provides a powerful tool for identifying complex patterns,
+while the Weighted Average Predictor serves as a way to combine multiple
+model outputs for enhanced performance.
 
-The historical NOAA data, supplemented with current OpenWeather data, served as the foundation for our predictions. For evaluation, we used the period from Nov 25 to Dec 10 of the past five years, ensuring that the evaluation set was representative of real-world forecasting conditions. Our weighted model, which included a variety of predictors such as Linear Regression and Random Forest, provided a robust forecasting tool. The final result was a Ridge Regression model trained on temperature, snowfall, and precipitation from the past 30 days.
+## Conclusion
 
-To ensure the accessibility and reproducibility of our results, we packaged the entire workflow into a Docker image. This step allows anyone interested to easily run our models with minimal setup, ensuring that the results can be verified and applied in different environments. This approach highlights the importance of not only developing accurate models but also making them accessible and reproducible for future use.
+After training and evaluating the Weighted Average Predictor, we
+determined the optimal weights to assign to each model in the ensemble.
+Our final configuration gave full weight to the Ridge Regression model,
+with a weight of 1.0, and assigned zero weight to the other models
+(Lasso, Random Forest, and Baselines). This weight configuration was
+chosen to minimize the Mean Squared Error (MSE), which resulted in an
+optimal MSE of 49.97.
 
-### Further work 
+The historical NOAA data, supplemented with current OpenWeather data,
+served as the foundation for our predictions. For evaluation, we used
+the period from Nov 25 to Dec 10 of the past five years, ensuring that
+the evaluation set was representative of real-world forecasting
+conditions. Our weighted model, which included a variety of predictors
+such as Linear Regression and Random Forest, provided a robust
+forecasting tool. The final result was a Ridge Regression model trained
+on temperature, snowfall, and precipitation from the past 30 days.
 
-There are many possible directions for future work. One method to improve the method is to not treat the weather forecasting problem as a regression problem with temperature and precipitation as the predictors. Instead, we can consider physics-based models that better predict temperature. However, this would also come with a significant computational cost. And additional method is to not only use the previous 30 days for prediction, and instead to look at historical trends as well.
+To ensure the accessibility and reproducibility of our results, we
+packaged the entire workflow into a Docker image. This step allows
+anyone interested to easily run our models with minimal setup, ensuring
+that the results can be verified and applied in different environments.
+This approach highlights the importance of not only developing accurate
+models but also making them accessible and reproducible for future use.
+
+### Further work
+
+While our final Ridge Regression model demonstrated strong performance for the first two days of forecasting, we observed a notable decline in accuracy for days three, four, and five. This suggests that incorporating additional methodologies could enhance the model’s robustness over longer prediction horizons.
+
+1. **Combination of Predictors**  
+   - A hybrid approach that combines the Previous Day Predictor and the Historical Average Predictor could be effective in this longitudinal setting.  
+   - Historical averages can serve as a stable baseline, especially for capturing long-term patterns, while the Previous Day Predictor provides adaptability to short-term fluctuations.  
+   - Exploring a weighted combination or dynamic switching mechanism between these predictors based on the prediction horizon might yield improved results.
+
+2. **Advanced Ensemble Methods**  
+   - Expanding the ensemble approach by incorporating more sophisticated models such as Gradient Boosting Machines (e.g., XGBoost, LightGBM) or Neural Networks could capture more complex patterns in the data.  
+   - Additionally, using time-series specific models like ARIMA, SARIMA, or LSTM networks could leverage temporal dependencies explicitly.
+
+3. **Feature Engineering and Data Augmentation**  
+   - Including additional meteorological variables, such as wind direction, atmospheric pressure, and cloud cover, may provide the model with richer contextual information.  
+   - Data augmentation techniques, such as simulating plausible missing data scenarios, could improve the model’s robustness to real-world inconsistencies.  
+
+4. **Incorporation of Spatial Information**  
+   - The current model assumes each location is independent, but incorporating spatial relationships between nearby stations (e.g., using spatial interpolation or graph-based methods) might improve predictions.  
+   - Models leveraging Geographic Information Systems (GIS) or spatial regression techniques could be explored.  
+
+5. **Evaluation of Long-Term Trends**  
+   - Extend the evaluation period beyond five days to assess the model's capacity to generalize over longer horizons.  
+   - Investigate trends in model performance across different seasons, as weather patterns can vary significantly by time of year.  
+
+6. **Integration with Real-Time Data Streams**  
+   - Real-time weather updates from APIs like OpenWeather could be dynamically fed into the model for continuous learning and prediction. This would allow the model to adapt to changing conditions.  
+
+7. **Optimization of Computational Efficiency**  
+   - Given the computational demands of ensemble predictors and Random Forests, optimizing model training and inference time is critical for scalability.  
+   - Techniques like model distillation or pruning could make the system more efficient while maintaining accuracy.
+
+By addressing these areas, the forecasting system can become more robust, adaptive, and efficient, making it better suited for both short-term and long-term predictions across varying weather conditions. 
+
 
 ## Appendix
 
 ### Code
 
-#### Data Downloading and Preprocessing 
+#### Data Downloading and Preprocessing
 
-
-```python
+``` python
 # Downloading data for 20 cities using NOAA dataset
 
 station_code_dict = {
@@ -296,8 +466,7 @@ for station_code, file_name in station_code_dict.items():
         logging.error(f"Failed to download data for {station_code}: {e}")
 ```
 
-
-```python
+``` python
 # Converting NOAA dataset in .csv format
 
 # Define the column names and their respective column positions
@@ -373,8 +542,7 @@ output_dir = 'data/processed'
 convert_dly_to_dataframe(input_dir, output_dir, parse_line)
 ```
 
-
-```python
+``` python
 # NOAA data preprocessing
 
 def process_weather_data(data_file, hourly_data_file):
@@ -459,11 +627,9 @@ def process_all_weather_data(data_directory, hourly_data_directory, locations):
 
         else:
             print(f"Files not found for {city}. Skipping...")
-
 ```
 
-
-```python
+``` python
 # Downloading data for OpenWeather
 
 # Coordinates for each location
@@ -648,13 +814,11 @@ with open(csv_file_path, mode='w', newline='') as file:
         writer.writerow(city_weather)
 
 print(f"Detailed weather data saved to {csv_file_path}")
-
 ```
 
-### Rgression Dataset 
+### Rgression Dataset
 
-
-```python
+``` python
 # In the following functions we create a regression database to train predictors on.
 # Each row of the database will represent one "training example" which consists of:
 # - The current date
@@ -829,8 +993,7 @@ for station in stations_list:
 
 ### Evaluation
 
-
-```python
+``` python
 # The following functions contain code to evaluate the performance of the model.
 # The model is evaluated using the mean squared error (MSE)
 
@@ -1006,15 +1169,421 @@ predictor_list = [ #predictor.test_predictor.PreviousDayPredictor(),
                   predictor.test_predictor.LassoPredictor(),
                   predictor.test_predictor.RandomForestPredictor()
                   ]
-
 ```
 
 ### Prediction Models
 
+``` python
+# arima
 
-```python
+def arima_forecast(series, order=(1, 1, 1), steps=5, start_date=None):
+    model = ARIMA(series, order=order)
+    model_fit = model.fit()
+    forecast = model_fit.forecast(steps=steps)
+    future_dates = [start_date + pd.Timedelta(days=i) for i in range(1, steps + 1)]
+    forecast_df = pd.DataFrame({'DATE': future_dates, 'FORECAST': forecast})
+    return forecast_df
+
+def evaluate_predictions(actual, predicted):
+    mse = mean_squared_error(actual, predicted)
+    mae = mean_absolute_error(actual, predicted)
+    return mse, mae
+
+directory = '.'  
+output_file = 'output/AllCities_ARIMA.txt' 
+os.makedirs('output', exist_ok=True)  
+
+def combine_future_predictions(tmin_forecast_df, tmax_forecast_df, tavg_forecast_df):
+    """Combine TMIN, TMAX, and TAVG forecasts into a single DataFrame."""
+    combined_forecast = pd.DataFrame({
+        'DATE': tmin_forecast_df['DATE'],
+        'TMIN': tmin_forecast_df['FORECAST'],
+        'TMAX': tmax_forecast_df['FORECAST'],
+        'TAVG': tavg_forecast_df['FORECAST']
+    })
+    return combined_forecast
+
+for filename in os.listdir(directory):
+    if filename.endswith('.csv'):
+        city_name = os.path.splitext(filename)[0]
+        file_path = os.path.join(directory, filename)
+        df = pd.read_csv(file_path)
+
+        df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')
+
+        # need to be corrected
+        # just for test
+        df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
+
+        df['TMAX'] = df['TMAX'].replace(0, np.nan)
+        df['TMIN'] = df['TMIN'].replace(0, np.nan)
+        df['TAVG'] = (df['TMAX'] + df['TMIN']) / 2  
+        df['TMAX'] = df['TMAX'].interpolate(method='linear')
+        df['TMIN'] = df['TMIN'].interpolate(method='linear')
+        df['TAVG'] = df['TAVG'].interpolate(method='linear')
+
+        # Train-Test Split
+        train_tmax = df['TMAX'][-600:-5]
+        test_tmax = df['TMAX'][-5:]
+        train_tmin = df['TMIN'][-600:-5]
+        test_tmin = df['TMIN'][-5:]
+        train_tavg = df['TAVG'][-600:-5]
+        test_tavg = df['TAVG'][-5:]
+
+        start_date = df['DATE'].max()
+        tmax_arima_forecast_df = arima_forecast(train_tmax, order=(5, 1, 3), steps=5, start_date=start_date)
+        tmin_arima_forecast_df = arima_forecast(train_tmin, order=(5, 1, 1), steps=5, start_date=start_date)
+        tavg_arima_forecast_df = arima_forecast(train_tavg, order=(5, 1, 3), steps=5, start_date=start_date)
+
+        combined_forecast_df = combine_future_predictions(tmin_arima_forecast_df, tmax_arima_forecast_df, tavg_arima_forecast_df)
+
+        # Evaluate ARIMA predictions
+        tmax_arima_mse, tmax_arima_mae = evaluate_predictions(test_tmax, tmax_arima_forecast_df['FORECAST'])
+        tmin_arima_mse, tmin_arima_mae = evaluate_predictions(test_tmin, tmin_arima_forecast_df['FORECAST'])
+        tavg_arima_mse, tavg_arima_mae = evaluate_predictions(test_tavg, tavg_arima_forecast_df['FORECAST'])
+
+        output_text = f"City: {city_name}\n"
+        output_text += f"TMAX - MSE: {tmax_arima_mse:.2f}, MAE: {tmax_arima_mae:.2f}\n"
+        output_text += f"TMIN - MSE: {tmin_arima_mse:.2f}, MAE: {tmin_arima_mae:.2f}\n"
+        output_text += f"TAVG - MSE: {tavg_arima_mse:.2f}, MAE: {tavg_arima_mae:.2f}\n\n"
+        output_text += "Future 5-Day Predictions (Combined):\n"
+        output_text += combined_forecast_df.to_string(index=False)
+        output_text += "\n\n" + "-" * 50 + "\n\n"
+        
+        with open(output_file, 'a', encoding='utf-8') as f:
+            f.write(output_text)
+
+        print(f"Processed {city_name}, results appended to {output_file}")
+
+# historical mean 
+
+def evaluate_predictions(actual, predicted, num_features=1):
+    mse = mean_squared_error(actual, predicted)
+    mae = mean_absolute_error(actual, predicted)
+    r2 = r2_score(actual, predicted)  # R² calculation
+    n = len(actual)  # Number of data points
+    adj_r2 = 1 - (1 - r2) * (n - 1) / (n - num_features - 1)  # Adjusted R²
+    return mse, mae, r2, adj_r2
+
+# Define Historical Mean prediction function
+def historical_mean_forecast(series, steps=5, start_date=None):
+    mean_value = series.mean()
+    forecast_values = [mean_value] * steps
+    future_dates = [start_date + pd.Timedelta(days=i) for i in range(1, steps + 1)]
+    forecast_df = pd.DataFrame({'DATE': future_dates, 'FORECAST': forecast_values})
+    return forecast_df
+
+
+directory = '.'  
+output_file = 'output/AllCities_HistoricalMean.txt'  
+os.makedirs('output', exist_ok=True)  
+
+with open(output_file, 'w', encoding='utf-8') as f:
+    f.write("Historical Mean Results for All Cities:\n\n")
+
+for filename in os.listdir(directory):
+    if filename.endswith('.csv'):
+        city_name = os.path.splitext(filename)[0]
+        file_path = os.path.join(directory, filename)
+        df = pd.read_csv(file_path)
+
+        df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')
+        # just for test
+        # df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
+        df['TAVG'] = (df['TMAX'] + df['TMIN']) / 2  
+        df['TMAX'] = df['TMAX'].interpolate(method='linear')
+        df['TMIN'] = df['TMIN'].interpolate(method='linear')
+        df['TAVG'] = df['TAVG'].interpolate(method='linear')
+
+        # Train-Test Split
+        train_tmax = df['TMAX'][:-5]
+        test_tmax = df['TMAX'][-5:]
+        train_tmin = df['TMIN'][:-5]
+        test_tmin = df['TMIN'][-5:]
+        train_tavg = df['TAVG'][:-5]
+        test_tavg = df['TAVG'][-5:]
+
+        start_date = df['DATE'].max()  # Start date for predictions
+        tmax_historical_forecast_df = historical_mean_forecast(train_tmax, steps=5, start_date=start_date)
+        tmin_historical_forecast_df = historical_mean_forecast(train_tmin, steps=5, start_date=start_date)
+        tavg_historical_forecast_df = historical_mean_forecast(train_tavg, steps=5, start_date=start_date)
+
+        tmax_mse, tmax_mae, tmax_r2, tmax_adj_r2 = evaluate_predictions(test_tmax, tmax_historical_forecast_df['FORECAST'])
+        tmin_mse, tmin_mae, tmin_r2, tmin_adj_r2 = evaluate_predictions(test_tmin, tmin_historical_forecast_df['FORECAST'])
+        tavg_mse, tavg_mae, tavg_r2, tavg_adj_r2 = evaluate_predictions(test_tavg, tavg_historical_forecast_df['FORECAST'])
+
+        combined_forecast_df = pd.DataFrame({
+            'DATE': tmax_historical_forecast_df['DATE'],
+            'TMIN': tmin_historical_forecast_df['FORECAST'],
+            'TMAX': tmax_historical_forecast_df['FORECAST'],
+            'TAVG': tavg_historical_forecast_df['FORECAST']
+        })
+
+        output_text = f"City: {city_name}\n"
+        output_text += f"TMAX - MSE: {tmax_mse:.2f}, MAE: {tmax_mae:.2f}, R²: {tmax_r2:.4f}, Adjusted R²: {tmax_adj_r2:.4f}\n"
+        output_text += f"TMIN - MSE: {tmin_mse:.2f}, MAE: {tmin_mae:.2f}, R²: {tmin_r2:.4f}, Adjusted R²: {tmin_adj_r2:.4f}\n"
+        output_text += f"TAVG - MSE: {tavg_mse:.2f}, MAE: {tavg_mae:.2f}, R²: {tavg_r2:.4f}, Adjusted R²: {tavg_adj_r2:.4f}\n\n"
+        output_text += "Future 5-Day Predictions (Combined):\n"
+        output_text += combined_forecast_df.to_string(index=False)
+        output_text += "\n\n" + "-" * 50 + "\n\n"
+
+        with open(output_file, 'a', encoding='utf-8') as f:
+            f.write(output_text)
+
+        print(f"Processed {city_name}, results appended to {output_file}")
+
+
+# OLS
+
+def evaluate_model(y_test, y_pred, X_test):
+    n = len(y_test)  
+    p = X_test.shape[1]  
+    r2 = r2_score(y_test, y_pred)  # R² score
+    adj_r2 = 1 - (1 - r2) * (n - 1) / (n - p - 1)  # Adjusted R²
+    mse = mean_squared_error(y_test, y_pred)  
+    rmse = np.sqrt(mse)  
+    mae = mean_absolute_error(y_test, y_pred)  
+    return r2, adj_r2, mse, rmse, mae
+
+
+def generate_future_predictions(data, model_min, model_max, model_avg, days=5, start_date=None, lag_features=[]):
+    future_predictions = []
+    current_data = data.iloc[-1][lag_features].values.reshape(1, -1)
+    current_date = pd.to_datetime(start_date)
+
+
+    for day in range(1, days + 1):
+        pred_min = model_min.predict(current_data)[0]
+        pred_max = model_max.predict(current_data)[0]
+        pred_avg = model_avg.predict(current_data)[0]
+
+        future_predictions.append({
+            'DATE': current_date + pd.Timedelta(days=day),
+            'TMIN': pred_min,
+            'TMAX': pred_max,
+            'TAVG': pred_avg
+        })
+
+
+        current_data = np.roll(current_data, -3)  
+        current_data[0, :3] = [pred_max, pred_min, pred_avg]  # Insert new predictions
+
+
+    return pd.DataFrame(future_predictions)
+
+
+directory = '.'  
+output_file = 'output/AllCities_LinearRegression.txt'  
+os.makedirs('output', exist_ok=True)
+
+
+with open(output_file, 'w', encoding='utf-8') as f:
+    f.write("Linear Regression Model Results for All Cities:\n\n")
+
+
+for filename in os.listdir(directory):
+    if filename.endswith('.csv'):
+        city_name = os.path.splitext(filename)[0]
+        file_path = os.path.join(directory, filename)
+        df = pd.read_csv(file_path)
+
+        df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')  # Handle invalid dates
+        df = df[df['DATE'].notna()] 
+         
+        # Filter data before or on 2024-11-19
+        # need to be corrected 
+        # just for test
+        # df = df[df['DATE'] <= '2024-11-19']  
+        df['TMAX'] = df['TMAX'].interpolate(method='linear')
+        df['TMIN'] = df['TMIN'].interpolate(method='linear')
+        df['PRCP'] = df['PRCP'].interpolate(method='linear')
+        df['SNOW'] = df['SNOW'].interpolate(method='linear')
+        df['SNWD'] = df['SNWD'].interpolate(method='linear')
+        df['TAVG'] = (df['TMAX'] + df['TMIN']) / 2
+
+        for i in range(1, 10):
+            df[f'TMAX_lag{i}'] = df['TMAX'].shift(i)
+            df[f'TMIN_lag{i}'] = df['TMIN'].shift(i)
+            df[f'TAVG_lag{i}'] = df['TAVG'].shift(i)
+        df.dropna(inplace=True)
+
+        lag_features = [f'TMAX_lag{i}' for i in range(1, 10)] + \
+                       [f'TMIN_lag{i}' for i in range(1, 10)] + \
+                       [f'TAVG_lag{i}' for i in range(1, 10)] + ['PRCP', 'SNOW', 'SNWD']
+
+
+        X = df[lag_features]
+        y_min = df['TMIN']
+        y_max = df['TMAX']
+        y_avg = df['TAVG']
+
+
+        # Train-Test Split
+        # test_size=0.2
+        X_train, X_test, y_min_train, y_min_test, y_max_train, y_max_test, y_avg_train, y_avg_test = train_test_split(
+            X, y_min, y_max, y_avg, test_size=0.2, random_state=42
+        )
+
+        model_min = LinearRegression()
+        model_min.fit(X_train, y_min_train)
+
+        model_max = LinearRegression()
+        model_max.fit(X_train, y_max_train)
+
+        model_avg = LinearRegression()
+        model_avg.fit(X_train, y_avg_train)
+
+
+        y_min_pred = model_min.predict(X_test)
+        y_max_pred = model_max.predict(X_test)
+        y_avg_pred = model_avg.predict(X_test)
+
+        r2_min, adj_r2_min, mse_min, rmse_min, mae_min = evaluate_model(y_min_test, y_min_pred, X_test)
+        r2_max, adj_r2_max, mse_max, rmse_max, mae_max = evaluate_model(y_max_test, y_max_pred, X_test)
+        r2_avg, adj_r2_avg, mse_avg, rmse_avg, mae_avg = evaluate_model(y_avg_test, y_avg_pred, X_test)
+
+        future_predictions = generate_future_predictions(df, 
+                                                         model_min, model_max, 
+                                                         model_avg, days=5, 
+                                                         #need to be corrected
+                                                         start_date='2024-11-19', 
+                                                         lag_features=lag_features)
+
+        output_text = f"City: {city_name}\n"
+
+        output_text += f"TMIN Evaluation: R²: {r2_min:.4f}, Adjusted R²: {adj_r2_min:.4f}, MSE: {mse_min:.4f}, RMSE: {rmse_min:.4f}, MAE: {mae_min:.4f}\n"
+
+        output_text += f"TMAX Evaluation: R²: {r2_max:.4f}, Adjusted R²: {adj_r2_max:.4f}, MSE: {mse_max:.4f}, RMSE: {rmse_max:.4f}, MAE: {mae_max:.4f}\n"
+
+        output_text += f"TAVG Evaluation: R²: {r2_avg:.4f}, Adjusted R²: {adj_r2_avg:.4f}, MSE: {mse_avg:.4f}, RMSE: {rmse_avg:.4f}, MAE: {mae_avg:.4f}\n\n"
+
+        output_text += "Future 5-Day Predictions (Combined):\n"
+
+        output_text += future_predictions.to_string(index=False)
+
+        output_text += "\n\n" + "-" * 50 + "\n\n"
+
+
+        with open(output_file, 'a', encoding='utf-8') as f:
+            f.write(output_text)
+
+        print(f"Processed {city_name}, results appended to {output_file}")
+
+# random forest 
+
+def evaluate_model(y_test, y_pred, X_test):
+    """Evaluate a model using multiple metrics, including adjusted R²."""
+    n = len(y_test)  # Number of observations
+    p = X_test.shape[1]  # Number of predictors
+    r2 = r2_score(y_test, y_pred)  # R² score
+    adj_r2 = 1 - (1 - r2) * (n - 1) / (n - p - 1)  # Adjusted R²
+    mse = mean_squared_error(y_test, y_pred)  # Mean Squared Error
+    rmse = np.sqrt(mse)  # Root Mean Squared Error
+    mae = mean_absolute_error(y_test, y_pred)  # Mean Absolute Error
+    return r2, adj_r2, mse, rmse, mae
+
+def generate_future_predictions(data, model_min, model_max, model_avg, days=5, start_date=None, lag_features=[]):
+    future_predictions = []
+    current_data = data.iloc[-1][lag_features].values.reshape(1, -1)
+    current_date = pd.to_datetime(start_date)
+
+    for day in range(1, days + 1):
+        pred_min = model_min.predict(current_data)[0]
+        pred_max = model_max.predict(current_data)[0]
+        pred_avg = model_avg.predict(current_data)[0]
+
+        future_predictions.append({
+            'DATE': current_date + pd.Timedelta(days=day),
+            'TMIN': pred_min,
+            'TMAX': pred_max,
+            'TAVG': pred_avg
+        })
+
+        current_data = np.roll(current_data, -3)  
+        current_data[0, :3] = [pred_max, pred_min, pred_avg]  # Insert new predictions
+
+    return pd.DataFrame(future_predictions)
+
+directory = '.' 
+output_file = 'output/AllCities_RandomForest.txt' 
+os.makedirs('output', exist_ok=True) 
+
+with open(output_file, 'w', encoding='utf-8') as f:
+    f.write("Random Forest Regressor Results for All Cities:\n\n")
+
+for filename in os.listdir(directory):
+    if filename.endswith('.csv'):
+        city_name = os.path.splitext(filename)[0]
+        file_path = os.path.join(directory, filename)
+        df = pd.read_csv(file_path)
+
+        df['DATE'] = pd.to_datetime(df[['YEAR', 'MONTH', 'DAY']], errors='coerce')  # Handle invalid dates
+        df = df[df['DATE'].notna()]  
+
+        # just for test
+        # need to be corrected
+        # df = df[df['DATE'] <= '2024-11-19']  # Filter data before or on 2024-11-19
+
+        df['TMAX'] = df['TMAX'].interpolate(method='linear')
+        df['TMIN'] = df['TMIN'].interpolate(method='linear')
+        df['PRCP'] = df['PRCP'].interpolate(method='linear')
+        df['SNOW'] = df['SNOW'].interpolate(method='linear')
+        df['SNWD'] = df['SNWD'].interpolate(method='linear')
+        df['TAVG'] = (df['TMAX'] + df['TMIN']) / 2
+
+        for i in range(1, 6):
+            df[f'TMAX_lag{i}'] = df['TMAX'].shift(i)
+            df[f'TMIN_lag{i}'] = df['TMIN'].shift(i)
+            df[f'TAVG_lag{i}'] = df['TAVG'].shift(i)
+        df.dropna(inplace=True)
+        lag_features = [f'TMAX_lag{i}' for i in range(1, 6)] + \
+                       [f'TMIN_lag{i}' for i in range(1, 6)] + \
+                       [f'TAVG_lag{i}' for i in range(1, 6)] + ['PRCP', 'SNOW', 'SNWD']
+
+        X = df[lag_features]
+        y_min = df['TMIN']
+        y_max = df['TMAX']
+        y_avg = df['TAVG']
+
+        # Train-Test Split
+        X_train, X_test, y_min_train, y_min_test, y_max_train, y_max_test, y_avg_train, y_avg_test = train_test_split(
+            X, y_min, y_max, y_avg, test_size=0.2, random_state=42
+        )
+
+        model_min = RandomForestRegressor(n_estimators=30, max_depth=10,random_state=42)
+        model_max = RandomForestRegressor(n_estimators=30, max_depth=10,random_state=42)
+        model_avg = RandomForestRegressor(n_estimators=30, max_depth=10,random_state=42)
+
+        model_min.fit(X_train, y_min_train)
+        model_max.fit(X_train, y_max_train)
+        model_avg.fit(X_train, y_avg_train)
+
+        y_min_pred = model_min.predict(X_test)
+        y_max_pred = model_max.predict(X_test)
+        y_avg_pred = model_avg.predict(X_test)
+
+        r2_min, adj_r2_min, mse_min, rmse_min, mae_min = evaluate_model(y_min_test, y_min_pred, X_test)
+        r2_max, adj_r2_max, mse_max, rmse_max, mae_max = evaluate_model(y_max_test, y_max_pred, X_test)
+        r2_avg, adj_r2_avg, mse_avg, rmse_avg, mae_avg = evaluate_model(y_avg_test, y_avg_pred, X_test)
+
+        future_predictions = generate_future_predictions(df, model_min, model_max, model_avg, days=5, start_date='2024-11-19', lag_features=lag_features)
+
+        output_text = f"City: {city_name}\n"
+        output_text += f"TMIN Evaluation: R²: {r2_min:.4f}, Adjusted R²: {adj_r2_min:.4f}, MSE: {mse_min:.4f}, RMSE: {rmse_min:.4f}, MAE: {mae_min:.4f}\n"
+        output_text += f"TMAX Evaluation: R²: {r2_max:.4f}, Adjusted R²: {adj_r2_max:.4f}, MSE: {mse_max:.4f}, RMSE: {rmse_max:.4f}, MAE: {mae_max:.4f}\n"
+        output_text += f"TAVG Evaluation: R²: {r2_avg:.4f}, Adjusted R²: {adj_r2_avg:.4f}, MSE: {mse_avg:.4f}, RMSE: {rmse_avg:.4f}, MAE: {mae_avg:.4f}\n\n"
+        output_text += "Future 5-Day Predictions:\n"
+        output_text += future_predictions.to_string(index=False)
+        output_text += "\n\n" + "-" * 50 + "\n\n"
+        
+        with open(output_file, 'a', encoding='utf-8') as f:
+            f.write(output_text)
+
+        print(f"Processed {city_name}, results appended to {output_file}")
 
 ```
+
+
 
 
 ```python
