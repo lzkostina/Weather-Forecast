@@ -24,7 +24,7 @@ climates.
     image uploaded to Dockerhub
 -   Tuesday, Nov 26: Begin making daily predictions, due at noon daily
 -   Tuesday, Dec 3: Presentations
--   Wednesday, Dec 4: Final day making predictions; report due
+-   Monday, Dec 9: Final day making predictions; report due
 
 ## Data
 
