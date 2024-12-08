@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Weather Prediction
 
 Authors: Feifan Jiang, Liza Kostina, Judy Wu, Daniel Zou
